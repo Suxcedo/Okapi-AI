@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>OKAPI AI | Intelligence Without Limits</title>
+    <!-- Geometric Sans-Serif: Nunito Sans + DM Sans as primary geometric options -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --black: #080808;
+            --deep: #0e0e0e;
+            --surface: #181818;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.22);
+            --white: #f5f5f5;
+            --gray: #888888;
+            --gray-light: #b8b8b8;
+            --font: 'DM Sans', 'Nunito Sans', 'Futura', 'Century Gothic', sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { background:var(--black); color:var(--white); font-family:var(--font); overflow-x:hidden; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position:fixed; top:18px; left:50%; transform:translateX(-50%);
+            width:92%; max-width:1280px;
+            background:rgba(8,8,8,0.82); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+            border-radius:100px; border:1px solid var(--border);
+            padding:0.6rem 1.4rem 0.6rem 0.8rem; z-index:1000; box-shadow:0 8px 32px rgba(0,0,0,0.55);
+        }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; }
+        .nav-brand { display:flex; align-items:center; gap:0.55rem; text-decoration:none; }
+        .nav-brand-img {
+            width:36px; height:36px; border-radius:50%; overflow:hidden;
+            border:1px solid var(--border);
+            background:#111 url('images/logo.jpeg') center/cover no-repeat;
+            flex-shrink:0; position:relative;
+        }
+        /* Placeholder glow while logo loads */
+        .nav-brand-img::after {
+            content:'O'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+            font-size:0.9rem; font-weight:800; color:rgba(255,255,255,0.5); font-family:var(--font);
+        }
+        .nav-logo-text { font-weight:800; font-size:1.4rem; letter-spacing:-0.3px; color:var(--white); font-family:var(--font); }
+        .nav-logo-text span { color:var(--gray); }
+        .nav-links { display:flex; gap:2rem; align-items:center; }
+        .nav-links a { color:var(--gray-light); text-decoration:none; font-size:0.86rem; font-weight:500; transition:color 0.2s; letter-spacing:0.1px; font-family:var(--font); }
+        .nav-links a:hover { color:var(--white); }
+        .lang-pill { background:rgba(255,255,255,0.09); padding:0.35rem 1rem; border-radius:40px; font-size:0.75rem; cursor:pointer; border:1px solid var(--border); transition:all 0.2s; color:var(--white); font-family:var(--font); }
+        .lang-pill:hover { background:rgba(255,255,255,0.16); }
+
+        /* ── SECTION BASE ── */
+        section { position:relative; z-index:1; }
+        .section-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+        .container { max-width:1280px; margin:0 auto; padding:0 3rem; width:100%; position:relative; z-index:2; }
+        .section-label { display:inline-block; font-size:0.66rem; letter-spacing:3px; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; font-family:var(--font); }
+        h2 { font-size:clamp(2rem,4.5vw,3.2rem); font-weight:800; letter-spacing:-0.5px; color:var(--white); line-height:1.1; font-family:var(--font); }
+        h3 { font-family:var(--font); }
+
+        /* ── HERO ── */
+        #hero { min-height:100vh; display:flex; align-items:center; border-bottom:1px solid var(--border); overflow:hidden; }
+        .hero-inner { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:4rem; padding:8rem 0 5rem; width:100%; }
+        .hero-content { }
+        .eyebrow {
+            display:inline-flex; align-items:center; gap:0.5rem;
+            background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:100px;
+            padding:0.3rem 0.9rem; font-size:0.66rem; letter-spacing:2.5px; text-transform:uppercase;
+            color:var(--gray-light); margin-bottom:2rem; font-family:var(--font);
+        }
+        .eyebrow::before { content:''; width:6px; height:6px; background:#fff; border-radius:50%; animation:pulse-dot 2s infinite; flex-shrink:0; }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.6);} }
+        h1 { font-size:clamp(3rem,6.5vw,5.5rem); font-weight:800; line-height:1.04; letter-spacing:-1.5px; color:var(--white); margin-bottom:1.4rem; font-family:var(--font); }
+        h1 em { font-style:normal; color:var(--gray); }
+        .hero-sub { font-size:1.05rem; color:var(--gray); margin-bottom:2.5rem; font-weight:400; line-height:1.75; font-family:var(--font); }
+        .btn-row { display:flex; gap:1rem; flex-wrap:wrap; }
+        .btn-white { background:var(--white); color:#000; padding:0.82rem 2.2rem; border-radius:100px; text-decoration:none; font-weight:700; font-size:0.88rem; transition:all 0.25s; font-family:var(--font); }
+        .btn-white:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(255,255,255,0.18); }
+        .btn-ghost { border:1px solid var(--border-hover); color:var(--white); padding:0.82rem 2.2rem; border-radius:100px; text-decoration:none; font-weight:600; font-size:0.88rem; transition:all 0.25s; font-family:var(--font); }
+        .btn-ghost:hover { background:rgba(255,255,255,0.07); border-color:#fff; }
+
+        /* ── HERO LOGO 3D DISPLAY ── */
+        .hero-logo-display {
+            display:flex; align-items:center; justify-content:center;
+            position:relative;
+        }
+        .hero-logo-stage {
+            position:relative; width:420px; height:420px;
+            display:flex; align-items:center; justify-content:center;
+        }
+        /* Rotating outer ring */
+        .logo-ring-outer {
+            position:absolute; inset:0; border-radius:50%;
+            border:1px solid rgba(255, 255, 255, 0.741);
+            animation:logo-spin 14s linear infinite;
+        }
+        .logo-ring-outer::before {
+            content:''; position:absolute; width:8px; height:8px;
+            background:rgba(255,255,255,0.5); border-radius:50%;
+            top:-4px; left:50%; transform:translateX(-50%);
+            box-shadow:0 0 8px rgba(255,255,255,0.8);
+        }
+        .logo-ring-outer::after {
+            content:''; position:absolute; width:5px; height:5px;
+            background:rgba(233, 229, 229, 0.573); border-radius:50%;
+            bottom:-2.5px; left:50%; transform:translateX(-50%);
+        }
+        .logo-ring-mid {
+            position:absolute; width:320px; height:320px; border-radius:50%;
+            border:1px solid rgba(255, 255, 255, 0.779);
+            animation:logo-spin 20s linear infinite reverse;
+        }
+        .logo-ring-mid::before, .logo-ring-mid::after {
+            content:''; position:absolute; width:5px; height:5px;
+            background:rgba(255,255,255,0.25); border-radius:50%;
+        }
+        .logo-ring-mid::before { top:-2.5px; left:50%; transform:translateX(-50%); }
+        .logo-ring-mid::after { right:-2.5px; top:50%; transform:translateY(-50%); }
+        @keyframes logo-spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+        /* Glow orbs */
+        .logo-glow-1 { position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(203, 191, 191, 0.378) 0%,transparent 70%); animation:glow-pulse 3.5s ease-in-out infinite; }
+        .logo-glow-2 { position:absolute; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle,rgba(236, 230, 230, 0.919) 0%,transparent 70%); animation:glow-pulse 2.8s ease-in-out infinite 0.5s; }
+        @keyframes glow-pulse { 0%,100%{transform:scale(1);opacity:0.7;} 50%{transform:scale(1.1);opacity:1;} }
+
+        /* The main logo container with 3D effect */
+        .hero-logo-frame {
+            position:relative; z-index:4;
+            width:200px; height:200px; border-radius:28px;
+            background:rgba(230, 226, 226, 0.9);
+            border:1px solid rgba(236, 227, 227, 0.919);
+            display:flex; align-items:center; justify-content:center;
+            overflow:hidden;
+            /* 3D transform effect */
+            transform:perspective(800px) rotateY(-12deg) rotateX(4deg);
+            transition:transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s ease;
+            box-shadow:
+                12px 20px 60px rgba(0,0,0,0.6),
+                4px 8px 20px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                inset 1px 0 0 rgba(255,255,255,0.06);
+            animation:logo-float 4s ease-in-out infinite;
+        }
+        .hero-logo-frame:hover {
+            transform:perspective(800px) rotateY(0deg) rotateX(0deg) scale(1.04);
+            box-shadow:20px 28px 80px rgba(210, 204, 204, 0.182), 0 0 40px rgba(255,255,255,0.06);
+        }
+        @keyframes logo-float {
+            0%,100%{transform:perspective(800px) rotateY(-12deg) rotateX(4deg) translateY(0);}
+            50%{transform:perspective(800px) rotateY(-10deg) rotateX(2deg) translateY(-10px);}
+        }
+        .hero-logo-frame:hover { animation:none; }
+
+        /* Shine sweep on frame */
+        .hero-logo-frame::before {
+            content:''; position:absolute; inset:0; z-index:5; pointer-events:none;
+            background:linear-gradient(135deg, rgba(255, 255, 255, 0.816) 0%, transparent 50%);
+        }
+        /* Right edge 3D highlight */
+        .hero-logo-frame::after {
+            content:''; position:absolute; right:0; top:0; bottom:0; width:3px;
+            background:linear-gradient(180deg, rgba(245, 240, 240, 0.718), rgba(255, 255, 255, 0.756), transparent);
+            border-radius:0 28px 28px 0;
+        }
+
+        .hero-logo-img {
+            width:75%; height:75%; object-fit:contain; border-radius:12px;
+            position:relative; z-index:3;
+            /* Fallback if image missing — show styled placeholder */
+        }
+        /* Fallback text shown if img fails */
+        .hero-logo-fallback {
+            position:absolute; inset:0; display:flex; flex-direction:column;
+            align-items:center; justify-content:center; z-index:2; gap:0.3rem;
+        }
+        .hero-logo-fallback .lf-text { font-size:1.8rem; font-weight:800; color:var(--white); letter-spacing:-1px; font-family:var(--font); }
+        .hero-logo-fallback .lf-sub { font-size:0.55rem; letter-spacing:4px; text-transform:uppercase; color:var(--gray-light); font-family:var(--font); }
+
+        /* Floating labels around logo */
+        .logo-badge {
+            position:absolute; background:rgba(14,14,14,0.92);
+            border:1px solid var(--border); border-radius:100px;
+            padding:0.35rem 0.9rem; font-size:0.66rem; font-weight:600;
+            color:var(--gray-light); backdrop-filter:blur(8px);
+            white-space:nowrap; font-family:var(--font); letter-spacing:0.3px;
+        }
+        .logo-badge-1 { top:18%; right:-8%; animation:badge-float1 3.5s ease-in-out infinite; }
+        .logo-badge-2 { bottom:22%; right:-10%; animation:badge-float2 4s ease-in-out infinite 0.7s; }
+        .logo-badge-3 { bottom:14%; left:2%; animation:badge-float1 4.5s ease-in-out infinite 1.2s; }
+        @keyframes badge-float1 { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+        @keyframes badge-float2 { 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
+
+        /* ── PARTNERS ── */
+        #partners { padding:5rem 0; border-bottom:1px solid var(--border); background:#050510; overflow:hidden; position:relative; min-height:260px; }
+        #partners-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:0.72; }
+        .partners-inner { position:relative; z-index:2; }
+        .partners-label { text-align:center; font-size:5rem; letter-spacing:3px; text-transform:uppercase; color:rgba(120,155,255,0.85); margin-bottom:0.7rem; font-family:var(--font); }
+
+        /* Manual scroll controls */
+        .partners-scroll-hint { text-align:center; font-size:0.65rem; color:rgba(100,130,220,0.55); margin-bottom:1.8rem; letter-spacing:1px; font-family:var(--font); }
+        .partners-carousel { position:relative; }
+        .partners-nav { position:absolute; top:50%; transform:translateY(-50%); z-index:10; }
+        .partners-nav-prev { left:-16px; }
+        .partners-nav-next { right:-16px; }
+        .partners-nav-btn {
+            width:36px; height:36px; border-radius:50%;
+            background:rgba(20,30,80,0.85); border:1px solid rgba(80,120,255,0.35);
+            color:rgba(160,190,255,0.9); font-size:0.8rem; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            transition:all 0.25s; backdrop-filter:blur(8px);
+        }
+        .partners-nav-btn:hover { background:rgba(40,60,160,0.85); border-color:rgba(120,160,255,0.7); color:#fff; }
+        .logo-track-wrap { overflow:hidden; mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent); -webkit-mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent); }
+        .logo-track { display:flex; gap:1rem; width:max-content; animation:scroll-logos 32s linear infinite; user-select:none; }
+        .logo-track.dragging { animation-play-state:paused; cursor:grabbing; }
+        .logo-track.manual-paused { animation-play-state:paused; }
+        @keyframes scroll-logos { 0%{transform:translateX(0);} 100%{transform:translateX(var(--track-width,-50%)); } }
+
+        /* Partner chip with image slot */
+        .logo-chip {
+            background:rgba(30,45,110,0.35);
+            border:1px solid rgba(80,120,255,0.22);
+            border-radius:16px;
+            padding:0.5rem 1rem;
+            display:flex; flex-direction:column; align-items:center; gap:0.4rem;
+            min-width:90px; cursor:grab;
+            transition:all 0.3s;
+            flex-shrink:0;
+        }
+        .logo-chip:hover { background:rgba(50,80,180,0.45); border-color:rgba(120,160,255,0.55); transform:translateY(-3px); }
+        .logo-chip-img {
+            width:44px; height:28px; object-fit:contain; border-radius:4px;
+            background:rgba(255,255,255,0.06);
+            display:flex; align-items:center; justify-content:center;
+            font-size:0.5rem; color:rgba(100,140,255,0.5); overflow:hidden;
+        }
+        /* Placeholder while real logos load */
+        .logo-chip-img-placeholder {
+            width:44px; height:28px; border-radius:4px;
+            background:rgba(255,255,255,0.07); border:1px solid rgba(80,120,255,0.18);
+            display:flex; align-items:center; justify-content:center;
+        }
+        .logo-chip-name { font-size:0.65rem; font-weight:700; color:rgba(160,190,255,0.9); letter-spacing:0.8px; white-space:nowrap; font-family:var(--font); }
+
+        /* ── SERVICES ORBITAL ── */
+        #services { min-height:100vh; display:flex; align-items:center; padding:4rem 0; border-bottom:1px solid var(--border);
+             background: var(--black) url("https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover no-repeat fixed;
+              overflow:hidden; }
+        .services-header { text-align:center; margin-bottom:1rem; }
+        .services-subtitle { color:var(--gray); margin-top:0.6rem; font-size:0.95rem; font-family:var(--font); }
+        .orbital-wrapper { position:relative; width:min(700px,90vw); height:min(700px,90vw); margin:3rem auto 0; }
+        .orbital-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; width:200px; z-index:10; pointer-events:none; }
+        .orbital-center-inner {
+            background:rgba(20,20,20,0.95); border:1px solid rgba(255,255,255,0.1); border-radius:50%;
+            width:190px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem;
+            backdrop-filter:blur(12px); box-shadow:0 0 60px rgba(255,255,255,0.04), inset 0 0 30px rgba(255,255,255,0.02);
+        }
+        .orbital-center-line1 { font-size:0.58rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gray); margin-bottom:0.4rem; font-family:var(--font); }
+        .orbital-center-service { font-size:0.9rem; font-weight:700; color:var(--white); line-height:1.3; transition:opacity 0.2s ease; font-family:var(--font); }
+        .ring-deco { position:absolute; top:50%; left:50%; border-radius:50%; border:1px solid rgba(255,255,255,0.04); transform:translate(-50%,-50%); pointer-events:none; }
+        .ring-deco-1 { width:220px; height:220px; border-color:rgba(255,255,255,0.07); }
+        .ring-deco-2 { width:380px; height:380px; animation:spin-slow 30s linear infinite; }
+        .ring-deco-3 { width:620px; height:620px; animation:spin-slow 50s linear infinite reverse; border-style:dashed; }
+        .ring-deco-2::before,.ring-deco-2::after { content:''; position:absolute; width:5px; height:5px; background:rgba(255,255,255,0.35); border-radius:50%; }
+        .ring-deco-2::before { top:-2.5px; left:50%; transform:translateX(-50%); }
+        .ring-deco-2::after { bottom:-2.5px; left:50%; transform:translateX(-50%); }
+        @keyframes spin-slow { to{ transform:translate(-50%,-50%) rotate(360deg); } }
+        .orbit { position:absolute; top:50%; left:50%; width:520px; height:520px; margin:-260px 0 0 -260px; border-radius:50%; animation:orbit-spin 18s linear infinite; }
+        .orbit.paused { animation-play-state:paused; }
+
+        /* Service node — image version */
+        .orb-node {
+            position:absolute; width:156px; height:156px; border-radius:50%;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.25rem;
+            background:rgba(22,22,22,0.96); border:1px solid rgba(255,255,255,0.1);
+            cursor:pointer; transition:all 0.35s ease;
+            animation:counter-spin 18s linear infinite;
+            overflow:hidden;
+        }
+        .orbit.paused .orb-node { animation-play-state:paused; }
+        .orb-node:hover {
+            background:rgba(35,35,35,1); border-color:rgba(255,255,255,0.4);
+            transform:scale(1.22); box-shadow:0 0 32px rgba(255,255,255,0.14), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+        @keyframes orbit-spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+        @keyframes counter-spin { from{transform:rotate(0deg);} to{transform:rotate(-360deg);} }
+        .orb-img {
+            width:108px; height:108px; border-radius:12px; object-fit:cover;
+            background:rgba(255,255,255,0.06);
+        }
+        /* Placeholder div used as image until real ones added */
+        .orb-img-placeholder {
+            width:48px; height:48px; border-radius:12px;
+            background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1);
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.3rem;
+        }
+        .orb-label { font-size:0.5rem; letter-spacing:0.4px; color:var(--gray-light); text-align:center; font-weight:700; text-transform:uppercase; line-height:1.3; padding:0 4px; font-family:var(--font); }
+        .orb-n0 { top:calc(260px - 48px);              left:calc(260px - 48px + 260px); }
+        .orb-n1 { top:calc(260px - 48px - 260px*0.777); left:calc(260px - 48px + 260px*0.629); }
+        .orb-n2 { top:calc(260px - 48px - 260px*0.978); left:calc(260px - 48px - 260px*0.208); }
+        .orb-n3 { top:calc(260px - 48px - 260px*0.434); left:calc(260px - 48px - 260px*0.901); }
+        .orb-n4 { top:calc(260px - 48px + 260px*0.434); left:calc(260px - 48px - 260px*0.901); }
+        .orb-n5 { top:calc(260px - 48px + 260px*0.978); left:calc(260px - 48px - 260px*0.208); }
+        .orb-n6 { top:calc(260px - 48px + 260px*0.777); left:calc(260px - 48px + 260px*0.629); }
+
+        /* BLOG */
+        #blog { padding:7rem 0; border-bottom:1px solid var(--border); background:var(--deep); overflow:hidden; }
+        .blog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1.5rem; margin-top:3rem; }
+        .blog-card { background:rgba(22,22,22,0.7); border:1px solid var(--border); border-radius:20px; padding:1.8rem; cursor:pointer; transition:all 0.35s ease; display:flex; flex-direction:column; gap:0.8rem; position:relative; overflow:hidden; }
+        .blog-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); transform:scaleX(0); transition:transform 0.4s; }
+        .blog-card:hover::before { transform:scaleX(1); }
+        .blog-card:hover { transform:translateY(-6px); border-color:var(--border-hover); background:rgba(28,28,28,0.95); }
+        .blog-tag { display:inline-block; background:rgba(255,255,255,0.07); border:1px solid var(--border); border-radius:100px; padding:0.2rem 0.75rem; font-size:0.63rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gray); width:fit-content; font-family:var(--font); }
+        .blog-title { font-size:1rem; font-weight:700; color:var(--white); line-height:1.4; font-family:var(--font); }
+        .blog-excerpt { font-size:0.83rem; color:var(--gray); line-height:1.65; flex:1; font-family:var(--font); }
+        .blog-meta { font-size:0.7rem; color:var(--gray); display:flex; gap:1rem; padding-top:0.5rem; border-top:1px solid var(--border); font-family:var(--font); }
+        .blog-arrow { color:var(--gray-light); font-size:0.8rem; align-self:flex-end; transition:transform 0.2s; }
+        .blog-card:hover .blog-arrow { transform:translate(3px,-3px); }
+
+        /* ── CAREERS ── */
+        #careers { padding:0; border-bottom:1px solid var(--border); background:var(--black); overflow:hidden; position:relative; min-height:100vh; }
+        #careers-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+        .careers-wrapper { position:relative; z-index:2; padding:7rem 0; }
+        .careers-hero-row { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:3.5rem; flex-wrap:wrap; gap:2rem; }
+        .careers-stat .stat-num { font-size:2.8rem; font-weight:800; color:var(--white); letter-spacing:-2px; font-family:var(--font); }
+        .careers-stat .stat-lbl { font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); margin-top:0.2rem; font-family:var(--font); }
+        .careers-stats { display:flex; gap:3rem; }
+        .tab-bar { display:flex; gap:0.5rem; margin-bottom:2.5rem; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:100px; padding:0.3rem; width:fit-content; }
+        .tab-btn { padding:0.55rem 1.4rem; border-radius:100px; font-size:0.8rem; font-weight:600; cursor:pointer; border:none; background:transparent; color:var(--gray); transition:all 0.25s; font-family:var(--font); letter-spacing:0.2px; }
+        .tab-btn.active { background:var(--white); color:#000; }
+        .tab-btn:hover:not(.active) { color:var(--white); }
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; animation:fadeIn 0.35s ease; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+        .why-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.2rem; }
+        .why-card { background:rgba(18,18,18,0.85); border:1px solid var(--border); border-radius:20px; padding:1.8rem; position:relative; overflow:hidden; transition:all 0.35s; cursor:default; }
+        .why-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent); transform:scaleX(0); transition:transform 0.4s; }
+        .why-card:hover::after { transform:scaleX(1); }
+        .why-card:hover { transform:translateY(-5px); border-color:var(--border-hover); background:rgba(26,26,26,0.95); box-shadow:0 20px 40px rgba(0,0,0,0.4); }
+        .why-icon { font-size:2rem; margin-bottom:1rem; }
+        .why-card h3 { font-size:0.95rem; font-weight:700; color:var(--white); margin-bottom:0.5rem; font-family:var(--font); }
+        .why-card p { font-size:0.8rem; color:var(--gray); line-height:1.65; font-family:var(--font); }
+        .culture-bento { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:auto auto; gap:1.2rem; }
+        .bento-card { background:rgba(18,18,18,0.85); border:1px solid var(--border); border-radius:20px; padding:2rem; transition:all 0.3s; position:relative; overflow:hidden; }
+        .bento-card:hover { border-color:var(--border-hover); transform:scale(1.015); background:rgba(26,26,26,0.95); }
+        .bento-card.span-col { grid-column:span 2; }
+        .bento-card.tall { grid-row:span 2; }
+        .bento-big-num { font-size:3.5rem; font-weight:800; color:rgba(255,255,255,0.08); letter-spacing:-3px; line-height:1; margin-bottom:0.5rem; font-family:var(--font); }
+        .bento-card h3 { font-size:0.95rem; font-weight:700; color:var(--white); margin-bottom:0.6rem; font-family:var(--font); }
+        .bento-card p { font-size:0.8rem; color:var(--gray); line-height:1.65; font-family:var(--font); }
+        .value-pills { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem; }
+        .value-pill { background:rgba(255,255,255,0.07); border:1px solid var(--border); border-radius:100px; padding:0.25rem 0.8rem; font-size:0.68rem; color:var(--gray-light); letter-spacing:0.5px; font-family:var(--font); }
+        .positions-layout { display:grid; grid-template-columns:1fr 1.4fr; gap:2rem; align-items:start; }
+        .filter-label { font-size:0.63rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); margin-bottom:0.5rem; font-family:var(--font); }
+        .filter-chips { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.5rem; }
+        .filter-chip { background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:100px; padding:0.3rem 0.8rem; font-size:0.7rem; color:var(--gray-light); cursor:pointer; transition:all 0.2s; font-family:var(--font); }
+        .filter-chip.active,.filter-chip:hover { background:rgba(255,255,255,0.1); border-color:var(--border-hover); color:var(--white); }
+        .job-list { display:flex; flex-direction:column; gap:0.8rem; }
+        .job-item { background:rgba(18,18,18,0.85); border:1px solid var(--border); border-radius:16px; padding:1.3rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:all 0.25s; gap:1rem; }
+        .job-item:hover { border-color:var(--border-hover); background:rgba(28,28,28,0.98); transform:translateX(4px); }
+        .job-item.selected { border-color:rgba(255,255,255,0.3); background:rgba(30,30,30,0.98); }
+        .job-info { flex:1; }
+        .job-title { font-size:0.9rem; font-weight:700; color:var(--white); margin-bottom:0.3rem; font-family:var(--font); }
+        .job-meta { display:flex; gap:0.8rem; flex-wrap:wrap; }
+        .job-badge { font-size:0.6rem; letter-spacing:1.2px; text-transform:uppercase; background:rgba(255,255,255,0.07); border:1px solid var(--border); border-radius:100px; padding:0.15rem 0.6rem; color:var(--gray); font-family:var(--font); }
+        .job-arrow { color:var(--gray); font-size:0.9rem; transition:all 0.2s; }
+        .job-item:hover .job-arrow { color:var(--white); transform:translateX(3px); }
+        .job-detail { background:rgba(18,18,18,0.85); border:1px solid var(--border); border-radius:20px; padding:2rem; min-height:300px; transition:all 0.3s; }
+        .jd-tag { display:inline-block; background:rgba(255,255,255,0.07); border:1px solid var(--border); border-radius:100px; padding:0.2rem 0.8rem; font-size:0.63rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; font-family:var(--font); }
+        .jd-title { font-size:1.25rem; font-weight:800; color:var(--white); margin-bottom:0.5rem; font-family:var(--font); }
+        .jd-meta { display:flex; gap:0.8rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+        .jd-desc { font-size:0.83rem; color:var(--gray); line-height:1.75; margin-bottom:1.2rem; font-family:var(--font); }
+        .jd-reqs { list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.8rem; }
+        .jd-reqs li { font-size:0.8rem; color:var(--gray-light); display:flex; align-items:flex-start; gap:0.6rem; font-family:var(--font); }
+        .jd-reqs li::before { content:'→'; color:var(--gray); flex-shrink:0; margin-top:1px; }
+        .jd-apply { background:var(--white); color:#000; border:none; padding:0.8rem 2rem; border-radius:100px; font-weight:700; font-size:0.86rem; cursor:pointer; font-family:var(--font); transition:all 0.25s; }
+        .jd-apply:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(255,255,255,0.15); }
+        .jd-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; min-height:260px; text-align:center; }
+        .jd-placeholder-icon { font-size:3rem; margin-bottom:1rem; opacity:0.25; }
+        .jd-placeholder p { color:var(--gray); font-size:0.83rem; font-family:var(--font); }
+        .intern-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; }
+        .intern-card { background:rgba(18,18,18,0.85); border:1px solid var(--border); border-radius:20px; padding:1.8rem; transition:all 0.35s; overflow:hidden; position:relative; }
+        .intern-card::before { content:''; position:absolute; inset:0; border-radius:20px; background:radial-gradient(ellipse at top left, rgba(255,255,255,0.04) 0%, transparent 60%); opacity:0; transition:opacity 0.4s; }
+        .intern-card:hover::before { opacity:1; }
+        .intern-card:hover { transform:translateY(-6px); border-color:var(--border-hover); box-shadow:0 24px 48px rgba(0,0,0,0.5); }
+        .intern-icon { font-size:2.2rem; margin-bottom:1rem; }
+        .intern-card h3 { font-size:0.95rem; font-weight:700; color:var(--white); margin-bottom:0.4rem; font-family:var(--font); }
+        .intern-duration { font-size:0.7rem; letter-spacing:1px; color:var(--gray); text-transform:uppercase; margin-bottom:0.8rem; font-family:var(--font); }
+        .intern-card p { font-size:0.8rem; color:var(--gray); line-height:1.65; margin-bottom:1rem; font-family:var(--font); }
+        .intern-skills { display:flex; flex-wrap:wrap; gap:0.4rem; }
+        .intern-skill { background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:8px; padding:0.2rem 0.6rem; font-size:0.63rem; color:var(--gray-light); letter-spacing:0.5px; font-family:var(--font); }
+        .intern-card-footer { margin-top:1.2rem; padding-top:1rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+        .intern-card-footer span { font-size:0.7rem; color:var(--gray); font-family:var(--font); }
+        .intern-apply { background:transparent; border:1px solid var(--border); border-radius:100px; padding:0.35rem 1rem; font-size:0.73rem; font-weight:600; color:var(--gray-light); cursor:pointer; transition:all 0.2s; font-family:var(--font); }
+        .intern-apply:hover { border-color:var(--border-hover); color:var(--white); background:rgba(255,255,255,0.05); }
+
+        /* LOCATIONS */
+        #locations { padding:7rem 0; border-bottom:1px solid var(--border); background:var(--deep); }
+        .loc-wrap { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+        .loc-card { background:rgba(18,18,18,0.7); border:1px solid var(--border); border-radius:20px; padding:2rem; border-left:3px solid #fff; margin-bottom:1.2rem; }
+        .loc-card h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin-bottom:0.4rem; font-family:var(--font); }
+        .loc-card p { color:var(--gray); font-size:0.85rem; font-family:var(--font); }
+        .academy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:2rem; }
+        .academy-card { background:rgba(18,18,18,0.7); border:1px solid var(--border); border-radius:16px; padding:1.4rem; display:flex; align-items:center; gap:0.8rem; font-size:0.85rem; color:var(--gray-light); transition:all 0.2s; cursor:pointer; font-family:var(--font); }
+        .academy-card:hover { border-color:var(--border-hover); color:var(--white); transform:translateX(4px); }
+        .academy-card span:first-child { font-size:1.3rem; }
+
+        /* CONTACT */
+        #contact { padding:7rem 0; border-bottom:1px solid var(--border); background:var(--black); position:relative; overflow:hidden; }
+        .contact-glow { position:absolute; width:600px; height:600px; background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+        .contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+        .contact-left p { color:var(--gray); line-height:1.75; margin-top:1rem; font-size:0.95rem; font-family:var(--font); }
+        .contact-detail { display:flex; align-items:center; gap:0.8rem; margin-top:1.5rem; color:var(--gray-light); font-size:0.85rem; font-family:var(--font); }
+        .contact-detail i { width:20px; color:var(--gray); }
+        .contact-form { display:flex; flex-direction:column; gap:1rem; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-field { background:rgba(20,20,20,0.8); border:1px solid var(--border); border-radius:14px; padding:1rem 1.2rem; color:var(--white); font-family:var(--font); font-size:0.86rem; outline:none; transition:border-color 0.2s; width:100%; resize:none; }
+        .form-field::placeholder { color:var(--gray); }
+        .form-field:focus { border-color:rgba(255,255,255,0.3); }
+        .form-submit { background:var(--white); color:#000; border:none; padding:1rem 2rem; border-radius:100px; font-weight:700; font-size:0.88rem; cursor:pointer; transition:all 0.25s; font-family:var(--font); }
+        .form-submit:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(255,255,255,0.15); }
+
+        /* CTA */
+        #cta { padding:8rem 0; text-align:center; background:linear-gradient(180deg,var(--black) 0%,#111 100%); position:relative; overflow:hidden; }
+        .cta-ring { position:absolute; border-radius:50%; border:1px solid rgba(255,255,255,0.04); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+        #cta h2 { font-size:clamp(2.5rem,6vw,4rem); margin-bottom:1rem; }
+        #cta p { color:var(--gray); font-size:0.95rem; margin-bottom:2.5rem; max-width:450px; margin-left:auto; margin-right:auto; font-family:var(--font); }
+
+        /* FOOTER */
+        footer { background:#040404; border-top:1px solid var(--border); padding:4rem 3rem 3rem; }
+        .footer-inner { max-width:1280px; margin:0 auto; }
+        .footer-top { display:grid; grid-template-columns:1fr auto; align-items:center; gap:2rem; margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--border); }
+        .footer-brand { display:flex; align-items:center; gap:0.8rem; }
+        .footer-brand-img { width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:#111 url('images/logo.jpeg') center/cover no-repeat; overflow:hidden; position:relative; }
+        .footer-brand-img::after { content:'O'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; color:rgba(255,255,255,0.4); font-family:var(--font); }
+        .footer-logo { font-weight:800; font-size:1.4rem; color:var(--white); letter-spacing:-0.3px; font-family:var(--font); }
+        .footer-logo span { color:var(--gray); }
+        .social-links { display:flex; gap:1rem; }
+        .social-links a { width:38px; height:38px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--gray); font-size:0.9rem; text-decoration:none; transition:all 0.25s; }
+        .social-links a:hover { border-color:var(--border-hover); color:var(--white); transform:translateY(-3px); }
+        .footer-bottom { text-align:center; }
+        footer p { color:var(--gray); font-size:0.78rem; font-family:var(--font); }
+
+        /* RESPONSIVE */
+        @media(max-width:1000px) {
+            .hero-inner { grid-template-columns:1fr; gap:3rem; }
+            .hero-logo-display { order:-1; }
+            .hero-logo-stage { width:280px; height:280px; }
+            .hero-logo-frame { width:140px; height:140px; border-radius:20px; }
+            .logo-ring-mid { width:220px; height:220px; }
+            .culture-bento { grid-template-columns:1fr 1fr; }
+            .bento-card.span-col,.bento-card.tall { grid-column:auto; grid-row:auto; }
+            .positions-layout { grid-template-columns:1fr; }
+            .job-detail { display:none; }
+        }
+        @media(max-width:900px) {
+            .container { padding:0 1.5rem; }
+            .nav-links { display:none; }
+            .contact-inner,.loc-wrap { grid-template-columns:1fr; gap:2rem; }
+            .form-row { grid-template-columns:1fr; }
+            .orbit { width:380px; height:380px; margin:-190px 0 0 -190px; }
+            .orbital-wrapper { width:min(500px,90vw); height:min(500px,90vw); }
+            .orb-n0 { top:calc(190px - 48px);               left:calc(190px - 48px + 190px); }
+            .orb-n1 { top:calc(190px - 48px - 190px*0.777); left:calc(190px - 48px + 190px*0.629); }
+            .orb-n2 { top:calc(190px - 48px - 190px*0.978); left:calc(190px - 48px - 190px*0.208); }
+            .orb-n3 { top:calc(190px - 48px - 190px*0.434); left:calc(190px - 48px - 190px*0.901); }
+            .orb-n4 { top:calc(190px - 48px + 190px*0.434); left:calc(190px - 48px - 190px*0.901); }
+            .orb-n5 { top:calc(190px - 48px + 190px*0.978); left:calc(190px - 48px - 190px*0.208); }
+            .orb-n6 { top:calc(190px - 48px + 190px*0.777); left:calc(190px - 48px + 190px*0.629); }
+            .orbital-center { width:150px; }
+            .orbital-center-inner { width:140px; height:140px; }
+            .ring-deco-3 { width:460px; height:460px; }
+            .ring-deco-2 { width:280px; height:280px; }
+            .careers-stats { gap:1.5rem; }
+            .careers-hero-row { flex-direction:column; align-items:flex-start; }
+        }
+        @media(max-width:600px) {
+            h1 { letter-spacing:-0.5px; }
+            .blog-grid { grid-template-columns:1fr; }
+            .academy-grid { grid-template-columns:1fr; }
+            .tab-bar { width:100%; overflow-x:auto; }
+            .why-grid,.intern-grid { grid-template-columns:1fr; }
+            .culture-bento { grid-template-columns:1fr; }
+            .footer-top { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-brand">
+            <div class="nav-brand-img" role="img" aria-label="OKAPI AI Logo"></div>
+            <span class="nav-logo-text">OKAPI <span>AI</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#services">Services</a>
+            <a href="#blog">Insights</a>
+            <a href="#careers">Careers</a>
+            <a href="#contact">Contact</a>
+            <div class="lang-pill" id="langToggle">🇫🇷 FR</div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+    <canvas id="hero-canvas" class="section-canvas"></canvas>
+    <div class="container">
+        <div class="hero-inner">
+            <!-- Left: text -->
+            <div class="hero-content">
+                <div class="eyebrow">Enterprise AI + Automation</div>
+                <h1>Intelligence<br><em>without</em><br>limits</h1>
+                <p class="hero-sub">AI Consulting · Voice AI · RAG Systems · Autonomous Agents — deployed across Africa &amp; beyond.</p>
+                <div class="btn-row">
+                    <a href="#contact" class="btn-white">Deploy AI →</a>
+                    <a href="#services" class="btn-ghost">Explore Services</a>
+                </div>
+            </div>
+
+            <!-- Right: 3D logo display -->
+            <div class="hero-logo-display">
+                <div class="hero-logo-stage" id="heroLogoStage">
+                    <div class="logo-glow-1"></div>
+                    <div class="logo-glow-2"></div>
+                    <div class="logo-ring-outer"></div>
+                    <div class="logo-ring-mid"></div>
+
+                    <!-- Main 3D frame -->
+                    <div class="hero-logo-frame" id="heroLogoFrame">
+                        <!-- Replace src with your actual image path -->
+                        <img class="hero-logo-img" src="images/okapiAI_logo.png" alt="OKAPI AI Logo"
+                             onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
+                        <div class="hero-logo-fallback" id="logoFallback" style="display:none;">
+                            <span class="lf-text">OKAPI</span>
+                            <span class="lf-sub">AI</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating context badges -->
+                    <!-- <div class="logo-badge logo-badge-1">✦ Est. 2024</div>
+                    <div class="logo-badge logo-badge-2">🌍 Pan-African</div>
+                    <div class="logo-badge logo-badge-3">🤖 AI-First</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ PARTNERS ══ -->
+<section id="partners">
+    <canvas id="partners-canvas"></canvas>
+    <div class="partners-inner container">
+        <p class="partners-label"> Technology Partners &amp; Allies </p>
+        <p class="partners-scroll-hint">← drag to browse · auto-scrolls by default →</p>
+        <div class="partners-carousel">
+            <div class="partners-nav partners-nav-prev">
+                <button class="partners-nav-btn" id="partnersPrev" aria-label="Previous">‹</button>
+            </div>
+            <div class="logo-track-wrap" id="logoTrackWrap">
+                <div class="logo-track" id="logoTrack"></div>
+            </div>
+            <div class="partners-nav partners-nav-next">
+                <button class="partners-nav-btn" id="partnersNext" aria-label="Next">›</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ SERVICES — ORBITAL ══ -->
+<section id="services">
+    <canvas id="services-canvas" class="section-canvas"></canvas>
+    <div class="container">
+        <div class="services-header">
+            <span class="section-label">What we do</span>
+            <h2>Overview of all AI Services</h2>
+            <p class="services-subtitle">Hover any node — the orbit pauses &amp; adapts to you.</p>
+        </div>
+        <div class="orbital-wrapper">
+            <div class="ring-deco ring-deco-1"></div>
+            <div class="ring-deco ring-deco-2"></div>
+            <div class="ring-deco ring-deco-3"></div>
+            <div class="orbit" id="orbit"></div>
+            <div class="orbital-center">
+                <div class="orbital-center-inner">
+                    <span class="orbital-center-line1">Our services include</span>
+                    <span class="orbital-center-service" id="centerText">7 AI Disciplines</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ BLOG / INSIGHTS ══ -->
+<section id="blog">
+    <div class="container">
+        <span class="section-label">From our team</span>
+        <h2>Blog &amp; Insights</h2>
+        <p style="color:var(--gray);margin-top:0.5rem;font-family:var(--font);">AI trends, thought leadership, and industry intelligence.</p>
+        <div class="blog-grid" id="blogGrid"></div>
+    </div>
+</section>
+
+<!-- ══ CAREERS ══ -->
+<section id="careers">
+    <canvas id="careers-canvas"></canvas>
+    <div class="careers-wrapper container">
+        <div class="careers-hero-row">
+            <div>
+                <span class="section-label">Join the team</span>
+                <h2 style="max-width:500px;">Build the future of AI<br><em style="font-style:normal;color:var(--gray);">in Africa &amp; beyond</em></h2>
+            </div>
+            <div class="careers-stats">
+                <div class="careers-stat"><div class="stat-num">2</div><div class="stat-lbl">Global Hubs</div></div>
+                <div class="careers-stat"><div class="stat-num">7+</div><div class="stat-lbl">Open Roles</div></div>
+                <div class="careers-stat"><div class="stat-num">100%</div><div class="stat-lbl">Mission-driven</div></div>
+            </div>
+        </div>
+        <div class="tab-bar" id="tabBar">
+            <button class="tab-btn active" data-tab="why">Why OKAPI</button>
+            <button class="tab-btn" data-tab="culture">Our Culture</button>
+            <button class="tab-btn" data-tab="positions">Open Positions</button>
+            <button class="tab-btn" data-tab="internships">Internships</button>
+        </div>
+        <div class="tab-panel active" id="tab-why">
+            <div class="why-grid">
+                <div class="why-card"><div class="why-icon">🌍</div><h3>Real-world impact</h3><p>Every project we ship touches real businesses across Africa and the DRC. You won't be building demos — you'll be building the future of work.</p></div>
+                <div class="why-card"><div class="why-icon">🚀</div><h3>Move at startup speed</h3><p>No bureaucracy. Ideas go from conversation to production in days. You'll ship more in 3 months here than in 3 years at a legacy firm.</p></div>
+                <div class="why-card"><div class="why-icon">🧠</div><h3>Frontier-level learning</h3><p>Full access to OKAPI Academy curriculum, sponsored certifications, and weekly internal AI research sessions with senior engineers.</p></div>
+                <div class="why-card"><div class="why-icon">💬</div><h3>Bilingual &amp; inclusive</h3><p>English + French working environment. We celebrate the Pan-African mosaic of backgrounds, time zones, and perspectives that make us stronger.</p></div>
+                <div class="why-card"><div class="why-icon">📍</div><h3>Flexible locations</h3><p>Remote-first with optional hubs in Johannesburg and Kinshasa. Work where you do your best thinking — we care about output, not attendance.</p></div>
+                <div class="why-card"><div class="why-icon">💰</div><h3>Competitive compensation</h3><p>Global-benchmark salaries, performance bonuses, and an equity pathway for senior contributors. We believe in sharing what we build together.</p></div>
+            </div>
+        </div>
+        <div class="tab-panel" id="tab-culture">
+            <div class="culture-bento">
+                <div class="bento-card tall"><div class="bento-big-num">01</div><h3>Pan-African by design</h3><p>We didn't start in Silicon Valley and open an Africa office. We started in Africa. Every decision we make is shaped by the markets, languages, and contexts of the continent we call home.</p><div class="value-pills" style="margin-top:1.5rem;"><span class="value-pill">Kinshasa</span><span class="value-pill">Johannesburg</span><span class="value-pill">Pan-African</span></div></div>
+                <div class="bento-card"><div class="bento-big-num">02</div><h3>Radical transparency</h3><p>Open salaries, open roadmap, open results. We share what's working and what isn't — with each other and with our clients.</p></div>
+                <div class="bento-card"><div class="bento-big-num">03</div><h3>Ship, learn, iterate</h3><p>Perfection is the enemy of progress. We deploy, we measure, and we improve — in public, together.</p></div>
+                <div class="bento-card span-col"><div class="bento-big-num">04</div><h3>How we work, day to day</h3><p>Async by default, intentional meetings, weekly showcases where every team presents what they shipped. Culture isn't a poster on the wall — it's who gets promoted and what gets celebrated.</p><div class="value-pills" style="margin-top:1rem;"><span class="value-pill">Async-first</span><span class="value-pill">Weekly demos</span><span class="value-pill">Open feedback</span><span class="value-pill">Continuous learning</span><span class="value-pill">No meeting Fridays</span></div></div>
+            </div>
+        </div>
+        <div class="tab-panel" id="tab-positions">
+            <div class="positions-layout">
+                <div>
+                    <div class="filter-label">Filter by type</div>
+                    <div class="filter-chips">
+                        <span class="filter-chip active" data-filter="all">All</span>
+                        <span class="filter-chip" data-filter="full-time">Full-time</span>
+                        <span class="filter-chip" data-filter="contract">Contract</span>
+                    </div>
+                    <div class="job-list" id="jobList"></div>
+                </div>
+                <div class="job-detail" id="jobDetail">
+                    <div class="jd-placeholder"><div class="jd-placeholder-icon">💼</div><p>Select a position<br>to see details</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-panel" id="tab-internships">
+            <div class="intern-grid" id="internGrid"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ LOCATIONS + ACADEMY ══ -->
+<section id="locations">
+    <div class="container">
+        <div class="loc-wrap">
+            <div>
+                <span class="section-label">Where we are</span>
+                <h2>Global Hubs</h2>
+                <div style="margin-top:2rem;">
+                    <div class="loc-card"><h3>📍 BedfordView</h3><p>Johannesburg, South Africa</p><p style="margin-top:0.4rem;font-size:0.75rem;color:#555;font-family:var(--font);">Primary Operations &amp; Sales Hub</p></div>
+                    <div class="loc-card"><h3>📍 Cité Verte</h3><p>Kinshasa, DRC</p><p style="margin-top:0.4rem;font-size:0.75rem;color:#555;font-family:var(--font);">Central Africa Centre of Excellence</p></div>
+                </div>
+            </div>
+            <div>
+                <span class="section-label">Learn with us</span>
+                <h2>OKAPI Academy</h2>
+                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.88rem;line-height:1.7;font-family:var(--font);">Practical, bilingual AI education for individuals and enterprises across Africa.</p>
+                <div class="academy-grid">
+                    <div class="academy-card"><span>💻</span> IT Training</div>
+                    <div class="academy-card"><span>🧠</span> AI Literacy</div>
+                    <div class="academy-card"><span>👥</span> Leadership</div>
+                    <div class="academy-card"><span>📊</span> Digital Skills</div>
+                    <div class="academy-card"><span>🤖</span> Prompt Engineering</div>
+                    <div class="academy-card"><span>🌐</span> AI for Business</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+    <div class="contact-glow"></div>
+    <div class="container">
+        <div class="contact-inner">
+            <div class="contact-left">
+                <span class="section-label">Get in touch</span>
+                <h2>Let's build<br>something together</h2>
+                <p>Whether you have a question or want to discuss a project, we at OKAPI AI are here to help. Reach out — our team typically responds within 24 hours.</p>
+                <div class="contact-detail"><i class="fas fa-map-pin"></i> Johannesburg, SA &amp; Kinshasa, DRC</div>
+                <div class="contact-detail"><i class="fas fa-envelope"></i> hello@okapi-ai.com</div>
+                <div class="contact-detail"><i class="fab fa-linkedin-in"></i> linkedin.com/company/okapi-ai</div>
+            </div>
+            <div>
+                <div class="contact-form">
+                    <div class="form-row">
+                        <input class="form-field" type="text" placeholder="First name">
+                        <input class="form-field" type="text" placeholder="Last name">
+                    </div>
+                    <input class="form-field" type="email" placeholder="Email address">
+                    <input class="form-field" type="text" placeholder="Company (optional)">
+                    <textarea class="form-field" rows="4" placeholder="Tell us about your project…"></textarea>
+                    <button class="form-submit">Send Message →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+    <div class="cta-ring" style="width:300px;height:300px;"></div>
+    <div class="cta-ring" style="width:550px;height:550px;animation:spin-slow 25s linear infinite;"></div>
+    <div class="cta-ring" style="width:800px;height:800px;animation:spin-slow 40s linear infinite reverse;border-style:dashed;"></div>
+    <div class="container" style="text-align:center;">
+        <span class="section-label">Ready?</span>
+        <h2>Scale with AI today</h2>
+        <p>One conversation can change how your business operates forever.</p>
+        <a href="#contact" class="btn-white">Contact Our Team →</a>
+    </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-brand-img" role="img" aria-label="OKAPI AI Logo"></div>
+                <span class="footer-logo">OKAPI <span>AI</span></span>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ════════════════════════════════════════
+   HERO 3D LOGO — mouse tilt interaction
+════════════════════════════════════════ */
+(function(){
+    const stage = document.getElementById('heroLogoStage');
+    const frame = document.getElementById('heroLogoFrame');
+    if(!stage || !frame) return;
+    stage.addEventListener('mousemove', e => {
+        const r = stage.getBoundingClientRect();
+        const cx = r.left + r.width/2, cy = r.top + r.height/2;
+        const dx = (e.clientX - cx) / (r.width/2);
+        const dy = (e.clientY - cy) / (r.height/2);
+        frame.style.animation = 'none';
+        frame.style.transform = `perspective(800px) rotateY(${dx * 14}deg) rotateX(${-dy * 8}deg) scale(1.03)`;
+    });
+    stage.addEventListener('mouseleave', () => {
+        frame.style.animation = '';
+        frame.style.transform = '';
+    });
+})();
+
+/* ════════════════════════════════════════
+   HERO CANVAS — particle network
+════════════════════════════════════════ */
+(function(){
+    const canvas = document.getElementById('hero-canvas');
+    const section = document.getElementById('hero');
+    const W=()=>section.clientWidth, H=()=>section.clientHeight;
+    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,W()/H(),0.1,1000);
+    camera.position.z=28;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    renderer.setSize(W(),H());
+    const N=1400, pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*90;pos[i*3+1]=(Math.random()-.5)*60;pos[i*3+2]=(Math.random()-.5)*50-10;}
+    const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const pts=new THREE.Points(geo,new THREE.PointsMaterial({color:0x777777,size:0.09,transparent:true,opacity:0.45}));
+    scene.add(pts);
+    let mx=0,my=0;
+    window.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*.4;my=-(e.clientY/innerHeight-.5)*.4;});
+    (function anim(){requestAnimationFrame(anim);pts.rotation.y+=0.0008+mx*0.002;pts.rotation.x+=0.0003+my*0.001;renderer.render(scene,camera);})();
+    window.addEventListener('resize',()=>{renderer.setSize(W(),H());camera.aspect=W()/H();camera.updateProjectionMatrix();});
+})();
+
+/* ════════════════════════════════════════
+   PARTNERS CANVAS — blue wireframe globe
+════════════════════════════════════════ */
+(function(){
+    const section=document.getElementById('partners');
+    const canvas=document.getElementById('partners-canvas');
+    canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.72;';
+    const W=()=>section.clientWidth, H=()=>section.clientHeight;
+    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(45,W()/H(),0.1,1000);
+    camera.position.z=6;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    renderer.setSize(W(),H());
+    const globe=new THREE.Mesh(new THREE.SphereGeometry(2,32,32),new THREE.MeshBasicMaterial({color:0x3366ff,wireframe:true,transparent:true,opacity:0.22}));
+    scene.add(globe);
+    const inner=new THREE.Mesh(new THREE.SphereGeometry(1.6,16,16),new THREE.MeshBasicMaterial({color:0x1133aa,wireframe:true,transparent:true,opacity:0.08}));
+    scene.add(inner);
+    const sN=500, sPos=new Float32Array(sN*3);
+    for(let i=0;i<sN;i++){const th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1),r=2.5+Math.random()*3;sPos[i*3]=r*Math.sin(ph)*Math.cos(th);sPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);sPos[i*3+2]=r*Math.cos(ph);}
+    const sGeo=new THREE.BufferGeometry(); sGeo.setAttribute('position',new THREE.BufferAttribute(sPos,3));
+    const stars=new THREE.Points(sGeo,new THREE.PointsMaterial({color:0x6699ff,size:0.06,transparent:true,opacity:0.7}));
+    scene.add(stars);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(2.3,0.015,8,120),new THREE.MeshBasicMaterial({color:0x4477ff,transparent:true,opacity:0.5}));
+    ring.rotation.x=Math.PI/2; scene.add(ring);
+    const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.5,0.01,8,120),new THREE.MeshBasicMaterial({color:0x2255cc,transparent:true,opacity:0.35}));
+    ring2.rotation.x=Math.PI/3; ring2.rotation.y=Math.PI/6; scene.add(ring2);
+    (function anim(){requestAnimationFrame(anim);globe.rotation.y+=0.005;globe.rotation.x+=0.002;inner.rotation.y-=0.003;stars.rotation.y+=0.002;ring.rotation.z+=0.003;ring2.rotation.z-=0.002;renderer.render(scene,camera);})();
+    window.addEventListener('resize',()=>{renderer.setSize(W(),H());camera.aspect=W()/H();camera.updateProjectionMatrix();});
+})();
+
+/* ════════════════════════════════════════
+   SERVICES CANVAS
+════════════════════════════════════════ */
+(function(){
+    const canvas=document.getElementById('services-canvas'), section=document.getElementById('services');
+    const W=()=>section.clientWidth, H=()=>section.clientHeight;
+    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(50,W()/H(),0.1,500);
+    camera.position.z=20;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true});
+    renderer.setSize(W(),H());
+    const grid=new THREE.Mesh(new THREE.PlaneGeometry(50,50,20,20),new THREE.MeshBasicMaterial({color:0x181818,wireframe:true,transparent:true,opacity:0.22}));
+    grid.rotation.x=-Math.PI/3; grid.position.y=-8; scene.add(grid);
+    const N=300, pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*60;pos[i*3+1]=(Math.random()-.5)*40;pos[i*3+2]=(Math.random()-.5)*30-5;}
+    const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    scene.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0x333333,size:0.08,transparent:true,opacity:0.6})));
+    let t=0;
+    (function anim(){requestAnimationFrame(anim);t+=0.005;grid.position.z=Math.sin(t)*1.5;renderer.render(scene,camera);})();
+    window.addEventListener('resize',()=>{renderer.setSize(W(),H());camera.aspect=W()/H();camera.updateProjectionMatrix();});
+})();
+
+/* ════════════════════════════════════════
+   CAREERS CANVAS — pulsing rings + nebula
+════════════════════════════════════════ */
+(function(){
+    const section=document.getElementById('careers');
+    const canvas=document.getElementById('careers-canvas');
+    canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.4;';
+    const W=()=>section.clientWidth, H=()=>section.clientHeight;
+    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(50,W()/H(),0.1,500);
+    camera.position.z=10;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(W(),H());
+    const mr=(r,c,op)=>{const m=new THREE.Mesh(new THREE.TorusGeometry(r,0.04,64,200),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:op}));scene.add(m);return m;};
+    const r1=mr(2,0x4488ff,0.5), r2=mr(3.2,0x2255cc,0.35), r3=mr(4.5,0x1133aa,0.2), r4=mr(3.8,0x3366ee,0.25);
+    r2.rotation.x=Math.PI/2; r3.rotation.z=Math.PI/2; r4.rotation.x=Math.PI/3;
+    const N=800, pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*20;pos[i*3+1]=(Math.random()-.5)*14;pos[i*3+2]=(Math.random()-.5)*10-2;}
+    const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const pts=new THREE.Points(geo,new THREE.PointsMaterial({color:0x3355cc,size:0.07,transparent:true,opacity:0.6}));
+    scene.add(pts);
+    let t=0;
+    (function anim(){requestAnimationFrame(anim);t+=0.018;const sc=1+Math.sin(t)*0.12;r1.scale.set(sc,sc,sc);r2.scale.set(sc,sc,sc);r3.scale.set(sc,sc,sc);r1.rotation.z+=0.008;r2.rotation.x+=0.007;r3.rotation.y+=0.006;r4.rotation.y+=0.004;pts.rotation.y+=0.0006;renderer.render(scene,camera);})();
+    window.addEventListener('resize',()=>{renderer.setSize(W(),H());camera.aspect=W()/H();camera.updateProjectionMatrix();});
+})();
+
+/* ════════════════════════════════════════
+   PARTNERS STRIP — with images + drag + nav btns
+════════════════════════════════════════ */
+(function(){
+    // Partner data — replace logo paths with real ones; name used as alt/fallback
+    const partners = [
+        { name:'GEMINI',     logo:'images/Geminilogo.jpg'},
+        { name:'MICROSOFT',  logo:'images/Microsoft_LOGO.png'},
+        { name:'GOOGLE',     logo:'images/Googlelogo.jpg'},
+        { name:'META',       logo:'images/Meta_logo.png'},
+        { name:'CLAUDE',     logo:'images/Claude_LOGO.jpg'},
+        { name:'ORACLE',     logo:'images/Oracle_Logo.jpg'},
+        { name:'ANTHROPIC',  logo:'images/Anthropic_logo.png'},
+        { name:'DEEPSEEK',   logo:'images/Deepseek_logo.png'},
+        { name:'COPILOT',    logo:'images/microsoft-copilot-logo.png' },
+        { name:'SERVICENOW', logo:'images/ServiceNow_Logo.png'},
+        { name:'OPENAI',     logo:'images/Meta_logo.png'},
+        { name:'MISTRAL',    logo:'images/Meta_logo.png'}
+    ];
+
+    const track = document.getElementById('logoTrack');
+    const wrap  = document.getElementById('logoTrackWrap');
+    const btnPrev = document.getElementById('partnersPrev');
+    const btnNext = document.getElementById('partnersNext');
+
+    // Build chips (duplicated for seamless loop)
+    const makeChips = (list) => list.map(p => {
+    const chip = document.createElement('div');
+    chip.className = 'logo-chip';
+
+    chip.innerHTML = `
+        <div class="logo-chip-img" title="${p.name}">
+            <img src="${p.logo}" 
+                 alt="${p.name}" 
+                 style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <span class="logo-chip-name">${p.name}</span>
+    `;
+
+    return chip;
+});
+
+    const chips1 = makeChips(partners);
+    const chips2 = makeChips(partners); // duplicate
+    chips1.forEach(c => track.appendChild(c));
+    chips2.forEach(c => track.appendChild(c));
+
+    // Measure single set width for correct animation
+    requestAnimationFrame(() => {
+        const halfW = track.scrollWidth / 2;
+        track.style.setProperty('--track-width', `-${halfW}px`);
+    });
+
+    // Manual scroll state
+    let offset = 0;
+    let isPaused = false;
+    const SCROLL_STEP = 180;
+
+    function scrollTo(delta) {
+        isPaused = true;
+        track.classList.add('manual-paused');
+        // Compute current rendered position
+        const style = getComputedStyle(track);
+        const matrix = new DOMMatrix(style.transform);
+        offset = matrix.m41 + delta;
+        const halfW = track.scrollWidth / 2;
+        if (offset > 0) offset = -halfW + offset;
+        if (offset < -halfW) offset = offset + halfW;
+        track.style.transition = 'transform 0.4s cubic-bezier(0.23,1,0.32,1)';
+        track.style.transform = `translateX(${offset}px)`;
+        setTimeout(() => {
+            track.style.transition = '';
+            isPaused = false;
+            track.classList.remove('manual-paused');
+            // Restart animation from current position is complex — just remove manual pause and let CSS animation re-engage
+            // For simplicity, we re-engage after a beat
+        }, 2000);
+    }
+
+    btnPrev.addEventListener('click', () => scrollTo(SCROLL_STEP));
+    btnNext.addEventListener('click', () => scrollTo(-SCROLL_STEP));
+
+    // Drag to scroll
+    let dragStart = null, dragOffset = 0, isDragging = false;
+    track.addEventListener('mousedown', e => { dragStart = e.clientX; isDragging = true; track.classList.add('dragging'); const m = new DOMMatrix(getComputedStyle(track).transform); dragOffset = m.m41; });
+    window.addEventListener('mousemove', e => { if(!isDragging) return; const dx = e.clientX - dragStart; track.style.transform = `translateX(${dragOffset + dx}px)`; });
+    window.addEventListener('mouseup', () => { if(!isDragging) return; isDragging = false; track.classList.remove('dragging'); });
+
+    // Touch drag
+    track.addEventListener('touchstart', e => { dragStart = e.touches[0].clientX; isDragging = true; const m = new DOMMatrix(getComputedStyle(track).transform); dragOffset = m.m41; }, {passive:true});
+    window.addEventListener('touchmove', e => { if(!isDragging) return; const dx = e.touches[0].clientX - dragStart; track.style.transform = `translateX(${dragOffset + dx}px)`; }, {passive:true});
+    window.addEventListener('touchend', () => { isDragging = false; });
+})();
+
+/* ════════════════════════════════════════
+   ORBITAL SERVICES — with image placeholders
+════════════════════════════════════════ */
+(function(){
+    // Replace 'logo' with your actual image paths — emoji used as placeholder
+    const services=[
+        {label:'AI Consulting',  desc:'AI Consulting',  logo:'images/AI_Consulting.jpg'},
+        {label:'AI Agents',      desc:'AI Agents',      logo:'images/ai-agents.webp'},
+        {label:'Voice Agents',   desc:'Voice Agents',   logo:'images/VOICE_AGEMT.jpg'},
+        {label:'Automation',     desc:'Automation',     logo:'images/Automation_logo.jpg'},
+        {label:'RAG Systems',    desc:'RAG Systems',    logo:'images/RAG_Systems.png'},
+        {label:'AI SDR',         desc:'AI SDR',         logo:'images/AISDR.webp'},
+        {label:'Enterprise AI',  desc:'Enterprise AI',  logo:'images/Enterprise-AI-Solutions-scaled.jpg'}
+    ];
+
+    const orbit = document.getElementById('orbit');
+    const centerText = document.getElementById('centerText');
+
+    services.forEach((s,i) => {
+        const n = document.createElement('div');
+        n.className = `orb-node orb-n${i}`;
+        // Placeholder: shows emoji inside styled div; swap to <img> when you have real pics
+        // n.innerHTML = `
+        //     <div class="orb-img-placeholder" title="${s.label}">${s.emoji}</div>
+        //     <span class="orb-label">${s.label}</span>`;
+
+        // When you have real images, replace the above innerHTML with:
+        n.innerHTML = `
+            <img class="orb-img" src="${s.logo}" alt="${s.label}"
+                 onerror="this.outerHTML='<div class=\\'orb-img-placeholder\\'>${s.emoji}</div>'">
+            <span class="orb-label">${s.label}</span>`; 
+
+        n.addEventListener('mouseenter', () => {
+            orbit.classList.add('paused');
+            centerText.style.opacity='0';
+            setTimeout(()=>{centerText.textContent=s.desc;centerText.style.opacity='1';},180);
+        });
+        n.addEventListener('mouseleave', () => {
+            orbit.classList.remove('paused');
+            centerText.style.opacity='0';
+            setTimeout(()=>{centerText.textContent='7 AI Disciplines';centerText.style.opacity='1';},180);
+        });
+        orbit.appendChild(n);
+    });
+})();
+
+/* ════════════════════════════════════════
+   BLOG DATA
+════════════════════════════════════════ */
+(function(){
+    const blogs=[
+        {tag:'AI Trends',title:'How Agentic AI is Rewriting Enterprise Automation',excerpt:"Autonomous agents are moving from labs to boardrooms. Here's what CXOs need to understand before their competitors do.",date:'Jun 2026',read:'5 min'},
+        {tag:'Thought Leadership',title:"Africa's AI Moment: Why the Continent is Poised to Lead",excerpt:'Leapfrogging legacy infrastructure, Africa is uniquely positioned to adopt AI at a pace that surprises the world.',date:'May 2026',read:'7 min'},
+        {tag:'Industry Update',title:'RAG vs Fine-Tuning: Which Strategy Wins in 2026?',excerpt:'A practical breakdown of when to use retrieval-augmented generation versus model fine-tuning for enterprise deployments.',date:'Apr 2026',read:'6 min'},
+        {tag:'Case Insights',title:"How We Automated 80% of a Kinshasa Bank's Customer Queries",excerpt:'A real-world case study on deploying multilingual voice agents in a high-volume financial services environment.',date:'Mar 2026',read:'8 min'},
+        {tag:'Guides',title:'The OKAPI Blueprint for Building Your First Autonomous Agent',excerpt:"Step-by-step guide for non-technical leaders to understand what's actually required to deploy AI agents that work.",date:'Feb 2026',read:'10 min'},
+        {tag:'AI Trends',title:'Beyond ChatGPT: The Enterprise AI Stack That Actually Scales',excerpt:'LLMs are just one piece. A look at orchestration, data pipelines, and governance layers production AI demands.',date:'Jan 2026',read:'5 min'}
+    ];
+    document.getElementById('blogGrid').innerHTML=blogs.map(b=>`
+<div class="blog-card">
+    <span class="blog-tag">${b.tag}</span>
+    <div class="blog-title">${b.title}</div>
+    <div class="blog-excerpt">${b.excerpt}</div>
+    <div class="blog-meta"><span>${b.date}</span><span>${b.read} read</span></div>
+    <span class="blog-arrow">↗</span>
+</div>`).join('');
+})();
+
+/* ════════════════════════════════════════
+   CAREERS TABS
+════════════════════════════════════════ */
+document.getElementById('tabBar').addEventListener('click', e=>{
+    const btn=e.target.closest('.tab-btn'); if(!btn) return;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+});
+
+const jobs=[
+    {id:0,title:'AI Solutions Engineer',type:'full-time',dept:'Engineering',loc:'Remote / Joburg',desc:'Design and deploy end-to-end AI systems — from LLM orchestration to production APIs — for enterprise clients across Africa.',reqs:['3+ years Python, LLM APIs (OpenAI, Anthropic, Gemini)','Experience with LangChain, LlamaIndex or similar','Deployed at least one production AI system','French a plus']},
+    {id:1,title:'LLM Prompt Engineer',type:'full-time',dept:'AI Research',loc:'Remote',desc:'Architect prompt systems, evaluation pipelines, and instruction-tuning workflows that make our AI products genuinely better than the competition.',reqs:['Deep understanding of LLM behaviour and failure modes','Experience building eval harnesses','Portfolio of real-world prompt systems','Comfortable writing technical docs in EN + FR']},
+    {id:2,title:'AI Business Consultant',type:'full-time',dept:'Consulting',loc:'Johannesburg',desc:'Work directly with C-suite stakeholders to identify AI opportunities, scope projects, and translate business problems into technical solutions.',reqs:['5+ years in consulting or strategy','Working knowledge of AI capabilities and limitations','Excellent communicator in English + French','Experience in financial services or telco a plus']},
+    {id:3,title:'Voice AI Specialist',type:'contract',dept:'Product',loc:'Remote',desc:'Build and fine-tune multilingual voice agents (EN/FR/Lingala) using Whisper, ElevenLabs and custom TTS pipelines for enterprise deployments.',reqs:['Experience with voice AI stack (ASR, TTS, NLU)','Python proficiency, REST API integration','French or Lingala preferred','Can demo previous voice AI work']}
+];
+let selectedJob=null;
+function renderJobs(filter='all'){
+    const list=filter==='all'?jobs:jobs.filter(j=>j.type===filter);
+    document.getElementById('jobList').innerHTML=list.map(j=>`
+<div class="job-item ${selectedJob===j.id?'selected':''}" data-id="${j.id}">
+    <div class="job-info">
+        <div class="job-title">${j.title}</div>
+        <div class="job-meta">
+            <span class="job-badge">${j.type}</span>
+            <span class="job-badge">${j.dept}</span>
+            <span class="job-badge">📍 ${j.loc}</span>
+        </div>
+    </div>
+    <span class="job-arrow">→</span>
+</div>`).join('');
+    document.querySelectorAll('.job-item').forEach(el=>{
+        el.addEventListener('click',()=>{
+            selectedJob=parseInt(el.dataset.id);
+            const j=jobs.find(x=>x.id===selectedJob);
+            document.getElementById('jobDetail').innerHTML=`
+<span class="jd-tag">${j.dept}</span>
+<div class="jd-title">${j.title}</div>
+<div class="jd-meta"><span class="job-badge">${j.type}</span><span class="job-badge">📍 ${j.loc}</span></div>
+<div class="jd-desc">${j.desc}</div>
+<ul class="jd-reqs">${j.reqs.map(r=>`<li>${r}</li>`).join('')}</ul>
+<button class="jd-apply">Apply for this role →</button>`;
+            document.querySelectorAll('.job-item').forEach(i=>i.classList.remove('selected'));
+            el.classList.add('selected');
+        });
+    });
+}
+renderJobs();
+document.querySelectorAll('.filter-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active'); selectedJob=null;
+        document.getElementById('jobDetail').innerHTML=`<div class="jd-placeholder"><div class="jd-placeholder-icon">💼</div><p>Select a position<br>to see details</p></div>`;
+        renderJobs(chip.dataset.filter);
+    });
+});
+
+const interns=[
+    {icon:'🔬',title:'AI Research Intern',duration:'3–6 months',desc:'Dive deep into LLM evaluations, fine-tuning experiments, and emerging AI papers. Your work ships into real products.',skills:['Python','LLM APIs','Research writing','Data analysis']},
+    {icon:'🗄️',title:'Data Engineering Intern',duration:'3 months',desc:'Build the data pipelines that power our RAG systems and model training workflows. Real infra, real scale.',skills:['SQL','Python','ETL','Cloud basics']},
+    {icon:'🎨',title:'Product & UX Intern',duration:'6 months',desc:'Design interfaces for AI products that real clients use daily. Work alongside engineers from day one.',skills:['Figma','User research','Prototyping','AI product thinking']},
+    {icon:'📣',title:'AI Marketing Intern',duration:'3 months',desc:"Translate complex AI concepts into compelling content for Africa's fastest-growing AI company.",skills:['Copywriting','Social media','Content strategy','EN + FR']}
+];
+document.getElementById('internGrid').innerHTML=interns.map(i=>`
+<div class="intern-card">
+    <div class="intern-icon">${i.icon}</div>
+    <h3>${i.title}</h3>
+    <div class="intern-duration">⏱ ${i.duration}</div>
+    <p>${i.desc}</p>
+    <div class="intern-skills">${i.skills.map(s=>`<span class="intern-skill">${s}</span>`).join('')}</div>
+    <div class="intern-card-footer"><span>Applications open</span><button class="intern-apply">Apply →</button></div>
+</div>`).join('');
+
+/* ════════════════════════════════════════
+   LANGUAGE TOGGLE
+════════════════════════════════════════ */
+let fr=false;
+document.getElementById('langToggle').addEventListener('click',function(){
+    fr=!fr; this.textContent=fr?'🇬🇧 EN':'🇫🇷 FR';
+    document.querySelector('#hero h1').innerHTML=fr?'Intelligence<br><em>sans</em><br>limites':'Intelligence<br><em>without</em><br>limits';
+    document.querySelector('.hero-sub').textContent=fr?'Conseil IA · Voice AI · Systèmes RAG · Agents autonomes':'AI Consulting · Voice AI · RAG Systems · Autonomous Agents — deployed across Africa & beyond.';
+});
+
+/* ════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════ */
+const revEls=document.querySelectorAll('.blog-card,.loc-card,.academy-card,.why-card,.intern-card,.bento-card');
+const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting){e.target.style.transition='opacity 0.55s ease,transform 0.55s ease';e.target.style.opacity='1';e.target.style.transform='translateY(0)';io.unobserve(e.target);}
+    });
+},{threshold:0.08});
+revEls.forEach(el=>{el.style.opacity='0';el.style.transform='translateY(22px)';io.observe(el);});
+</script>
+</body>
+</html>

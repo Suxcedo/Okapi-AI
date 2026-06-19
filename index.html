@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>OKAPI AI | Superior Intelligence for All</title>
-
-    <!-- Google Fonts -->
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="icon" type="image/png" href="images/favicon.jpeg" />
@@ -91,10 +90,6 @@
             transform: translateY(-4px) scale(1.05);
             box-shadow: 0 8px 30px rgba(106, 140, 255, 0.15);
         }
-        .back-to-top svg {
-            width: 24px;
-            height: 24px;
-        }
 
         /* ── NOISE OVERLAY (lightweight) ── */
         .noise-overlay {
@@ -105,7 +100,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 9997;
-            opacity: 0.02;
+            opacity: 0.015;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-size: 256px 256px;
@@ -224,6 +219,59 @@
             border-color: var(--border-hover);
         }
 
+        /* ── Mobile Hamburger ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            background: transparent;
+            border: none;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media(max-width:900px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(8, 8, 8, 0.96);
+                backdrop-filter: blur(22px);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1.2rem;
+                border-radius: 0 0 20px 20px;
+                border: 1px solid var(--border);
+                display: none;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                font-size: 1rem;
+            }
+        }
+
         /* ── SECTION BASE ── */
         section {
             position: relative;
@@ -245,6 +293,11 @@
             width: 100%;
             position: relative;
             z-index: 2;
+        }
+        @media(max-width:600px) {
+            .container {
+                padding: 0 1.2rem;
+            }
         }
         .section-label {
             display: inline-block;
@@ -307,6 +360,16 @@
             width: 100%;
             position: relative;
             z-index: 1;
+        }
+        @media(max-width:900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding-top: 6rem;
+            }
+            .hero-logo-display {
+                order: -1;
+            }
         }
         .eyebrow {
             display: inline-flex;
@@ -399,17 +462,6 @@
             position: relative;
             overflow: hidden;
         }
-        .btn-white::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(106, 140, 255, 0.2), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .btn-white:hover::before {
-            opacity: 1;
-        }
         .btn-white:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 12px 28px rgba(255, 255, 255, 0.18);
@@ -427,27 +479,10 @@
             position: relative;
             overflow: hidden;
         }
-        .btn-ghost::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.05);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s ease;
-        }
-        .btn-ghost:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
         .btn-ghost:hover {
             border-color: #fff;
             color: #fff;
-        }
-
-        .magnetic-wrap {
-            display: inline-block;
-            position: relative;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         /* ── HERO LOGO 3D ── */
@@ -464,6 +499,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        @media(max-width:900px) {
+            .hero-logo-stage {
+                width: 280px;
+                height: 280px;
+            }
         }
         .logo-ring-outer {
             position: absolute;
@@ -484,17 +525,6 @@
             transform: translateX(-50%);
             box-shadow: 0 0 20px var(--accent-glow);
         }
-        .logo-ring-outer::after {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            bottom: -2.5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
         .logo-ring-mid {
             position: absolute;
             width: 320px;
@@ -503,29 +533,7 @@
             border: 1px solid rgba(255, 255, 255, 0.07);
             animation: logo-spin 20s linear infinite reverse;
         }
-        .logo-ring-mid::before,
-        .logo-ring-mid::after {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-        }
-        .logo-ring-mid::before {
-            top: -2.5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .logo-ring-mid::after {
-            right: -2.5px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
         @keyframes logo-spin {
-            from {
-                transform: rotate(0deg);
-            }
             to {
                 transform: rotate(360deg);
             }
@@ -597,16 +605,6 @@
             z-index: 5;
             pointer-events: none;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, transparent 50%);
-        }
-        .hero-logo-frame::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, rgba(245, 240, 240, 0.7), rgba(255, 255, 255, 0.7), transparent);
-            border-radius: 0 28px 28px 0;
         }
         .hero-logo-img {
             width: 75%;
@@ -763,9 +761,6 @@
             animation-play-state: paused;
             cursor: grabbing;
         }
-        .logo-track.manual-paused {
-            animation-play-state: paused;
-        }
         @keyframes scroll-logos {
             0% {
                 transform: translateX(0);
@@ -828,21 +823,17 @@
             position: relative;
             overflow: hidden;
         }
-        #about::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(106, 140, 255, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             margin-top: 2rem;
+        }
+        @media(max-width:900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
         .about-text p {
             color: var(--gray);
@@ -973,31 +964,88 @@
             overflow: hidden;
             position: relative;
         }
-        #services::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(106, 140, 255, 0.03) 0%, transparent 70%);
-            z-index: 0;
-        }
-        .services-header {
-            text-align: center;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        .services-subtitle {
-            color: var(--gray);
-            margin-top: 0.6rem;
-            font-size: 0.95rem;
-            font-family: var(--font);
-        }
         .orbital-wrapper {
             position: relative;
             width: min(700px, 90vw);
             height: min(700px, 90vw);
             margin: 3rem auto 0;
             z-index: 1;
+        }
+        @media(max-width:600px) {
+            .orbital-wrapper {
+                width: min(360px, 90vw);
+                height: min(360px, 90vw);
+            }
+            .orb-node {
+                width: 100px !important;
+                height: 100px !important;
+            }
+            .orb-img {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            .orb-label {
+                font-size: 0.4rem !important;
+            }
+            .orbital-center {
+                width: 120px !important;
+            }
+            .orbital-center-inner {
+                width: 100px !important;
+                height: 100px !important;
+                padding: 0.5rem !important;
+            }
+            .orbital-center-line1 {
+                font-size: 0.45rem !important;
+            }
+            .orbital-center-service {
+                font-size: 0.7rem !important;
+            }
+            .orbit {
+                width: 300px !important;
+                height: 300px !important;
+                margin: -150px 0 0 -150px !important;
+            }
+            .ring-deco-3 {
+                width: 320px !important;
+                height: 320px !important;
+            }
+            .ring-deco-2 {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            .orb-n0 {
+                top: calc(150px - 30px) !important;
+                left: calc(150px - 30px + 150px) !important;
+            }
+            .orb-n1 {
+                top: calc(150px - 30px - 150px*0.777) !important;
+                left: calc(150px - 30px + 150px*0.629) !important;
+            }
+            .orb-n2 {
+                top: calc(150px - 30px - 150px*0.978) !important;
+                left: calc(150px - 30px - 150px*0.208) !important;
+            }
+            .orb-n3 {
+                top: calc(150px - 30px - 150px*0.434) !important;
+                left: calc(150px - 30px - 150px*0.901) !important;
+            }
+            .orb-n4 {
+                top: calc(150px - 30px + 150px*0.434) !important;
+                left: calc(150px - 30px - 150px*0.901) !important;
+            }
+            .orb-n5 {
+                top: calc(150px - 30px + 150px*0.978) !important;
+                left: calc(150px - 30px - 150px*0.208) !important;
+            }
+            .orb-n6 {
+                top: calc(150px - 30px + 150px*0.777) !important;
+                left: calc(150px - 30px + 150px*0.629) !important;
+            }
+            .orb-node {
+                width: 100px !important;
+                height: 100px !important;
+            }
         }
         .orbital-center {
             position: absolute;
@@ -1023,9 +1071,6 @@
             backdrop-filter: blur(12px);
             box-shadow: 0 0 60px rgba(106, 140, 255, 0.04), inset 0 0 30px rgba(255, 255, 255, 0.02);
             transition: all 0.4s;
-        }
-        .orbital-center-inner:hover {
-            box-shadow: 0 0 80px rgba(106, 140, 255, 0.08);
         }
         .orbital-center-line1 {
             font-size: 0.58rem;
@@ -1070,25 +1115,6 @@
             border-style: dashed;
             border-color: rgba(106, 140, 255, 0.03);
         }
-        .ring-deco-2::before,
-        .ring-deco-2::after {
-            content: '';
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(106, 140, 255, 0.2);
-            border-radius: 50%;
-        }
-        .ring-deco-2::before {
-            top: -2.5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .ring-deco-2::after {
-            bottom: -2.5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
         @keyframes spin-slow {
             to {
                 transform: translate(-50%, -50%) rotate(360deg);
@@ -1117,13 +1143,13 @@
             align-items: center;
             justify-content: center;
             gap: 0.25rem;
-            background: transparent;
-            border: none;
+            background: rgba(18, 18, 18, 0.85);
+            border: 1px solid var(--border);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             animation: counter-spin 18s linear infinite;
             overflow: hidden;
-            backdrop-filter: none;
+            backdrop-filter: blur(8px);
         }
         .orbit.paused .orb-node {
             animation-play-state: paused;
@@ -1135,17 +1161,11 @@
             box-shadow: 0 0 40px rgba(106, 140, 255, 0.2), 0 0 80px rgba(106, 140, 255, 0.05);
         }
         @keyframes orbit-spin {
-            from {
-                transform: rotate(0deg);
-            }
             to {
                 transform: rotate(360deg);
             }
         }
         @keyframes counter-spin {
-            from {
-                transform: rotate(0deg);
-            }
             to {
                 transform: rotate(-360deg);
             }
@@ -1160,17 +1180,6 @@
         }
         .orb-node:hover .orb-img {
             transform: scale(1.05);
-        }
-        .orb-img-placeholder {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
         }
         .orb-label {
             font-size: 0.5rem;
@@ -1187,6 +1196,8 @@
         .orb-node:hover .orb-label {
             color: var(--white);
         }
+
+        /* re‑position nodes for larger screens (overridden on mobile) */
         .orb-n0 {
             top: calc(260px - 48px);
             left: calc(260px - 48px + 260px);
@@ -1224,25 +1235,30 @@
             position: relative;
             overflow: hidden;
         }
-        #solutions::before {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(106, 140, 255, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .solutions-header {
-            margin-bottom: 3rem;
-        }
         .solutions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
             position: relative;
             z-index: 1;
+        }
+        @media(max-width:600px) {
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .sol-card {
+                padding: 1.2rem 0.8rem;
+            }
+            .sol-card .sol-icon {
+                font-size: 1.8rem;
+            }
+            .sol-card h4 {
+                font-size: 0.75rem;
+            }
+            .sol-card .sol-desc {
+                font-size: 0.6rem;
+            }
         }
         .sol-card {
             background: rgba(18, 18, 18, 0.85);
@@ -1258,36 +1274,10 @@
             transform-style: preserve-3d;
             perspective: 600px;
         }
-        .sol-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(106, 140, 255, 0.06) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .sol-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            border-radius: 2px;
-        }
-        .sol-card:hover::before {
-            opacity: 1;
-        }
-        .sol-card:hover::after {
-            transform: scaleX(1);
-        }
         .sol-card:hover {
             border-color: rgba(106, 140, 255, 0.3);
             transform: translateY(-8px) scale(1.02) rotateX(2deg);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(106, 140, 255, 0.04);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
         }
         .sol-card .sol-icon {
             font-size: 2.8rem;
@@ -1330,25 +1320,18 @@
             position: relative;
             overflow: hidden;
         }
-        #learn::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .learn-header {
-            margin-bottom: 3rem;
-        }
         .learn-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             position: relative;
             z-index: 1;
+        }
+        @media(max-width:900px) {
+            .learn-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
         .learn-col {
             background: rgba(18, 18, 18, 0.7);
@@ -1422,68 +1405,32 @@
             transition: width 0.4s ease, opacity 0.3s ease;
             opacity: 0.6;
         }
-        .course-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            border-radius: 14px;
-            pointer-events: none;
-        }
-        .course-item:hover::after {
+        .course-item:hover::before {
+            width: 6px;
             opacity: 1;
-        }
-        .course-item[data-color="blue"]::before,
-        .course-item[data-color="blue"]::after {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), transparent);
-        }
-        .course-item[data-color="blue"]::before {
-            background: #3b82f6;
-        }
-        .course-item[data-color="purple"]::before,
-        .course-item[data-color="purple"]::after {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), transparent);
-        }
-        .course-item[data-color="purple"]::before {
-            background: #8b5cf6;
-        }
-        .course-item[data-color="green"]::before,
-        .course-item[data-color="green"]::after {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), transparent);
-        }
-        .course-item[data-color="green"]::before {
-            background: #22c55e;
-        }
-        .course-item[data-color="orange"]::before,
-        .course-item[data-color="orange"]::after {
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.15), transparent);
-        }
-        .course-item[data-color="orange"]::before {
-            background: #fb923c;
-        }
-        .course-item[data-color="teal"]::before,
-        .course-item[data-color="teal"]::after {
-            background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), transparent);
-        }
-        .course-item[data-color="teal"]::before {
-            background: #14b8a6;
-        }
-        .course-item[data-color="pink"]::before,
-        .course-item[data-color="pink"]::after {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), transparent);
-        }
-        .course-item[data-color="pink"]::before {
-            background: #ec4899;
         }
         .course-item:hover {
             border-color: rgba(255, 255, 255, 0.15);
             transform: translateX(6px);
             background: rgba(255, 255, 255, 0.06);
         }
-        .course-item:hover::before {
-            width: 6px;
-            opacity: 1;
+        .course-item[data-color="blue"]::before {
+            background: #3b82f6;
+        }
+        .course-item[data-color="purple"]::before {
+            background: #8b5cf6;
+        }
+        .course-item[data-color="green"]::before {
+            background: #22c55e;
+        }
+        .course-item[data-color="orange"]::before {
+            background: #fb923c;
+        }
+        .course-item[data-color="teal"]::before {
+            background: #14b8a6;
+        }
+        .course-item[data-color="pink"]::before {
+            background: #ec4899;
         }
         .course-item .ci-icon {
             font-size: 1.1rem;
@@ -1568,40 +1515,13 @@
             transform: scale(1.05);
         }
 
-        /* ── FDE ── with Interactive Spotlight ── */
+        /* ── FDE ── */
         #fde {
             padding: 7rem 0;
             border-bottom: 1px solid var(--border);
             background: var(--deep);
             position: relative;
             overflow: hidden;
-        }
-        #fde::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(106, 140, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        .fde-header {
-            margin-bottom: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-        .fde-intro {
-            max-width: 720px;
-            margin-top: 1.5rem;
-        }
-        .fde-intro p {
-            color: var(--gray);
-            line-height: 1.8;
-            font-size: 0.95rem;
-            font-family: var(--font);
-        }
-        .fde-intro p strong {
-            color: var(--white);
         }
         .fde-visual {
             display: grid;
@@ -1610,6 +1530,12 @@
             align-items: start;
             position: relative;
             z-index: 1;
+        }
+        @media(max-width:900px) {
+            .fde-visual {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
         .fde-timeline {
             position: relative;
@@ -1674,6 +1600,11 @@
         .fde-step:hover::after {
             transform: scale(1.5);
         }
+        .fde-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
         .fde-step .step-num {
             font-size: 2rem;
             font-weight: 900;
@@ -1684,8 +1615,6 @@
             line-height: 1;
             margin-bottom: 0.3rem;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
         }
         .fde-step h4 {
             font-size: 0.95rem;
@@ -1693,21 +1622,12 @@
             color: var(--white);
             margin-bottom: 0.4rem;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
         }
         .fde-step p {
             font-size: 0.8rem;
             color: var(--gray);
             line-height: 1.65;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
-        }
-        .fde-step:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.12);
         }
         .fde-why {
             background: rgba(18, 18, 18, 0.85);
@@ -1739,6 +1659,11 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.2rem;
+        }
+        @media(max-width:600px) {
+            .fde-why-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .fw-item {
             display: flex;
@@ -1779,26 +1704,17 @@
             position: relative;
             overflow: hidden;
         }
-        #team::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(106, 140, 255, 0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .team-header {
-            margin-bottom: 3rem;
-        }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             position: relative;
             z-index: 1;
+        }
+        @media(max-width:600px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .team-card {
             background: rgba(18, 18, 18, 0.85);
@@ -1812,32 +1728,6 @@
             cursor: default;
             transform-style: preserve-3d;
             perspective: 800px;
-        }
-        .team-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(106, 140, 255, 0.06) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .team-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
-            border-radius: 2px;
-        }
-        .team-card:hover::before {
-            opacity: 1;
-        }
-        .team-card:hover::after {
-            transform: scaleX(1);
         }
         .team-card:hover {
             border-color: rgba(106, 140, 255, 0.2);
@@ -1858,12 +1748,6 @@
             transition: all 0.5s;
             position: relative;
             overflow: hidden;
-        }
-        .team-card .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
         }
         .team-card:hover .avatar {
             border-color: var(--accent);
@@ -1953,18 +1837,16 @@
             position: relative;
             overflow: hidden;
         }
-        #testimonials::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 50%, rgba(106, 140, 255, 0.03) 0%, transparent 60%);
-            pointer-events: none;
-        }
         .testimonial-slider {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 2.5rem;
+        }
+        @media(max-width:600px) {
+            .testimonial-slider {
+                grid-template-columns: 1fr;
+            }
         }
         .testimonial-card {
             background: rgba(18, 18, 18, 0.85);
@@ -2034,6 +1916,11 @@
             gap: 1.5rem;
             margin-top: 3rem;
         }
+        @media(max-width:600px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         .blog-card {
             background: rgba(22, 22, 22, 0.7);
             border: 1px solid var(--border);
@@ -2046,21 +1933,6 @@
             gap: 0.8rem;
             position: relative;
             overflow: hidden;
-        }
-        .blog-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        .blog-card:hover::before {
-            transform: scaleX(1);
         }
         .blog-card:hover {
             transform: translateY(-8px);
@@ -2155,6 +2027,12 @@
             flex-wrap: wrap;
             gap: 2rem;
         }
+        @media(max-width:900px) {
+            .careers-hero-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
         .careers-stat .stat-num {
             font-size: 2.8rem;
             font-weight: 800;
@@ -2178,6 +2056,11 @@
             display: flex;
             gap: 3rem;
         }
+        @media(max-width:600px) {
+            .careers-stats {
+                gap: 1.5rem;
+            }
+        }
         .tab-bar {
             display: flex;
             gap: 0.5rem;
@@ -2188,6 +2071,17 @@
             padding: 0.3rem;
             width: fit-content;
             flex-wrap: wrap;
+        }
+        @media(max-width:600px) {
+            .tab-bar {
+                width: 100%;
+                border-radius: 16px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            .tab-btn {
+                white-space: nowrap;
+            }
         }
         .tab-btn {
             padding: 0.55rem 1.4rem;
@@ -2231,6 +2125,11 @@
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1.2rem;
         }
+        @media(max-width:600px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         .why-card {
             background: rgba(18, 18, 18, 0.85);
             border: 1px solid var(--border);
@@ -2240,20 +2139,6 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: default;
-        }
-        .why-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-        .why-card:hover::before {
-            transform: scaleX(1);
         }
         .why-card:hover {
             transform: translateY(-6px);
@@ -2283,6 +2168,21 @@
             grid-template-columns: 1.4fr 1fr 1fr;
             grid-template-rows: auto auto;
             gap: 1.2rem;
+        }
+        @media(max-width:900px) {
+            .culture-bento {
+                grid-template-columns: 1fr 1fr;
+            }
+            .bento-card.span-col,
+            .bento-card.tall {
+                grid-column: auto;
+                grid-row: auto;
+            }
+        }
+        @media(max-width:600px) {
+            .culture-bento {
+                grid-template-columns: 1fr;
+            }
         }
         .bento-card {
             background: rgba(18, 18, 18, 0.85);
@@ -2352,6 +2252,7 @@
             border-color: rgba(106, 140, 255, 0.2);
             color: var(--white);
         }
+
         .positions-info {
             background: rgba(18, 18, 18, 0.85);
             border: 1px solid var(--border);
@@ -2414,6 +2315,12 @@
             gap: 5rem;
             align-items: start;
         }
+        @media(max-width:900px) {
+            .loc-wrap {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
         .loc-card {
             background: rgba(18, 18, 18, 0.7);
             border: 1px solid var(--border);
@@ -2424,23 +2331,6 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: default;
-        }
-        .loc-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--accent), transparent 60%, var(--accent));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        .loc-card:hover::before {
-            opacity: 1;
         }
         .loc-card:hover {
             transform: translateY(-4px);
@@ -2456,9 +2346,6 @@
         }
         .loc-card:hover .hub-pin {
             transform: scale(1.15) rotate(-6deg);
-        }
-        .hub-pin i {
-            filter: drop-shadow(0 0 6px var(--accent-glow));
         }
         .hub-card h3 {
             font-size: 1.05rem;
@@ -2484,6 +2371,11 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 1.2rem;
             margin-top: 2rem;
+        }
+        @media(max-width:600px) {
+            .academy-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .academy-card {
             background: rgba(18, 18, 18, 0.7);
@@ -2533,29 +2425,11 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             background: rgba(26, 26, 26, 0.95);
         }
-        .academy-card:hover .academy-img-wrapper {
-            background: rgba(106, 140, 255, 0.06);
-        }
         .academy-card:hover .academy-img-wrapper img {
             transform: scale(1.08);
         }
         .academy-card:hover .academy-label {
             color: var(--white);
-        }
-        .academy-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            border-radius: 2px;
-        }
-        .academy-card:hover::after {
-            transform: scaleX(1);
         }
 
         /* ── WHATSAPP SECTION ── */
@@ -2565,13 +2439,6 @@
             background: var(--black);
             position: relative;
             overflow: hidden;
-        }
-        #whatsapp-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(37, 211, 102, 0.05) 0%, transparent 70%);
-            pointer-events: none;
         }
         .whatsapp-card {
             background: rgba(18, 18, 18, 0.85);
@@ -2635,51 +2502,17 @@
             position: relative;
             overflow: hidden;
         }
-        .contact-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(106, 140, 255, 0.04) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
         .contact-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 5rem;
             align-items: start;
         }
-        .contact-left p {
-            color: var(--gray);
-            line-height: 1.75;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            font-family: var(--font);
-        }
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
-            color: var(--gray-light);
-            font-size: 0.85rem;
-            font-family: var(--font);
-            transition: all 0.3s;
-        }
-        .contact-detail:hover {
-            color: var(--white);
-            transform: translateX(4px);
-        }
-        .contact-detail i {
-            width: 20px;
-            color: var(--accent);
-        }
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        @media(max-width:900px) {
+            .contact-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
         .contact-form form {
             display: flex;
@@ -2690,6 +2523,11 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
+        }
+        @media(max-width:600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
         .form-field {
             background: rgba(20, 20, 20, 0.8);
@@ -2703,9 +2541,6 @@
             transition: all 0.3s;
             width: 100%;
             resize: none;
-        }
-        .form-field::placeholder {
-            color: var(--gray);
         }
         .form-field:focus {
             border-color: var(--accent);
@@ -2725,17 +2560,6 @@
             font-family: var(--font);
             position: relative;
             overflow: hidden;
-        }
-        .form-submit::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(106, 140, 255, 0.15), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .form-submit:hover::before {
-            opacity: 1;
         }
         .form-submit:hover {
             transform: translateY(-3px) scale(1.02);
@@ -2791,6 +2615,12 @@
             margin-bottom: 2.5rem;
             padding-bottom: 2.5rem;
             border-bottom: 1px solid var(--border);
+        }
+        @media(max-width:600px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
         .footer-brand {
             display: flex;
@@ -2854,11 +2684,6 @@
         .footer-bottom {
             text-align: center;
         }
-        footer p {
-            color: var(--gray);
-            font-size: 0.78rem;
-            font-family: var(--font);
-        }
         .footer-reg {
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.2);
@@ -2866,189 +2691,20 @@
             font-family: var(--font);
         }
 
-        /* ── RESPONSIVE ── */
-        @media(max-width:1000px) {
-            .hero-inner {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            .hero-logo-display {
-                order: -1;
-            }
-            .hero-logo-stage {
-                width: 280px;
-                height: 280px;
-            }
-            .hero-logo-frame {
-                width: 140px;
-                height: 140px;
-                border-radius: 20px;
-            }
-            .logo-ring-mid {
-                width: 220px;
-                height: 220px;
-            }
-            .culture-bento {
-                grid-template-columns: 1fr 1fr;
-            }
-            .bento-card.span-col,
-            .bento-card.tall {
-                grid-column: auto;
-                grid-row: auto;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .learn-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .fde-visual {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .fde-timeline {
-                padding-left: 1.5rem;
-            }
-            .fde-why-grid {
-                grid-template-columns: 1fr;
-            }
-            .loc-wrap {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .contact-inner {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .positions-info {
-                padding: 2rem;
-            }
-            .testimonial-slider {
-                grid-template-columns: 1fr;
-            }
-        }
-        @media(max-width:900px) {
-            .container {
-                padding: 0 1.5rem;
-            }
-            .nav-links {
-                display: none;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .orbit {
-                width: 380px;
-                height: 380px;
-                margin: -190px 0 0 -190px;
-            }
-            .orbital-wrapper {
-                width: min(500px, 90vw);
-                height: min(500px, 90vw);
-            }
-            .orb-n0 {
-                top: calc(190px - 48px);
-                left: calc(190px - 48px + 190px);
-            }
-            .orb-n1 {
-                top: calc(190px - 48px - 190px*0.777);
-                left: calc(190px - 48px + 190px*0.629);
-            }
-            .orb-n2 {
-                top: calc(190px - 48px - 190px*0.978);
-                left: calc(190px - 48px - 190px*0.208);
-            }
-            .orb-n3 {
-                top: calc(190px - 48px - 190px*0.434);
-                left: calc(190px - 48px - 190px*0.901);
-            }
-            .orb-n4 {
-                top: calc(190px - 48px + 190px*0.434);
-                left: calc(190px - 48px - 190px*0.901);
-            }
-            .orb-n5 {
-                top: calc(190px - 48px + 190px*0.978);
-                left: calc(190px - 48px - 190px*0.208);
-            }
-            .orb-n6 {
-                top: calc(190px - 48px + 190px*0.777);
-                left: calc(190px - 48px + 190px*0.629);
-            }
-            .orbital-center {
-                width: 150px;
-            }
-            .orbital-center-inner {
-                width: 140px;
-                height: 140px;
-            }
-            .ring-deco-3 {
-                width: 460px;
-                height: 460px;
-            }
-            .ring-deco-2 {
-                width: 280px;
-                height: 280px;
-            }
-            .careers-stats {
-                gap: 1.5rem;
-            }
-            .careers-hero-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .solutions-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-            .academy-grid {
-                grid-template-columns: 1fr;
-            }
-            .team-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        /* ── RESPONSIVE OVERRIDES ── */
+        @media(max-width:600px) {
             .whatsapp-float {
-                bottom: 90px;
-                right: 20px;
+                bottom: 80px;
+                right: 16px;
                 width: 48px;
                 height: 48px;
                 font-size: 1.6rem;
             }
-        }
-        @media(max-width:600px) {
-            h1 {
-                letter-spacing: -0.5px;
+            .whatsapp-card {
+                padding: 2rem 1.5rem;
             }
-            .blog-grid {
-                grid-template-columns: 1fr;
-            }
-            .tab-bar {
-                width: 100%;
-                overflow-x: auto;
-                border-radius: 16px;
-                padding: 0.3rem;
-            }
-            .why-grid {
-                grid-template-columns: 1fr;
-            }
-            .culture-bento {
-                grid-template-columns: 1fr;
-            }
-            .footer-top {
-                grid-template-columns: 1fr;
-            }
-            .learn-leaders {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .solutions-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .partners-label {
-                font-size: 2rem;
-            }
-            .team-grid {
-                grid-template-columns: 1fr;
+            .whatsapp-card .wa-icon {
+                font-size: 3rem;
             }
             .positions-info {
                 padding: 1.5rem;
@@ -3057,18 +2713,9 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .whatsapp-float {
-                bottom: 80px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.4rem;
-            }
-            .whatsapp-card {
-                padding: 2rem 1.5rem;
-            }
-            .whatsapp-card .wa-icon {
-                font-size: 3rem;
+            .learn-leaders {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -3100,7 +2747,13 @@
                 <div class="nav-brand-img" role="img" aria-label="OKAPI AI Logo"></div>
                 <span class="nav-logo-text">OKAPI <span>AI</span></span>
             </a>
-            <div class="nav-links">
+            <!-- Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
                 <a href="#hero" data-t="home">Home</a>
                 <a href="#about" data-t="about">About</a>
                 <a href="#services" data-t="services">Services</a>
@@ -3113,7 +2766,7 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- ══ HERO ══ -->
     <section id="hero">
         <canvas id="hero-canvas" class="section-canvas"></canvas>
         <div class="container">
@@ -3125,12 +2778,8 @@
                         <span class="typewriter" id="typewriter" data-t="hero-typewriter">AI Consulting · Voice AI · RAG Systems</span>
                     </p>
                     <div class="btn-row">
-                        <div class="magnetic-wrap">
-                            <a href="#contact" class="btn-white" data-magnetic data-t="hero-btn-1">Deploy AI →</a>
-                        </div>
-                        <div class="magnetic-wrap">
-                            <a href="#services" class="btn-ghost" data-magnetic data-t="hero-btn-2">Explore Services</a>
-                        </div>
+                        <div class="magnetic-wrap"><a href="#contact" class="btn-white" data-t="hero-btn-1">Deploy AI →</a></div>
+                        <div class="magnetic-wrap"><a href="#services" class="btn-ghost" data-t="hero-btn-2">Explore Services</a></div>
                     </div>
                 </div>
                 <div class="hero-logo-display">
@@ -3152,7 +2801,7 @@
         </div>
     </section>
 
-    <!-- PARTNERS -->
+    <!-- ══ PARTNERS ══ -->
     <section id="partners">
         <canvas id="partners-canvas"></canvas>
         <div class="partners-inner container">
@@ -3172,63 +2821,32 @@
         </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ══ ABOUT ══ -->
     <section id="about">
         <div class="container">
             <span class="section-label" data-t="about-label">About Us</span>
             <h2><span data-t="about-title-1">Building the future of AI</span><br /><span class="highlight"><span data-t="about-title-2">from Africa for the world</span></span></h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p data-t="about-p1">
-                        <strong>Okapi AI</strong> was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.
-                    </p>
-                    <p data-t="about-p2">
-                        Our founder first discovered the transformative potential of Artificial Intelligence while studying at the <strong>University of Johannesburg</strong>. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in <strong>2025</strong>, providing AI and technology training to high school students in Johannesburg.
-                    </p>
-                    <p data-t="about-p3">
-                        As demand for intelligent solutions continued to grow, <strong>Okapi AI was officially registered in South Africa in January 2026</strong> (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.
-                    </p>
-                    <p data-t="about-p4">
-                        Today, we are building one of the most trusted technology partners for people and organizations across Africa and beyond. Our mission is to deliver superior intelligence that enables better decision-making, drives innovation, improves productivity, and contributes to a safer and more prosperous future.
-                    </p>
+                    <p data-t="about-p1"><strong>Okapi AI</strong> was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.</p>
+                    <p data-t="about-p2">Our founder first discovered the transformative potential of Artificial Intelligence while studying at the <strong>University of Johannesburg</strong>. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in <strong>2025</strong>, providing AI and technology training to high school students in Johannesburg.</p>
+                    <p data-t="about-p3">As demand for intelligent solutions continued to grow, <strong>Okapi AI was officially registered in South Africa in January 2026</strong> (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.</p>
+                    <p data-t="about-p4">Today, we are building one of the most trusted technology partners for people and organizations across Africa and beyond. Our mission is to deliver superior intelligence that enables better decision-making, drives innovation, improves productivity, and contributes to a safer and more prosperous future.</p>
                     <div class="about-highlight">
-                        <span class="pillar-tag">Data</span>
-                        <span class="pillar-tag">AI</span>
-                        <span class="pillar-tag">Automation</span>
-                        <span class="pillar-tag">Security</span>
-                        <p style="margin-top:0.8rem;font-size:0.85rem;color:var(--gray-light);" data-t="about-p5">
-                            Our expertise spans these four pillars — transforming information into actionable insights, building intelligent systems, streamlining processes, and protecting digital assets.
-                        </p>
+                        <span class="pillar-tag">Data</span><span class="pillar-tag">AI</span><span class="pillar-tag">Automation</span><span class="pillar-tag">Security</span>
+                        <p style="margin-top:0.8rem;font-size:0.85rem;color:var(--gray-light);" data-t="about-p5">Our expertise spans these four pillars — transforming information into actionable insights, building intelligent systems, streamlining processes, and protecting digital assets.</p>
                     </div>
                 </div>
                 <div class="vision-mission">
-                    <div class="vm-card vm-card-vision">
-                        <div class="card-content">
-                            <h3 data-t="vision-title">Vision</h3>
-                            <p data-t="vision-text">To become the world's most trusted partner in delivering superior intelligence that transforms industries and improves lives.</p>
-                            <span class="vm-tag" data-t="vision-tag">2030 & beyond</span>
-                        </div>
-                    </div>
-                    <div class="vm-card vm-card-mission">
-                        <div class="card-content">
-                            <h3 data-t="mission-title">Mission</h3>
-                            <p data-t="mission-text">To empower humanity and organizations to solve important problems safely through technology.</p>
-                            <span class="vm-tag" data-t="mission-tag">Purpose-driven</span>
-                        </div>
-                    </div>
-                    <div class="vm-card vm-card-motto accent-border">
-                        <div class="card-content">
-                            <h3 data-t="motto-title">Motto</h3>
-                            <p style="font-size:1.1rem;font-weight:600;color:var(--white);" data-t="motto-text">Superior Intelligence for All.</p>
-                            <span class="vm-tag" data-t="motto-tag">Our north star</span>
-                        </div>
-                    </div>
+                    <div class="vm-card vm-card-vision"><div class="card-content"><h3 data-t="vision-title">Vision</h3><p data-t="vision-text">To become the world's most trusted partner in delivering superior intelligence that transforms industries and improves lives.</p><span class="vm-tag" data-t="vision-tag">2030 & beyond</span></div></div>
+                    <div class="vm-card vm-card-mission"><div class="card-content"><h3 data-t="mission-title">Mission</h3><p data-t="mission-text">To empower humanity and organizations to solve important problems safely through technology.</p><span class="vm-tag" data-t="mission-tag">Purpose-driven</span></div></div>
+                    <div class="vm-card vm-card-motto accent-border"><div class="card-content"><h3 data-t="motto-title">Motto</h3><p style="font-size:1.1rem;font-weight:600;color:var(--white);" data-t="motto-text">Superior Intelligence for All.</p><span class="vm-tag" data-t="motto-tag">Our north star</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- ══ SERVICES ══ -->
     <section id="services">
         <canvas id="services-canvas" class="section-canvas"></canvas>
         <div class="container">
@@ -3251,7 +2869,7 @@
         </div>
     </section>
 
-    <!-- SOLUTIONS -->
+    <!-- ══ SOLUTIONS ══ -->
     <section id="solutions">
         <div class="container">
             <div class="solutions-header">
@@ -3270,7 +2888,7 @@
         </div>
     </section>
 
-    <!-- LEARN -->
+    <!-- ══ LEARN ══ -->
     <section id="learn">
         <div class="container">
             <div class="learn-header">
@@ -3282,41 +2900,17 @@
                 <div class="learn-col">
                     <h3><i class="fas fa-book-open" style="margin-right:0.5rem;"></i> <span data-t="learn-free-title">Free Courses</span> <span class="badge-free" data-t="learn-free-badge">Free</span></h3>
                     <div class="course-list">
-                        <div class="course-item" data-color="blue">
-                            <span class="ci-icon"><i class="fas fa-desktop"></i></span>
-                            <span class="ci-name"><strong data-t="course-computer">Computer</strong> <span data-t="course-computer-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="purple">
-                            <span class="ci-icon"><i class="fas fa-brain"></i></span>
-                            <span class="ci-name"><strong data-t="course-ai">AI</strong> <span data-t="course-ai-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="green">
-                            <span class="ci-icon"><i class="fas fa-shield-alt"></i></span>
-                            <span class="ci-name"><strong data-t="course-security">Security</strong> <span data-t="course-security-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="orange">
-                            <span class="ci-icon"><i class="fas fa-chart-bar"></i></span>
-                            <span class="ci-name"><strong data-t="course-data">Data</strong> <span data-t="course-data-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
+                        <div class="course-item" data-color="blue"><span class="ci-icon"><i class="fas fa-desktop"></i></span><span class="ci-name"><strong data-t="course-computer">Computer</strong> <span data-t="course-computer-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
+                        <div class="course-item" data-color="purple"><span class="ci-icon"><i class="fas fa-brain"></i></span><span class="ci-name"><strong data-t="course-ai">AI</strong> <span data-t="course-ai-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
+                        <div class="course-item" data-color="green"><span class="ci-icon"><i class="fas fa-shield-alt"></i></span><span class="ci-name"><strong data-t="course-security">Security</strong> <span data-t="course-security-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
+                        <div class="course-item" data-color="orange"><span class="ci-icon"><i class="fas fa-chart-bar"></i></span><span class="ci-name"><strong data-t="course-data">Data</strong> <span data-t="course-data-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
                     </div>
                 </div>
                 <div class="learn-col">
                     <h3><i class="fas fa-briefcase" style="margin-right:0.5rem;"></i> <span data-t="learn-paid-title">Paid Courses</span> <span class="badge-paid" data-t="learn-paid-badge">Premium</span></h3>
                     <div class="course-list">
-                        <div class="course-item" data-color="teal">
-                            <span class="ci-icon"><i class="fas fa-building"></i></span>
-                            <span class="ci-name"><strong data-t="course-corporate">Corporate</strong> <span data-t="course-corporate-suffix">— AI, Data, Security, Risk, Product &amp; Project Management</span></span>
-                            <span class="ci-tag" data-t="course-paid-tag">Paid</span>
-                        </div>
-                        <div class="course-item" data-color="pink">
-                            <span class="ci-icon"><i class="fas fa-user-graduate"></i></span>
-                            <span class="ci-name"><strong data-t="course-individual">Individual</strong> <span data-t="course-individual-suffix">— AWS, Microsoft, Oracle, ISO &amp; Claude</span></span>
-                            <span class="ci-tag" data-t="course-paid-tag">Paid</span>
-                        </div>
+                        <div class="course-item" data-color="teal"><span class="ci-icon"><i class="fas fa-building"></i></span><span class="ci-name"><strong data-t="course-corporate">Corporate</strong> <span data-t="course-corporate-suffix">— AI, Data, Security, Risk, Product &amp; Project Management</span></span><span class="ci-tag" data-t="course-paid-tag">Paid</span></div>
+                        <div class="course-item" data-color="pink"><span class="ci-icon"><i class="fas fa-user-graduate"></i></span><span class="ci-name"><strong data-t="course-individual">Individual</strong> <span data-t="course-individual-suffix">— AWS, Microsoft, Oracle, ISO &amp; Claude</span></span><span class="ci-tag" data-t="course-paid-tag">Paid</span></div>
                     </div>
                     <div class="learn-leaders">
                         <span class="ll-label"><i class="fas fa-users" style="margin-right:0.4rem;"></i> <span data-t="leaders-label">Leaders</span></span>
@@ -3328,48 +2922,24 @@
         </div>
     </section>
 
-    <!-- FDE -->
+    <!-- ══ FDE ══ -->
     <section id="fde">
         <div class="container">
             <div class="fde-header">
                 <span class="section-label" data-t="fde-label">How we work</span>
                 <h2><span data-t="fde-title-1">Field-Driven</span> <span class="highlight"><span data-t="fde-title-2">Engineering</span></span></h2>
                 <div class="fde-intro">
-                    <p data-t="fde-intro-1">
-                        At Okapi AI, we operate using a <strong>Field-Driven Engineering (FDE)</strong> model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.
-                    </p>
-                    <p style="margin-top:0.8rem;" data-t="fde-intro-2">
-                        <span style="color:var(--white);font-weight:600;">FDE</span> is our way of ensuring that every product, system, and solution is built from <strong style="color:var(--white);">real problems, real users, and real environments</strong> — not assumptions.
-                    </p>
+                    <p data-t="fde-intro-1">At Okapi AI, we operate using a <strong>Field-Driven Engineering (FDE)</strong> model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.</p>
+                    <p style="margin-top:0.8rem;" data-t="fde-intro-2"><span style="color:var(--white);font-weight:600;">FDE</span> is our way of ensuring that every product, system, and solution is built from <strong style="color:var(--white);">real problems, real users, and real environments</strong> — not assumptions.</p>
                 </div>
             </div>
             <div class="fde-visual">
                 <div class="fde-timeline">
-                    <div class="fde-step" data-color="#fbbf24">
-                        <div class="step-num">01</div>
-                        <h4 data-t="fde-step1-title">Field Immersion</h4>
-                        <p data-t="fde-step1-desc">We embed ourselves in the environments we serve — logistics, finance, education, government, and enterprises — to deeply understand workflows, constraints, and pain points.</p>
-                    </div>
-                    <div class="fde-step" data-color="#3b82f6">
-                        <div class="step-num">02</div>
-                        <h4 data-t="fde-step2-title">Data-First Discovery</h4>
-                        <p data-t="fde-step2-desc">We collect and structure real operational data before building solutions, ensuring every AI system is grounded in truth, not assumptions.</p>
-                    </div>
-                    <div class="fde-step" data-color="#8b5cf6">
-                        <div class="step-num">03</div>
-                        <h4 data-t="fde-step3-title">Engineering in Context</h4>
-                        <p data-t="fde-step3-desc">Our AI, automation, and security systems are built directly around how users actually work in the field, not how we think they should work.</p>
-                    </div>
-                    <div class="fde-step" data-color="#22c55e">
-                        <div class="step-num">04</div>
-                        <h4 data-t="fde-step4-title">Rapid Iteration Loops</h4>
-                        <p data-t="fde-step4-desc">We continuously deploy, test, and refine solutions in live environments to ensure performance, reliability, and impact.</p>
-                    </div>
-                    <div class="fde-step" data-color="#ef4444">
-                        <div class="step-num">05</div>
-                        <h4 data-t="fde-step5-title">Embedded Intelligence</h4>
-                        <p data-t="fde-step5-desc">We don't just build tools — we integrate intelligence into the core of business operations, making systems smarter over time.</p>
-                    </div>
+                    <div class="fde-step" data-color="#fbbf24"><div class="step-num">01</div><h4 data-t="fde-step1-title">Field Immersion</h4><p data-t="fde-step1-desc">We embed ourselves in the environments we serve — logistics, finance, education, government, and enterprises — to deeply understand workflows, constraints, and pain points.</p></div>
+                    <div class="fde-step" data-color="#3b82f6"><div class="step-num">02</div><h4 data-t="fde-step2-title">Data-First Discovery</h4><p data-t="fde-step2-desc">We collect and structure real operational data before building solutions, ensuring every AI system is grounded in truth, not assumptions.</p></div>
+                    <div class="fde-step" data-color="#8b5cf6"><div class="step-num">03</div><h4 data-t="fde-step3-title">Engineering in Context</h4><p data-t="fde-step3-desc">Our AI, automation, and security systems are built directly around how users actually work in the field, not how we think they should work.</p></div>
+                    <div class="fde-step" data-color="#22c55e"><div class="step-num">04</div><h4 data-t="fde-step4-title">Rapid Iteration Loops</h4><p data-t="fde-step4-desc">We continuously deploy, test, and refine solutions in live environments to ensure performance, reliability, and impact.</p></div>
+                    <div class="fde-step" data-color="#ef4444"><div class="step-num">05</div><h4 data-t="fde-step5-title">Embedded Intelligence</h4><p data-t="fde-step5-desc">We don't just build tools — we integrate intelligence into the core of business operations, making systems smarter over time.</p></div>
                 </div>
                 <div class="fde-why">
                     <h3 data-t="fde-why-title">Why FDE Matters</h3>
@@ -3385,7 +2955,7 @@
         </div>
     </section>
 
-    <!-- TEAM -->
+    <!-- ══ TEAM ══ -->
     <section id="team">
         <div class="container">
             <div class="team-header">
@@ -3394,74 +2964,27 @@
                 <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="team-sub">Driven by a shared passion for intelligence without limits.</p>
             </div>
             <div class="team-grid">
-                <div class="team-card">
-                    <div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div>
-                    <h4 data-t="team-name-1">Idriss Kouyateh</h4>
-                    <div class="role" data-t="team-role-1">Founder</div>
-                    <div class="bio" data-t="team-bio-1">Discovered AI's potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa's next-gen AI partner.</div>
-                    <div class="social-icons">
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="team-card">
-                    <div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div>
-                    <h4 data-t="team-name-2">Paki Lawu</h4>
-                    <div class="role" data-t="team-role-2">Co-Founder</div>
-                    <div class="bio" data-t="team-bio-2">Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.</div>
-                    <div class="social-icons">
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="team-card partner-card">
-                    <div class="avatar" style="background:linear-gradient(135deg,rgba(106,140,255,0.05),rgba(167,139,250,0.05));border-style:dashed;">
-                        <span class="avatar-placeholder"><i class="fas fa-globe"></i></span>
-                    </div>
-                    <h4 data-t="team-name-3">Trusted Partners</h4>
-                    <div class="role" data-t="team-role-3">Outsourced Talent</div>
-                    <div class="bio" data-t="team-bio-3">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div>
-                    <span class="outsource-tag" data-t="team-tag">✦ Global network</span>
-                </div>
+                <div class="team-card"><div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div><h4 data-t="team-name-1">Idriss Kouyateh</h4><div class="role" data-t="team-role-1">Founder</div><div class="bio" data-t="team-bio-1">Discovered AI's potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa's next-gen AI partner.</div><div class="social-icons"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div></div>
+                <div class="team-card"><div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div><h4 data-t="team-name-2">Paki Lawu</h4><div class="role" data-t="team-role-2">Co-Founder</div><div class="bio" data-t="team-bio-2">Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.</div><div class="social-icons"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div></div>
+                <div class="team-card partner-card"><div class="avatar" style="background:linear-gradient(135deg,rgba(106,140,255,0.05),rgba(167,139,250,0.05));border-style:dashed;"><span class="avatar-placeholder"><i class="fas fa-globe"></i></span></div><h4 data-t="team-name-3">Trusted Partners</h4><div class="role" data-t="team-role-3">Outsourced Talent</div><div class="bio" data-t="team-bio-3">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div><span class="outsource-tag" data-t="team-tag">✦ Global network</span></div>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- ══ TESTIMONIALS ══ -->
     <section id="testimonials">
         <div class="container">
             <span class="section-label" data-t="testimonials-label">Testimonials</span>
             <h2><span data-t="testimonials-title-1">What our clients</span> <span class="highlight"><span data-t="testimonials-title-2">say</span></span></h2>
             <div class="testimonial-slider">
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-1">Okapi AI helped us automate 80% of our customer queries with their voice AI solution. The impact on our operational efficiency has been incredible.</blockquote>
-                    <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-1-name">Jean-Claude M.</div><div class="title" data-t="testimonial-1-title">CTO, Kinshasa Bank</div></div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-2">Their RAG systems transformed how we handle insurance claims. We went from weeks to hours in processing time. Truly game-changing.</blockquote>
-                    <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-2-name">Sarah N.</div><div class="title" data-t="testimonial-2-title">Head of Innovation, InsureTech SA</div></div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-3">The FDE model is exactly what we needed. They didn't just build a solution — they lived our problems first. That's the difference.</blockquote>
-                    <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-3-name">Michael O.</div><div class="title" data-t="testimonial-3-title">CEO, E-Commerce Africa</div></div>
-                    </div>
-                </div>
+                <div class="testimonial-card"><div class="quote-icon"><i class="fas fa-quote-left"></i></div><blockquote data-t="testimonial-1">Okapi AI helped us automate 80% of our customer queries with their voice AI solution. The impact on our operational efficiency has been incredible.</blockquote><div class="author"><div class="avatar-sm"><i class="fas fa-user"></i></div><div class="info"><div class="name" data-t="testimonial-1-name">Jean-Claude M.</div><div class="title" data-t="testimonial-1-title">CTO, Kinshasa Bank</div></div></div></div>
+                <div class="testimonial-card"><div class="quote-icon"><i class="fas fa-quote-left"></i></div><blockquote data-t="testimonial-2">Their RAG systems transformed how we handle insurance claims. We went from weeks to hours in processing time. Truly game-changing.</blockquote><div class="author"><div class="avatar-sm"><i class="fas fa-user"></i></div><div class="info"><div class="name" data-t="testimonial-2-name">Sarah N.</div><div class="title" data-t="testimonial-2-title">Head of Innovation, InsureTech SA</div></div></div></div>
+                <div class="testimonial-card"><div class="quote-icon"><i class="fas fa-quote-left"></i></div><blockquote data-t="testimonial-3">The FDE model is exactly what we needed. They didn't just build a solution — they lived our problems first. That's the difference.</blockquote><div class="author"><div class="avatar-sm"><i class="fas fa-user"></i></div><div class="info"><div class="name" data-t="testimonial-3-name">Michael O.</div><div class="title" data-t="testimonial-3-title">CEO, E-Commerce Africa</div></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- BLOG -->
+    <!-- ══ BLOG ══ -->
     <section id="blog">
         <div class="container">
             <span class="section-label" data-t="blog-label">From our team</span>
@@ -3471,15 +2994,12 @@
         </div>
     </section>
 
-    <!-- CAREERS -->
+    <!-- ══ CAREERS ══ -->
     <section id="careers">
         <canvas id="careers-canvas"></canvas>
         <div class="careers-wrapper container">
             <div class="careers-hero-row">
-                <div>
-                    <span class="section-label" data-t="careers-label">Join the team</span>
-                    <h2><span data-t="careers-title-1">Build the future of AI</span><br /><span class="highlight"><span data-t="careers-title-2">in Africa &amp; beyond</span></span></h2>
-                </div>
+                <div><span class="section-label" data-t="careers-label">Join the team</span><h2><span data-t="careers-title-1">Build the future of AI</span><br /><span class="highlight"><span data-t="careers-title-2">in Africa &amp; beyond</span></span></h2></div>
                 <div class="careers-stats">
                     <div class="careers-stat"><span class="stat-num" data-count="2">0</span><div class="stat-lbl" data-t="careers-stat-1">Global Hubs</div></div>
                     <div class="careers-stat"><span class="stat-num" data-count="100">0</span><div class="stat-lbl" data-t="careers-stat-2">% Remote-first</div></div>
@@ -3517,19 +3037,14 @@
                     <h3 data-t="positions-title">Work with us — Full-time &amp; Remote</h3>
                     <p data-t="positions-p1">At Okapi AI, we're building the future of intelligence from Africa for the world. We're looking for passionate, mission-driven individuals who want to solve hard problems that matter.</p>
                     <p style="margin-top:0.8rem;" data-t="positions-p2">We offer <strong>full-time, remote-first</strong> positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.</p>
-                    <div class="pi-tags">
-                        <span class="pi-tag" data-t="positions-tag-1">🌍 Remote-first</span>
-                        <span class="pi-tag" data-t="positions-tag-2">⏳ Full-time</span>
-                        <span class="pi-tag" data-t="positions-tag-3">💡 Mission-driven</span>
-                        <span class="pi-tag" data-t="positions-tag-4">📈 Growth-focused</span>
-                    </div>
+                    <div class="pi-tags"><span class="pi-tag" data-t="positions-tag-1">🌍 Remote-first</span><span class="pi-tag" data-t="positions-tag-2">⏳ Full-time</span><span class="pi-tag" data-t="positions-tag-3">💡 Mission-driven</span><span class="pi-tag" data-t="positions-tag-4">📈 Growth-focused</span></div>
                     <p style="margin-top:1.5rem;color:var(--gray-light);" data-t="positions-note"><em>We're not currently listing specific roles — but we're always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.</em></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LOCATIONS -->
+    <!-- ══ LOCATIONS ══ -->
     <section id="locations">
         <div class="container">
             <div class="loc-wrap">
@@ -3537,18 +3052,8 @@
                     <span class="section-label" data-t="locations-label-1">Where we are</span>
                     <h2><span data-t="locations-title-1">Global</span> <span class="highlight"><span data-t="locations-title-2">Hubs</span></span></h2>
                     <div style="margin-top:2rem;">
-                        <div class="loc-card hub-card">
-                            <div class="hub-pin"><i class="fas fa-map-pin"></i></div>
-                            <h3 data-t="loc-1-name">BedfordView</h3>
-                            <p data-t="loc-1-address">Johannesburg, South Africa</p>
-                            <p class="hub-desc" data-t="loc-1-desc">Primary Operations &amp; Sales Hub</p>
-                        </div>
-                        <div class="loc-card hub-card">
-                            <div class="hub-pin"><i class="fas fa-map-pin"></i></div>
-                            <h3 data-t="loc-2-name">Cité Verte</h3>
-                            <p data-t="loc-2-address">Kinshasa, DRC</p>
-                            <p class="hub-desc" data-t="loc-2-desc">Central Africa Centre of Excellence</p>
-                        </div>
+                        <div class="loc-card hub-card"><div class="hub-pin"><i class="fas fa-map-pin"></i></div><h3 data-t="loc-1-name">BedfordView</h3><p data-t="loc-1-address">Johannesburg, South Africa</p><p class="hub-desc" data-t="loc-1-desc">Primary Operations &amp; Sales Hub</p></div>
+                        <div class="loc-card hub-card"><div class="hub-pin"><i class="fas fa-map-pin"></i></div><h3 data-t="loc-2-name">Cité Verte</h3><p data-t="loc-2-address">Kinshasa, DRC</p><p class="hub-desc" data-t="loc-2-desc">Central Africa Centre of Excellence</p></div>
                     </div>
                 </div>
                 <div>
@@ -3556,33 +3061,31 @@
                     <h2><span data-t="locations-title-3">OKAPI</span> <span class="highlight"><span data-t="locations-title-4">Academy</span></span></h2>
                     <p style="color:var(--gray);margin-top:0.6rem;font-size:0.88rem;line-height:1.7;font-family:var(--font);" data-t="locations-academy-sub">Practical, bilingual AI education for individuals and enterprises across Africa.</p>
                     <div class="academy-grid">
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/IT_Training.jpg" alt="IT Training" /></div><span class="academy-label" data-t="academy-1">IT Training</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI-Literacy.jpg" alt="AI Literacy" /></div><span class="academy-label" data-t="academy-2">AI Literacy</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Leadership-Training.jpg" alt="Leadership" /></div><span class="academy-label" data-t="academy-3">Leadership</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/digitalskills.jpg" alt="Digital Skills" /></div><span class="academy-label" data-t="academy-4">Digital Skills</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Prompt_Engineering.jpg" alt="Prompt Engineering" /></div><span class="academy-label" data-t="academy-5">Prompt Engineering</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI_for_Business.webp" alt="AI for Business" /></div><span class="academy-label" data-t="academy-6">AI for Business</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/IT_Training.jpg?v=2" alt="IT Training" /></div><span class="academy-label" data-t="academy-1">IT Training</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI-Literacy.jpg?v=2" alt="AI Literacy" /></div><span class="academy-label" data-t="academy-2">AI Literacy</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Leadership-Training.jpg?v=2" alt="Leadership" /></div><span class="academy-label" data-t="academy-3">Leadership</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/digitalskills.jpg?v=2" alt="Digital Skills" /></div><span class="academy-label" data-t="academy-4">Digital Skills</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Prompt_Engineering.jpg?v=2" alt="Prompt Engineering" /></div><span class="academy-label" data-t="academy-5">Prompt Engineering</span></div>
+                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI_for_Business.webp?v=2" alt="AI for Business" /></div><span class="academy-label" data-t="academy-6">AI for Business</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHATSAPP SECTION -->
+    <!-- ══ WHATSAPP SECTION ══ -->
     <section id="whatsapp-section">
         <div class="container">
             <div class="whatsapp-card">
                 <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
                 <h2><span data-t="wa-title">Chat with us on WhatsApp</span></h2>
                 <p data-t="wa-desc">Prefer a quick conversation? Reach out to us directly on WhatsApp. Our team is ready to answer your questions and discuss how we can help you.</p>
-                <a href="https://wa.me/27637589173" target="_blank" class="btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span data-t="wa-btn">Message us now</span>
-                </a>
+                <a href="https://wa.me/27637589173" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> <span data-t="wa-btn">Message us now</span></a>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- ══ CONTACT ══ -->
     <section id="contact">
         <div class="contact-glow"></div>
         <div class="container">
@@ -3614,7 +3117,7 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ══ CTA ══ -->
     <section id="cta">
         <div class="cta-ring" style="width:300px;height:300px;"></div>
         <div class="cta-ring" style="width:550px;height:550px;animation:spin-slow 25s linear infinite;"></div>
@@ -3623,20 +3126,15 @@
             <span class="section-label" data-t="cta-label">Ready?</span>
             <h2><span data-t="cta-title-1">Scale with</span> <span class="highlight"><span data-t="cta-title-2">AI today</span></span></h2>
             <p data-t="cta-desc">One conversation can change how your business operates forever.</p>
-            <div class="magnetic-wrap">
-                <a href="#contact" class="btn-white" data-magnetic data-t="cta-btn">Contact Our Team →</a>
-            </div>
+            <div class="magnetic-wrap"><a href="#contact" class="btn-white" data-t="cta-btn">Contact Our Team →</a></div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ══ FOOTER ══ -->
     <footer>
         <div class="footer-inner">
             <div class="footer-top">
-                <div class="footer-brand">
-                    <div class="footer-brand-img" role="img" aria-label="OKAPI AI Logo"></div>
-                    <span class="footer-logo">OKAPI <span>AI</span></span>
-                </div>
+                <div class="footer-brand"><div class="footer-brand-img" role="img" aria-label="OKAPI AI Logo"></div><span class="footer-logo">OKAPI <span>AI</span></span></div>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/company/okapioi/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://www.instagram.com/okapi.oi/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -3655,9 +3153,7 @@
     </script>
 
     <script>
-        /* ════════════════════════════════════════
-           TRANSLATION SYSTEM
-        ════════════════════════════════════════ */
+        // ── TRANSLATION SYSTEM ──
         const translations = {
             en: {
                 'home': 'Home',
@@ -4084,120 +3580,85 @@
             elements.forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (translations[lang] && translations[lang][key]) {
-                    // Preserve HTML if needed
-                    if (el.innerHTML && el.innerHTML.includes('<')) {
-                        // For elements with nested HTML, we need to be careful
-                        // We'll use a simpler approach for now
-                        const textOnly = el.textContent;
-                        const translated = translations[lang][key];
-                        if (translated) {
-                            // If the element has child elements, we only replace text nodes
-                            if (el.children.length > 0) {
-                                // For complex elements, we set innerHTML carefully
-                                // But for safety, we use textContent for simple ones
-                                el.textContent = translated;
-                            } else {
-                                el.textContent = translated;
-                            }
-                        }
-                    } else {
-                        const translated = translations[lang][key];
-                        if (translated) {
-                            el.textContent = translated;
-                        }
-                    }
+                    el.textContent = translations[lang][key];
                 }
             });
-
-            // Special handling for typewriter
-            const typewriterEl = document.querySelector('.typewriter');
-            if (typewriterEl) {
-                const key = typewriterEl.getAttribute('data-t');
-                if (translations[lang] && translations[lang][key]) {
-                    // Update the typewriter's content without breaking the animation
-                    const currentText = translations[lang][key];
-                    // We'll update the typewriter data
-                    if (window.typewriterPhrases) {
-                        // Update the phrases array
-                        const newPhrases = currentText.split(' · ');
-                        // This is a bit hacky but works for the demo
-                        // The typewriter will restart with new text
-                        const el = document.getElementById('typewriter');
-                        if (el) {
-                            // Reset the typewriter with new phrases
-                            // We'll reinitialize it
-                            const oldIdx = window._typewriterIdx || 0;
-                            const oldCharIdx = window._typewriterCharIdx || 0;
-                            const oldDeleting = window._typewriterDeleting || false;
-                            // Force restart
-                            if (window._typewriterTimeout) {
-                                clearTimeout(window._typewriterTimeout);
-                            }
-                            el.textContent = '';
-                            // Reinitialize with new phrases
-                            const phrases = currentText.split(' · ');
-                            // We need to store the phrases globally
-                            window._typewriterPhrases = phrases;
-                            window._typewriterIdx = 0;
-                            window._typewriterCharIdx = 0;
-                            window._typewriterDeleting = false;
-                            // Restart the typewriter
-                            if (typeof typewriterRestart === 'function') {
-                                typewriterRestart();
-                            } else {
-                                // Simple restart
-                                let idx = 0,
-                                    charIdx = 0,
-                                    isDeleting = false;
-                                const fullPhrases = phrases;
-                                let currentText2 = '';
-                                let timeoutId = null;
-
-                                function type2() {
-                                    const full = fullPhrases[idx];
-                                    if (!isDeleting) {
-                                        charIdx++;
-                                        currentText2 = full.substring(0, charIdx);
-                                        el.textContent = currentText2;
-                                        if (charIdx === full.length) {
-                                            isDeleting = true;
-                                            timeoutId = setTimeout(type2, 2000);
-                                            return;
-                                        }
-                                    } else {
-                                        charIdx--;
-                                        currentText2 = full.substring(0, charIdx);
-                                        el.textContent = currentText2;
-                                        if (charIdx === 0) {
-                                            isDeleting = false;
-                                            idx = (idx + 1) % fullPhrases.length;
-                                            timeoutId = setTimeout(type2, 500);
-                                            return;
-                                        }
-                                    }
-                                    const speed = isDeleting ? 50 : 80;
-                                    timeoutId = setTimeout(type2, speed);
-                                }
-                                type2();
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Update nav link translations - they use data-t
+            // Update nav links
             document.querySelectorAll('.nav-links a[data-t]').forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (translations[lang] && translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
-
             currentLang = lang;
             document.getElementById('langToggle').textContent = lang === 'en' ? 'FR' : 'EN';
         }
 
-        // Initialize typewriter
+        document.getElementById('langToggle').addEventListener('click', function() {
+            const newLang = currentLang === 'en' ? 'fr' : 'en';
+            translatePage(newLang);
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+        // Close on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ── PERFORMANCE DETECTION ──
+        const isLowPerf = () => {
+            if (navigator.deviceMemory && navigator.deviceMemory < 4) return true;
+            if (navigator.getBattery) {
+                return navigator.getBattery().then(battery => battery.level < 0.2 && !battery.charging);
+            }
+            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+        };
+
+        let lowPerf = false;
+        isLowPerf().then(result => { lowPerf = result; });
+
+        // ── SCROLL PROGRESS & BACK TO TOP ──
+        document.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+
+            const backBtn = document.getElementById('backToTop');
+            if (winScroll > 500) backBtn.classList.add('visible');
+            else backBtn.classList.remove('visible');
+        });
+        document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // ── NAVBAR SCROLL ──
+        document.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 60) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // ── MAGNETIC BUTTONS ──
+        document.querySelectorAll('[data-magnetic]').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const strength = 12;
+                btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+        });
+
+        // ── TYPEWRITER ──
         (function() {
             const el = document.getElementById('typewriter');
             if (!el) return;
@@ -4238,7 +3699,7 @@
             }
             type();
 
-            // Store for restart
+            // Expose restart for translation
             window.typewriterRestart = function() {
                 if (timeoutId) clearTimeout(timeoutId);
                 idx = 0;
@@ -4247,99 +3708,9 @@
                 currentText = '';
                 type();
             };
-            window._typewriterIdx = idx;
-            window._typewriterCharIdx = charIdx;
-            window._typewriterDeleting = isDeleting;
-            window._typewriterTimeout = timeoutId;
         })();
 
-        // Language toggle
-        document.getElementById('langToggle').addEventListener('click', function() {
-            const newLang = currentLang === 'en' ? 'fr' : 'en';
-            translatePage(newLang);
-        });
-
-        // Ensure data-t attributes are set on navbar links
-        document.querySelectorAll('.nav-links a').forEach((el, idx) => {
-            if (!el.hasAttribute('data-t')) {
-                const labels = ['home', 'about', 'services', 'solutions', 'learn', 'careers', 'contact'];
-                if (idx < labels.length) {
-                    el.setAttribute('data-t', labels[idx]);
-                }
-            }
-        });
-
-        // Set default language
-        translatePage('en');
-
-        /* ════════════════════════════════════════
-           PERFORMANCE DETECTION
-        ════════════════════════════════════════ */
-        const isLowPerf = () => {
-            if (navigator.deviceMemory && navigator.deviceMemory < 4) return true;
-            if (navigator.getBattery) {
-                return navigator.getBattery().then(battery => battery.level < 0.2 && !battery.charging);
-            }
-            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-        };
-
-        let lowPerf = false;
-        isLowPerf().then(result => { lowPerf = result; });
-
-        /* ════════════════════════════════════════
-           SCROLL PROGRESS & BACK TO TOP
-        ════════════════════════════════════════ */
-        document.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + '%';
-
-            const backBtn = document.getElementById('backToTop');
-            if (winScroll > 500) {
-                backBtn.classList.add('visible');
-            } else {
-                backBtn.classList.remove('visible');
-            }
-        });
-
-        document.getElementById('backToTop').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        /* ════════════════════════════════════════
-           NAVBAR SCROLL
-        ════════════════════════════════════════ */
-        document.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 60) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        /* ════════════════════════════════════════
-           MAGNETIC BUTTONS
-        ════════════════════════════════════════ */
-        (function() {
-            document.querySelectorAll('[data-magnetic]').forEach(btn => {
-                btn.addEventListener('mousemove', e => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    const strength = 12;
-                    btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
-                });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = '';
-                });
-            });
-        })();
-
-        /* ════════════════════════════════════════
-           HERO 3D LOGO
-        ════════════════════════════════════════ */
+        // ── HERO 3D LOGO ──
         (function() {
             const stage = document.getElementById('heroLogoStage');
             const frame = document.getElementById('heroLogoFrame');
@@ -4359,9 +3730,7 @@
             });
         })();
 
-        /* ════════════════════════════════════════
-           3D TILT ON CARDS (throttled)
-        ════════════════════════════════════════ */
+        // ── 3D TILT ON CARDS ──
         (function() {
             const cards = document.querySelectorAll('.vm-card, .team-card, .sol-card');
             cards.forEach(card => {
@@ -4369,18 +3738,13 @@
                     const rect = card.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    card.style.transform =
-                        `translateY(-4px) rotateX(${y * 6}deg) rotateY(${x * 6}deg) scale(1.02)`;
+                    card.style.transform = `translateY(-4px) rotateX(${y * 6}deg) rotateY(${x * 6}deg) scale(1.02)`;
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = '';
-                });
+                card.addEventListener('mouseleave', () => { card.style.transform = ''; });
             });
         })();
 
-        /* ════════════════════════════════════════
-           THREE.JS HELPER — dispose renderer on scroll out
-        ════════════════════════════════════════ */
+        // ── THREE.JS HELPER with proper disposal and FPS limit ──
         function createSafeRenderer(canvasId, setupFn) {
             const canvas = document.getElementById(canvasId);
             if (!canvas) return null;
@@ -4390,6 +3754,8 @@
             let scene, camera, renderer, animId;
             let active = true;
             let isVisible = true;
+            let frameCount = 0;
+            const FPS_LIMIT = 30; // throttle to 30 fps to reduce GPU load
 
             const init = () => {
                 if (lowPerf && canvasId !== 'hero-canvas') {
@@ -4402,18 +3768,21 @@
                 camera = new THREE.PerspectiveCamera(60, W() / H(), 0.1, 1000);
                 const rendererOpts = { canvas, alpha: true, antialias: false };
                 renderer = new THREE.WebGLRenderer(rendererOpts);
-                renderer.setPixelRatio(Math.min(devicePixelRatio, lowPerf ? 1 : 1));
+                renderer.setPixelRatio(Math.min(devicePixelRatio, lowPerf ? 1 : 1.5));
                 renderer.setSize(W(), H());
-                const result = setupFn(scene, camera, renderer, W, H, lowPerf);
+                const result = setupFn(scene, camera, renderer, W, H, lowPerf, section);
                 if (result && result.animate) {
                     const animate = () => {
                         if (!active || !isVisible) {
                             animId = requestAnimationFrame(animate);
                             return;
                         }
+                        frameCount++;
+                        if (frameCount % 2 === 0) { // throttle to ~30fps
+                            result.animate(scene, camera, renderer);
+                            renderer.render(scene, camera);
+                        }
                         animId = requestAnimationFrame(animate);
-                        result.animate(scene, camera, renderer);
-                        renderer.render(scene, camera);
                     };
                     animate();
                 }
@@ -4428,7 +3797,7 @@
                     renderer = null;
                 }
                 if (scene) {
-                    scene.traverse((child) => {
+                    scene.traverse(child => {
                         if (child.isMesh) {
                             child.geometry && child.geometry.dispose();
                             child.material && child.material.dispose();
@@ -4439,13 +3808,7 @@
                 camera = null;
             };
 
-            // Visibility change — pause when tab is hidden
-            const visibilityHandler = () => {
-                isVisible = !document.hidden;
-                if (!isVisible && renderer) {
-                    // Pause rendering
-                }
-            };
+            const visibilityHandler = () => { isVisible = !document.hidden; };
             document.addEventListener('visibilitychange', visibilityHandler);
 
             const observer = new IntersectionObserver((entries) => {
@@ -4456,7 +3819,6 @@
                             isVisible = true;
                             init();
                         } else if (renderer && active) {
-                            // Resume if paused
                             isVisible = true;
                         }
                     } else {
@@ -4468,18 +3830,14 @@
             }, { threshold: 0.05 });
             observer.observe(section);
 
-            // Initial setup
             const result = init();
-
             return { cleanup, section, result };
         }
 
-        /* ════════════════════════════════════════
-           HERO CANVAS — reduced particles
-        ════════════════════════════════════════ */
-        createSafeRenderer('hero-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        // ── HERO CANVAS ──
+        createSafeRenderer('hero-canvas', (scene, camera, renderer, W, H, lowPerf, section) => {
             camera.position.z = 28;
-            const count = lowPerf ? 200 : 400;
+            const count = lowPerf ? 150 : 300;
             const positions = new Float32Array(count * 3);
             const colors = new Float32Array(count * 3);
             for (let i = 0; i < count; i++) {
@@ -4533,10 +3891,8 @@
             };
         });
 
-        /* ════════════════════════════════════════
-           PARTNERS CANVAS — reduced globe
-        ════════════════════════════════════════ */
-        createSafeRenderer('partners-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        // ── PARTNERS CANVAS ──
+        createSafeRenderer('partners-canvas', (scene, camera, renderer, W, H, lowPerf, section) => {
             camera.position.z = 6;
             const segs = lowPerf ? 10 : 14;
             const globeMat = new THREE.MeshPhongMaterial({
@@ -4549,7 +3905,6 @@
             });
             const globe = new THREE.Mesh(new THREE.SphereGeometry(2, segs, segs), globeMat);
             scene.add(globe);
-
             const inner = new THREE.Mesh(new THREE.SphereGeometry(1.6, 6, 6), new THREE.MeshBasicMaterial({
                 color: 0x2255cc,
                 wireframe: true,
@@ -4558,7 +3913,7 @@
             }));
             scene.add(inner);
 
-            const sN = lowPerf ? 100 : 200;
+            const sN = lowPerf ? 80 : 150;
             const sPos = new Float32Array(sN * 3);
             for (let i = 0; i < sN; i++) {
                 const th = Math.random() * Math.PI * 2,
@@ -4631,10 +3986,8 @@
             };
         });
 
-        /* ════════════════════════════════════════
-           SERVICES CANVAS — reduced
-        ════════════════════════════════════════ */
-        createSafeRenderer('services-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        // ── SERVICES CANVAS ──
+        createSafeRenderer('services-canvas', (scene, camera, renderer, W, H, lowPerf, section) => {
             camera.position.z = 20;
             const grid = new THREE.Mesh(new THREE.PlaneGeometry(50, 50, 8, 8), new THREE.MeshBasicMaterial({
                 color: 0x181818,
@@ -4646,7 +3999,7 @@
             grid.position.y = -8;
             scene.add(grid);
 
-            const count = lowPerf ? 50 : 80;
+            const count = lowPerf ? 40 : 60;
             const pos = new Float32Array(count * 3);
             for (let i = 0; i < count; i++) {
                 pos[i * 3] = (Math.random() - .5) * 50;
@@ -4687,10 +4040,8 @@
             };
         });
 
-        /* ════════════════════════════════════════
-           CAREERS CANVAS — reduced rings
-        ════════════════════════════════════════ */
-        createSafeRenderer('careers-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        // ── CAREERS CANVAS ──
+        createSafeRenderer('careers-canvas', (scene, camera, renderer, W, H, lowPerf, section) => {
             camera.position.z = 10;
             const segs = lowPerf ? 16 : 24;
             const mr = (r, c, op) => {
@@ -4708,7 +4059,7 @@
             r3.rotation.z = Math.PI / 2;
             r4.rotation.x = Math.PI / 3;
 
-            const count = lowPerf ? 150 : 300;
+            const count = lowPerf ? 120 : 200;
             const pos = new Float32Array(count * 3);
             for (let i = 0; i < count; i++) {
                 pos[i * 3] = (Math.random() - .5) * 14;
@@ -4761,9 +4112,7 @@
             };
         });
 
-        /* ════════════════════════════════════════
-           PARTNERS STRIP
-        ════════════════════════════════════════ */
+        // ── PARTNERS STRIP ──
         (function() {
             const partners = [
                 { name: 'GEMINI', logo: 'images/Geminilogo.jpg' },
@@ -4805,15 +4154,12 @@
                 track.style.setProperty('--track-width', `-${halfW}px`);
             });
 
-            let offset = 0,
-                isPaused = false;
+            let offset = 0;
             const SCROLL_STEP = 180;
 
             function scrollTo(delta) {
-                isPaused = true;
                 track.classList.add('manual-paused');
-                const style = getComputedStyle(track);
-                const matrix = new DOMMatrix(style.transform);
+                const matrix = new DOMMatrix(getComputedStyle(track).transform);
                 offset = matrix.m41 + delta;
                 const halfW = track.scrollWidth / 2;
                 if (offset > 0) offset = -halfW + offset;
@@ -4822,7 +4168,6 @@
                 track.style.transform = `translateX(${offset}px)`;
                 setTimeout(() => {
                     track.style.transition = '';
-                    isPaused = false;
                     track.classList.remove('manual-paused');
                 }, 2000);
             }
@@ -4842,17 +4187,9 @@
             window.addEventListener('mouseup', () => { if (!isDragging) return;
                 isDragging = false;
                 track.classList.remove('dragging'); });
-            track.addEventListener('touchstart', e => { dragStart = e.touches[0].clientX;
-                isDragging = true; const m = new DOMMatrix(getComputedStyle(track).transform);
-                dragOffset = m.m41; }, { passive: true });
-            window.addEventListener('touchmove', e => { if (!isDragging) return; const dx = e.touches[0].clientX - dragStart;
-                track.style.transform = `translateX(${dragOffset + dx}px)`; }, { passive: true });
-            window.addEventListener('touchend', () => { isDragging = false; });
         })();
 
-        /* ════════════════════════════════════════
-           ORBITAL SERVICES
-        ════════════════════════════════════════ */
+        // ── ORBITAL SERVICES ──
         (function() {
             const services = [
                 { label: 'AI Consulting', desc: 'AI Consulting', logo: 'images/AI_Consulting.jpg', emoji: '💡' },
@@ -4861,8 +4198,7 @@
                 { label: 'Automation', desc: 'Automation', logo: 'images/Automation_logo.jpg', emoji: '⚙️' },
                 { label: 'RAG Systems', desc: 'RAG Systems', logo: 'images/RAG_Systems.png', emoji: '📚' },
                 { label: 'AI SDR', desc: 'AI SDR', logo: 'images/AISDR.webp', emoji: '📈' },
-                { label: 'Enterprise AI', desc: 'Enterprise AI', logo: 'images/Enterprise_AI.jpg',
-                    emoji: '🏢' }
+                { label: 'Enterprise AI', desc: 'Enterprise AI', logo: 'images/Enterprise_AI.jpg', emoji: '🏢' }
             ];
 
             const orbit = document.getElementById('orbit');
@@ -4892,9 +4228,7 @@
             });
         })();
 
-        /* ════════════════════════════════════════
-           BLOG DATA
-        ════════════════════════════════════════ */
+        // ── BLOG DATA ──
         (function() {
             const blogs = [
                 { tag: 'AI Trends', title: 'How Agentic AI is Rewriting Enterprise Automation',
@@ -4917,20 +4251,11 @@
                     date: 'Jan 2026', read: '5 min' }
             ];
             document.getElementById('blogGrid').innerHTML = blogs.map(b =>
-                `
-        <div class="blog-card">
-            <span class="blog-tag">${b.tag}</span>
-            <div class="blog-title">${b.title}</div>
-            <div class="blog-excerpt">${b.excerpt}</div>
-            <div class="blog-meta"><span>${b.date}</span><span>${b.read} read</span></div>
-            <span class="blog-arrow">↗</span>
-        </div>`
+                `<div class="blog-card"><span class="blog-tag">${b.tag}</span><div class="blog-title">${b.title}</div><div class="blog-excerpt">${b.excerpt}</div><div class="blog-meta"><span>${b.date}</span><span>${b.read} read</span></div><span class="blog-arrow">↗</span></div>`
             ).join('');
         })();
 
-        /* ════════════════════════════════════════
-           CAREERS TABS
-        ════════════════════════════════════════ */
+        // ── CAREERS TABS ──
         document.getElementById('tabBar').addEventListener('click', e => {
             const btn = e.target.closest('.tab-btn');
             if (!btn) return;
@@ -4940,9 +4265,7 @@
             document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
         });
 
-        /* ════════════════════════════════════════
-           ANIMATED COUNTERS
-        ════════════════════════════════════════ */
+        // ── ANIMATED COUNTERS ──
         (function() {
             const counters = document.querySelectorAll('.stat-num[data-count]');
             let animated = false;
@@ -4950,19 +4273,14 @@
             function animateCounters() {
                 counters.forEach(counter => {
                     const target = counter.getAttribute('data-count');
-                    if (target === '∞') {
-                        counter.textContent = '∞';
-                        return;
-                    }
+                    if (target === '∞') { counter.textContent = '∞'; return; }
                     const num = parseInt(target);
                     let current = 0;
                     const increment = Math.ceil(num / 50);
                     const timer = setInterval(() => {
                         current += increment;
-                        if (current >= num) {
-                            current = num;
-                            clearInterval(timer);
-                        }
+                        if (current >= num) { current = num;
+                            clearInterval(timer); }
                         counter.textContent = current;
                     }, 20);
                 });
@@ -4981,9 +4299,7 @@
             if (statsSection) observer.observe(statsSection);
         })();
 
-        /* ════════════════════════════════════════
-           FDE SPOTLIGHT — mouse-following color per card
-        ════════════════════════════════════════ */
+        // ── FDE SPOTLIGHT ──
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.fde-step');
             steps.forEach(step => {
@@ -5003,9 +4319,7 @@
             });
         });
 
-        /* ════════════════════════════════════════
-           SCROLL REVEAL with stagger
-        ════════════════════════════════════════ */
+        // ── SCROLL REVEAL ──
         const revEls = document.querySelectorAll(
             '.blog-card,.loc-card,.academy-card,.why-card,.bento-card,.vm-card,.sol-card,.fde-step,.team-card,.course-item,.testimonial-card'
         );
@@ -5025,6 +4339,9 @@
         revEls.forEach(el => { el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             observer.observe(el); });
+
+        // ── INITIAL TRANSLATION ──
+        translatePage('en');
     </script>
 
 </body>

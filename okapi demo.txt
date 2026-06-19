@@ -4,13 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>OKAPI AI | Superior Intelligence for All</title>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="icon" type="image/png" href="images/favicon.jpeg" />
-    <link rel="apple-touch-icon" href="images/favicon.jpeg" />
-
     <style>
         /* ── RESET & BASE ── */
         *,
@@ -35,7 +30,7 @@
             --accent-glow: rgba(106, 140, 255, 0.3);
             --gradient-1: linear-gradient(135deg, #6a8cff, #a78bfa);
             --gradient-2: linear-gradient(135deg, #4f46e5, #7c3aed);
-            --whatsapp: #25D366;
+            --cursor-color: rgba(106, 140, 255, 0.6);
         }
         html {
             scroll-behavior: smooth;
@@ -45,7 +40,38 @@
             color: var(--white);
             font-family: var(--font);
             overflow-x: hidden;
-            cursor: auto;
+            cursor: none;
+        }
+
+        /* ── CUSTOM CURSOR ── */
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s, width 0.2s, height 0.2s;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(106, 140, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s, width 0.3s, height 0.3s, border-color 0.3s;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(106, 140, 255, 0.6);
+            background: rgba(106, 140, 255, 0.05);
         }
 
         /* ── SCROLL PROGRESS ── */
@@ -96,7 +122,7 @@
             height: 24px;
         }
 
-        /* ── NOISE OVERLAY (lightweight) ── */
+        /* ── NOISE OVERLAY ── */
         .noise-overlay {
             position: fixed;
             top: 0;
@@ -105,7 +131,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 9997;
-            opacity: 0.02;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-size: 256px 256px;
@@ -378,6 +404,21 @@
                 border-color: transparent;
             }
         }
+        .hero-motto {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            font-family: var(--font);
+        }
+        .hero-motto span {
+            background: var(--accent-dim);
+            padding: 0.2rem 1rem;
+            border-radius: 100px;
+            border: 1px solid rgba(106, 140, 255, 0.25);
+        }
         .btn-row {
             display: flex;
             gap: 1rem;
@@ -398,6 +439,7 @@
             gap: 0.5rem;
             position: relative;
             overflow: hidden;
+            cursor: none;
         }
         .btn-white::before {
             content: '';
@@ -426,6 +468,7 @@
             font-family: var(--font);
             position: relative;
             overflow: hidden;
+            cursor: none;
         }
         .btn-ghost::before {
             content: '';
@@ -445,6 +488,7 @@
             color: #fff;
         }
 
+        /* ── MAGNETIC BUTTON WRAPPER ── */
         .magnetic-wrap {
             display: inline-block;
             position: relative;
@@ -639,32 +683,6 @@
             text-transform: uppercase;
             color: var(--gray-light);
             font-family: var(--font);
-        }
-
-        /* ── WHATSAPP FLOATING BUTTON ── */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            z-index: 9999;
-            background: var(--whatsapp);
-            color: #fff;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1) translateY(-4px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
         }
 
         /* ── PARTNERS ── */
@@ -896,45 +914,35 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
-            cursor: default;
+            transform-style: preserve-3d;
+            perspective: 800px;
         }
-        .vm-card .card-content {
-            position: relative;
-            z-index: 2;
-        }
-        .vm-card::after {
+        .vm-card::before {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 0%;
-            transition: height 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            border-radius: 20px;
-            z-index: 0;
-            pointer-events: none;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
-        .vm-card:hover::after {
-            height: 100%;
+        .vm-card:hover::before {
+            transform: scaleX(1);
         }
         .vm-card:hover {
-            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            transform: translateY(-4px) rotateX(2deg);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
-        .vm-card-vision::after {
-            background: linear-gradient(0deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.05));
-        }
-        .vm-card-mission::after {
-            background: linear-gradient(0deg, rgba(139, 92, 246, 0.25), rgba(236, 72, 153, 0.05));
-        }
-        .vm-card-motto::after {
-            background: linear-gradient(0deg, rgba(251, 191, 36, 0.25), rgba(251, 191, 36, 0.05));
-        }
-        .vm-card.accent-border {
-            border-left: 3px solid var(--accent);
+        .vm-card .vm-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
         }
         .vm-card h3 {
             font-size: 1rem;
@@ -960,6 +968,9 @@
             border-radius: 100px;
             margin-top: 0.6rem;
             font-family: var(--font);
+        }
+        .vm-card.accent-border {
+            border-left: 3px solid var(--accent);
         }
 
         /* ── SERVICES ORBITAL ── */
@@ -1117,13 +1128,13 @@
             align-items: center;
             justify-content: center;
             gap: 0.25rem;
-            background: transparent;
-            border: none;
+            background: rgba(22, 22, 22, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             animation: counter-spin 18s linear infinite;
             overflow: hidden;
-            backdrop-filter: none;
+            backdrop-filter: blur(8px);
         }
         .orbit.paused .orb-node {
             animation-play-state: paused;
@@ -1151,11 +1162,11 @@
             }
         }
         .orb-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 108px;
+            height: 108px;
+            border-radius: 12px;
             object-fit: cover;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.06);
             transition: transform 0.4s;
         }
         .orb-node:hover .orb-img {
@@ -1406,97 +1417,33 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 0.8rem 1.2rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
-            cursor: default;
         }
         .course-item::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            border-radius: 14px 0 0 14px;
-            transition: width 0.4s ease, opacity 0.3s ease;
-            opacity: 0.6;
-        }
-        .course-item::after {
-            content: '';
-            position: absolute;
             inset: 0;
+            background: linear-gradient(135deg, rgba(106, 140, 255, 0.06), transparent);
             opacity: 0;
-            transition: opacity 0.5s ease;
-            border-radius: 14px;
-            pointer-events: none;
+            transition: opacity 0.3s;
         }
-        .course-item:hover::after {
+        .course-item:hover::before {
             opacity: 1;
         }
-        .course-item[data-color="blue"]::before,
-        .course-item[data-color="blue"]::after {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), transparent);
-        }
-        .course-item[data-color="blue"]::before {
-            background: #3b82f6;
-        }
-        .course-item[data-color="purple"]::before,
-        .course-item[data-color="purple"]::after {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), transparent);
-        }
-        .course-item[data-color="purple"]::before {
-            background: #8b5cf6;
-        }
-        .course-item[data-color="green"]::before,
-        .course-item[data-color="green"]::after {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), transparent);
-        }
-        .course-item[data-color="green"]::before {
-            background: #22c55e;
-        }
-        .course-item[data-color="orange"]::before,
-        .course-item[data-color="orange"]::after {
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.15), transparent);
-        }
-        .course-item[data-color="orange"]::before {
-            background: #fb923c;
-        }
-        .course-item[data-color="teal"]::before,
-        .course-item[data-color="teal"]::after {
-            background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), transparent);
-        }
-        .course-item[data-color="teal"]::before {
-            background: #14b8a6;
-        }
-        .course-item[data-color="pink"]::before,
-        .course-item[data-color="pink"]::after {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), transparent);
-        }
-        .course-item[data-color="pink"]::before {
-            background: #ec4899;
-        }
         .course-item:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(106, 140, 255, 0.25);
             transform: translateX(6px);
             background: rgba(255, 255, 255, 0.06);
         }
-        .course-item:hover::before {
-            width: 6px;
-            opacity: 1;
-        }
         .course-item .ci-icon {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             width: 28px;
             text-align: center;
             flex-shrink: 0;
             position: relative;
             z-index: 1;
-            color: var(--gray-light);
-            transition: color 0.3s;
-        }
-        .course-item:hover .ci-icon {
-            color: var(--white);
         }
         .course-item .ci-name {
             font-size: 0.85rem;
@@ -1568,7 +1515,7 @@
             transform: scale(1.05);
         }
 
-        /* ── FDE ── with Interactive Spotlight ── */
+        /* ── FDE ── with Timeline ── */
         #fde {
             padding: 7rem 0;
             border-bottom: 1px solid var(--border);
@@ -1611,6 +1558,7 @@
             position: relative;
             z-index: 1;
         }
+        /* Timeline style for FDE steps */
         .fde-timeline {
             position: relative;
             padding-left: 2rem;
@@ -1630,33 +1578,22 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 1.8rem;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
             cursor: default;
             margin-bottom: 1.2rem;
             margin-left: 1rem;
-            will-change: transform, box-shadow;
         }
         .fde-step::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--color, #fbbf24) 0%, transparent 60%);
-            z-index: 1;
-        }
-        .fde-step:hover::before {
-            opacity: 0.35;
-        }
-        .fde-step .step-num,
-        .fde-step h4,
-        .fde-step p {
-            position: relative;
-            z-index: 2;
+            left: -1rem;
+            top: 2rem;
+            width: 1rem;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0.3;
         }
         .fde-step::after {
             content: '';
@@ -1666,13 +1603,33 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--color, #fbbf24);
-            box-shadow: 0 0 20px var(--color);
-            transition: transform 0.3s ease;
-            z-index: 2;
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: all 0.3s;
         }
         .fde-step:hover::after {
             transform: scale(1.5);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .fde-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .fde-step:hover::before {
+            transform: scaleX(1);
+        }
+        .fde-step:hover {
+            border-color: rgba(106, 140, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
         }
         .fde-step .step-num {
             font-size: 2rem;
@@ -1684,8 +1641,6 @@
             line-height: 1;
             margin-bottom: 0.3rem;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
         }
         .fde-step h4 {
             font-size: 0.95rem;
@@ -1693,28 +1648,19 @@
             color: var(--white);
             margin-bottom: 0.4rem;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
         }
         .fde-step p {
             font-size: 0.8rem;
             color: var(--gray);
             line-height: 1.65;
             font-family: var(--font);
-            position: relative;
-            z-index: 2;
-        }
-        .fde-step:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.12);
         }
         .fde-why {
             background: rgba(18, 18, 18, 0.85);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 2.5rem;
-            transition: border-color 0.4s;
+            transition: all 0.4s;
         }
         .fde-why:hover {
             border-color: rgba(106, 140, 255, 0.15);
@@ -1748,7 +1694,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1rem 1.2rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
         .fw-item:hover {
             border-color: rgba(106, 140, 255, 0.15);
@@ -1756,10 +1702,9 @@
             transform: translateX(4px);
         }
         .fw-item .fw-icon {
-            font-size: 0.8rem;
-            color: var(--accent);
+            font-size: 1.2rem;
             flex-shrink: 0;
-            margin-top: 0.2rem;
+            margin-top: 2px;
         }
         .fw-item p {
             font-size: 0.82rem;
@@ -2419,212 +2364,55 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 2rem;
+            border-left: 3px solid var(--accent);
             margin-bottom: 1.2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: default;
-        }
-        .loc-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--accent), transparent 60%, var(--accent));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        .loc-card:hover::before {
-            opacity: 1;
+            transition: all 0.3s;
         }
         .loc-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            border-color: transparent;
+            border-color: rgba(106, 140, 255, 0.2);
+            transform: translateX(4px);
+            background: rgba(22, 22, 22, 0.9);
         }
-        .hub-pin {
-            font-size: 1.8rem;
-            color: var(--accent);
-            margin-bottom: 0.3rem;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        .loc-card:hover .hub-pin {
-            transform: scale(1.15) rotate(-6deg);
-        }
-        .hub-pin i {
-            filter: drop-shadow(0 0 6px var(--accent-glow));
-        }
-        .hub-card h3 {
+        .loc-card h3 {
             font-size: 1.05rem;
             font-weight: 700;
             color: var(--white);
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.4rem;
             font-family: var(--font);
         }
-        .hub-card p {
+        .loc-card p {
             color: var(--gray);
             font-size: 0.85rem;
             font-family: var(--font);
         }
-        .hub-card .hub-desc {
-            font-size: 0.75rem;
-            color: var(--gray-light);
-            margin-top: 0.4rem;
-            opacity: 0.7;
-            font-weight: 300;
-        }
         .academy-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
+            gap: 1rem;
             margin-top: 2rem;
         }
         .academy-card {
             background: rgba(18, 18, 18, 0.7);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1rem;
+            padding: 1.4rem;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
-            text-decoration: none;
-            position: relative;
-            text-align: center;
-        }
-        .academy-img-wrapper {
-            width: 100%;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            overflow: hidden;
-            background: rgba(5, 5, 5, 0);
-            transition: background 0.3s ease;
-        }
-        .academy-img-wrapper img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-        }
-        .academy-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--gray-light);
-            transition: color 0.3s ease;
-            font-family: var(--font);
-            letter-spacing: 0.3px;
-        }
-        .academy-card:hover {
-            border-color: rgba(106, 140, 255, 0.3);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            background: rgba(26, 26, 26, 0.95);
-        }
-        .academy-card:hover .academy-img-wrapper {
-            background: rgba(106, 140, 255, 0.06);
-        }
-        .academy-card:hover .academy-img-wrapper img {
-            transform: scale(1.08);
-        }
-        .academy-card:hover .academy-label {
-            color: var(--white);
-        }
-        .academy-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            border-radius: 2px;
-        }
-        .academy-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        /* ── WHATSAPP SECTION ── */
-        #whatsapp-section {
-            padding: 5rem 0;
-            border-bottom: 1px solid var(--border);
-            background: var(--black);
-            position: relative;
-            overflow: hidden;
-        }
-        #whatsapp-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(37, 211, 102, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .whatsapp-card {
-            background: rgba(18, 18, 18, 0.85);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 3rem;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .whatsapp-card:hover {
-            border-color: rgba(37, 211, 102, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-        .whatsapp-card .wa-icon {
-            font-size: 4rem;
-            color: var(--whatsapp);
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-        .whatsapp-card h2 {
-            margin-bottom: 0.6rem;
-        }
-        .whatsapp-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            font-family: var(--font);
-            margin-bottom: 1.5rem;
-        }
-        .btn-whatsapp {
-            background: var(--whatsapp);
-            color: #fff;
-            padding: 0.9rem 2.5rem;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            font-family: var(--font);
-            display: inline-flex;
             align-items: center;
             gap: 0.8rem;
-            border: none;
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
+            font-family: var(--font);
         }
-        .btn-whatsapp:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
+        .academy-card:hover {
+            border-color: rgba(106, 140, 255, 0.2);
+            color: var(--white);
+            transform: translateX(6px);
+            background: rgba(22, 22, 22, 0.9);
+        }
+        .academy-card span:first-child {
+            font-size: 1.3rem;
         }
 
         /* ── CONTACT ── */
@@ -2677,11 +2465,6 @@
             color: var(--accent);
         }
         .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .contact-form form {
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -3007,13 +2790,6 @@
             .team-grid {
                 grid-template-columns: 1fr 1fr;
             }
-            .whatsapp-float {
-                bottom: 90px;
-                right: 20px;
-                width: 48px;
-                height: 48px;
-                font-size: 1.6rem;
-            }
         }
         @media(max-width:600px) {
             h1 {
@@ -3028,7 +2804,8 @@
                 border-radius: 16px;
                 padding: 0.3rem;
             }
-            .why-grid {
+            .why-grid,
+            .intern-grid {
                 grid-template-columns: 1fr;
             }
             .culture-bento {
@@ -3057,23 +2834,21 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .whatsapp-float {
-                bottom: 80px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.4rem;
-            }
-            .whatsapp-card {
-                padding: 2rem 1.5rem;
-            }
-            .whatsapp-card .wa-icon {
-                font-size: 3rem;
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NOISE OVERLAY -->
+    <div class="noise-overlay"></div>
 
     <!-- SCROLL PROGRESS -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -3085,15 +2860,7 @@
         </svg>
     </button>
 
-    <!-- NOISE OVERLAY -->
-    <div class="noise-overlay"></div>
-
-    <!-- WHATSAPP FLOATING BUTTON -->
-    <a href="https://wa.me/27637589173" target="_blank" class="whatsapp-float" aria-label="Contact on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- NAVBAR -->
+    <!-- ══ NAVBAR ══ -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
             <a href="#hero" class="nav-brand">
@@ -3101,35 +2868,36 @@
                 <span class="nav-logo-text">OKAPI <span>AI</span></span>
             </a>
             <div class="nav-links">
-                <a href="#hero" data-t="home">Home</a>
-                <a href="#about" data-t="about">About</a>
-                <a href="#services" data-t="services">Services</a>
-                <a href="#solutions" data-t="solutions">Solutions</a>
-                <a href="#learn" data-t="learn">Learn</a>
-                <a href="#careers" data-t="careers">Careers</a>
-                <a href="#contact" data-t="contact">Contact</a>
-                <div class="lang-pill" id="langToggle">FR</div>
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#solutions">Solutions</a>
+                <a href="#learn">Learn</a>
+                <a href="#careers">Careers</a>
+                <a href="#contact">Contact</a>
+                <div class="lang-pill" id="langToggle">🇫🇷 FR</div>
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- ══ HERO ══ -->
     <section id="hero">
         <canvas id="hero-canvas" class="section-canvas"></canvas>
         <div class="container">
             <div class="hero-inner">
                 <div class="hero-content">
-                    <div class="eyebrow" data-t="hero-eyebrow">Data + AI + Automation + Security</div>
-                    <h1><span data-t="hero-title-1">Superior</span><br /><em><span data-t="hero-title-2">Intelligence</span></em><br /><span data-t="hero-title-3">For All</span></h1>
+                    <div class="eyebrow">Data + AI + Automation + Security</div>
+                    <div class="hero-motto"><span>✦ Superior Intelligence for All</span></div>
+                    <h1>Intelligence<br /><em>without</em><br />limits</h1>
                     <p class="hero-sub">
-                        <span class="typewriter" id="typewriter" data-t="hero-typewriter">AI Consulting · Voice AI · RAG Systems</span>
+                        <span class="typewriter" id="typewriter">AI Consulting · Voice AI · RAG Systems</span>
                     </p>
                     <div class="btn-row">
                         <div class="magnetic-wrap">
-                            <a href="#contact" class="btn-white" data-magnetic data-t="hero-btn-1">Deploy AI →</a>
+                            <a href="#contact" class="btn-white" data-magnetic>Deploy AI →</a>
                         </div>
                         <div class="magnetic-wrap">
-                            <a href="#services" class="btn-ghost" data-magnetic data-t="hero-btn-2">Explore Services</a>
+                            <a href="#services" class="btn-ghost" data-magnetic>Explore Services</a>
                         </div>
                     </div>
                 </div>
@@ -3152,12 +2920,12 @@
         </div>
     </section>
 
-    <!-- PARTNERS -->
+    <!-- ══ PARTNERS ══ -->
     <section id="partners">
         <canvas id="partners-canvas"></canvas>
         <div class="partners-inner container">
-            <p class="partners-label" data-t="partners-title">Technology Partners &amp; Allies</p>
-            <p class="partners-scroll-hint" data-t="partners-hint">← drag to browse · auto-scrolls by default →</p>
+            <p class="partners-label">Technology Partners &amp; Allies</p>
+            <p class="partners-scroll-hint">← drag to browse · auto-scrolls by default →</p>
             <div class="partners-carousel">
                 <div class="partners-nav partners-nav-prev">
                     <button class="partners-nav-btn" id="partnersPrev" aria-label="Previous">‹</button>
@@ -3172,23 +2940,23 @@
         </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ══ ABOUT ══ -->
     <section id="about">
         <div class="container">
-            <span class="section-label" data-t="about-label">About Us</span>
-            <h2><span data-t="about-title-1">Building the future of AI</span><br /><span class="highlight"><span data-t="about-title-2">from Africa for the world</span></span></h2>
+            <span class="section-label">About Us</span>
+            <h2>Building the future of AI<br /><span class="highlight">from Africa for the world</span></h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p data-t="about-p1">
+                    <p>
                         <strong>Okapi AI</strong> was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.
                     </p>
-                    <p data-t="about-p2">
+                    <p>
                         Our founder first discovered the transformative potential of Artificial Intelligence while studying at the <strong>University of Johannesburg</strong>. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in <strong>2025</strong>, providing AI and technology training to high school students in Johannesburg.
                     </p>
-                    <p data-t="about-p3">
+                    <p>
                         As demand for intelligent solutions continued to grow, <strong>Okapi AI was officially registered in South Africa in January 2026</strong> (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.
                     </p>
-                    <p data-t="about-p4">
+                    <p>
                         Today, we are building one of the most trusted technology partners for people and organizations across Africa and beyond. Our mission is to deliver superior intelligence that enables better decision-making, drives innovation, improves productivity, and contributes to a safer and more prosperous future.
                     </p>
                     <div class="about-highlight">
@@ -3196,45 +2964,43 @@
                         <span class="pillar-tag">AI</span>
                         <span class="pillar-tag">Automation</span>
                         <span class="pillar-tag">Security</span>
-                        <p style="margin-top:0.8rem;font-size:0.85rem;color:var(--gray-light);" data-t="about-p5">
+                        <p style="margin-top:0.8rem;font-size:0.85rem;color:var(--gray-light);">
                             Our expertise spans these four pillars — transforming information into actionable insights, building intelligent systems, streamlining processes, and protecting digital assets.
                         </p>
                     </div>
                 </div>
                 <div class="vision-mission">
-                    <div class="vm-card vm-card-vision">
-                        <div class="card-content">
-                            <h3 data-t="vision-title">Vision</h3>
-                            <p data-t="vision-text">To become the world's most trusted partner in delivering superior intelligence that transforms industries and improves lives.</p>
-                            <span class="vm-tag" data-t="vision-tag">2030 & beyond</span>
-                        </div>
+                    <div class="vm-card">
+                        <div class="vm-icon">👁️</div>
+                        <h3>Vision</h3>
+                        <p>To become the world's most trusted partner in delivering superior intelligence that transforms industries and improves lives.</p>
+                        <span class="vm-tag">✦ 2030 & beyond</span>
                     </div>
-                    <div class="vm-card vm-card-mission">
-                        <div class="card-content">
-                            <h3 data-t="mission-title">Mission</h3>
-                            <p data-t="mission-text">To empower humanity and organizations to solve important problems safely through technology.</p>
-                            <span class="vm-tag" data-t="mission-tag">Purpose-driven</span>
-                        </div>
+                    <div class="vm-card">
+                        <div class="vm-icon">🚀</div>
+                        <h3>Mission</h3>
+                        <p>To empower humanity and organizations to solve important problems safely through technology.</p>
+                        <span class="vm-tag">✦ Purpose-driven</span>
                     </div>
-                    <div class="vm-card vm-card-motto accent-border">
-                        <div class="card-content">
-                            <h3 data-t="motto-title">Motto</h3>
-                            <p style="font-size:1.1rem;font-weight:600;color:var(--white);" data-t="motto-text">Superior Intelligence for All.</p>
-                            <span class="vm-tag" data-t="motto-tag">Our north star</span>
-                        </div>
+                    <div class="vm-card accent-border">
+                        <div class="vm-icon">⭐</div>
+                        <h3>Motto</h3>
+                        <p style="font-size:1.1rem;font-weight:600;color:var(--white);">Superior Intelligence for All.</p>
+                        <span class="vm-tag">✦ Our north star</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- ══ SERVICES ══ -->
     <section id="services">
         <canvas id="services-canvas" class="section-canvas"></canvas>
         <div class="container">
             <div class="services-header">
-                <span class="section-label" data-t="services-label">What we do</span>
-                <h2><span data-t="services-title-1">Overview of all</span> <span class="highlight"><span data-t="services-title-2">AI Services</span></span></h2>
+                <span class="section-label">What we do</span>
+                <h2>Overview of all <span class="highlight">AI Services</span></h2>
+                <p class="services-subtitle">Hover any node — the orbit pauses &amp; adapts to you.</p>
             </div>
             <div class="orbital-wrapper">
                 <div class="ring-deco ring-deco-1"></div>
@@ -3243,172 +3009,152 @@
                 <div class="orbit" id="orbit"></div>
                 <div class="orbital-center">
                     <div class="orbital-center-inner">
-                        <span class="orbital-center-line1" data-t="orbital-label">Our services include</span>
-                        <span class="orbital-center-service" id="centerText" data-t="orbital-default">7 AI Disciplines</span>
+                        <span class="orbital-center-line1">Our services include</span>
+                        <span class="orbital-center-service" id="centerText">7 AI Disciplines</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SOLUTIONS -->
+    <!-- ══ SOLUTIONS ══ -->
     <section id="solutions">
         <div class="container">
             <div class="solutions-header">
-                <span class="section-label" data-t="solutions-label">Who we serve</span>
-                <h2><span data-t="solutions-title-1">Solutions for</span> <span class="highlight"><span data-t="solutions-title-2">every sector</span></span></h2>
-                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="solutions-sub">We partner with organizations of all sizes to deliver intelligence that transforms.</p>
+                <span class="section-label">Who we serve</span>
+                <h2>Solutions for <span class="highlight">every sector</span></h2>
+                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);">We partner with organizations of all sizes to deliver intelligence that transforms.</p>
             </div>
             <div class="solutions-grid">
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-building"></i></div><h4 data-t="sol-enterprise">Enterprise</h4><div class="sol-desc" data-t="sol-enterprise-desc">Scalable AI for large organizations</div></div>
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-landmark"></i></div><h4 data-t="sol-government">Government</h4><div class="sol-desc" data-t="sol-government-desc">Public sector intelligence</div></div>
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-shield-alt"></i></div><h4 data-t="sol-insurance">Insurance</h4><div class="sol-desc" data-t="sol-insurance-desc">Risk & claims automation</div></div>
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-hospital"></i></div><h4 data-t="sol-healthcare">Healthcare</h4><div class="sol-desc" data-t="sol-healthcare-desc">AI-powered patient care</div></div>
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-shopping-cart"></i></div><h4 data-t="sol-ecommerce">E-commerce</h4><div class="sol-desc" data-t="sol-ecommerce-desc">Personalized shopping experiences</div></div>
-                <div class="sol-card"><div class="sol-icon"><i class="fas fa-chart-line"></i></div><h4 data-t="sol-smes">SMEs</h4><div class="sol-desc" data-t="sol-smes-desc">Affordable AI for growing businesses</div></div>
+                <div class="sol-card"><div class="sol-icon">🏢</div><h4>Enterprise</h4><div class="sol-desc">Scalable AI for large organizations</div></div>
+                <div class="sol-card"><div class="sol-icon">🏛️</div><h4>Government</h4><div class="sol-desc">Public sector intelligence</div></div>
+                <div class="sol-card"><div class="sol-icon">🛡️</div><h4>Insurance</h4><div class="sol-desc">Risk & claims automation</div></div>
+                <div class="sol-card"><div class="sol-icon">🏥</div><h4>Healthcare</h4><div class="sol-desc">AI-powered patient care</div></div>
+                <div class="sol-card"><div class="sol-icon">🛒</div><h4>E-commerce</h4><div class="sol-desc">Personalized shopping experiences</div></div>
+                <div class="sol-card"><div class="sol-icon">📈</div><h4>SMEs</h4><div class="sol-desc">Affordable AI for growing businesses</div></div>
             </div>
         </div>
     </section>
 
-    <!-- LEARN -->
+    <!-- ══ OKAPI LEARN ══ -->
     <section id="learn">
         <div class="container">
             <div class="learn-header">
-                <span class="section-label" data-t="learn-label">Okapi Learn</span>
-                <h2><span data-t="learn-title-1">Education &amp;</span> <span class="highlight"><span data-t="learn-title-2">Digital Skills</span></span></h2>
-                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="learn-sub">Empowering individuals and organizations to adapt, grow, and thrive in a technology-driven world.</p>
+                <span class="section-label">Okapi Learn</span>
+                <h2>Education &amp; <span class="highlight">Digital Skills</span></h2>
+                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);">Empowering individuals and organizations to adapt, grow, and thrive in a technology-driven world.</p>
             </div>
             <div class="learn-grid">
                 <div class="learn-col">
-                    <h3><i class="fas fa-book-open" style="margin-right:0.5rem;"></i> <span data-t="learn-free-title">Free Courses</span> <span class="badge-free" data-t="learn-free-badge">Free</span></h3>
+                    <h3>📘 Free Courses <span class="badge-free">Free</span></h3>
                     <div class="course-list">
-                        <div class="course-item" data-color="blue">
-                            <span class="ci-icon"><i class="fas fa-desktop"></i></span>
-                            <span class="ci-name"><strong data-t="course-computer">Computer</strong> <span data-t="course-computer-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="purple">
-                            <span class="ci-icon"><i class="fas fa-brain"></i></span>
-                            <span class="ci-name"><strong data-t="course-ai">AI</strong> <span data-t="course-ai-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="green">
-                            <span class="ci-icon"><i class="fas fa-shield-alt"></i></span>
-                            <span class="ci-name"><strong data-t="course-security">Security</strong> <span data-t="course-security-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
-                        <div class="course-item" data-color="orange">
-                            <span class="ci-icon"><i class="fas fa-chart-bar"></i></span>
-                            <span class="ci-name"><strong data-t="course-data">Data</strong> <span data-t="course-data-suffix">Foundations</span></span>
-                            <span class="ci-tag" data-t="course-free-tag">Free</span>
-                        </div>
+                        <div class="course-item"><span class="ci-icon">🖥️</span><span class="ci-name"><strong>Computer</strong> Foundations</span><span class="ci-tag">Free</span></div>
+                        <div class="course-item"><span class="ci-icon">🧠</span><span class="ci-name"><strong>AI</strong> Foundations</span><span class="ci-tag">Free</span></div>
+                        <div class="course-item"><span class="ci-icon">🔒</span><span class="ci-name"><strong>Security</strong> Foundations</span><span class="ci-tag">Free</span></div>
+                        <div class="course-item"><span class="ci-icon">📊</span><span class="ci-name"><strong>Data</strong> Foundations</span><span class="ci-tag">Free</span></div>
                     </div>
                 </div>
                 <div class="learn-col">
-                    <h3><i class="fas fa-briefcase" style="margin-right:0.5rem;"></i> <span data-t="learn-paid-title">Paid Courses</span> <span class="badge-paid" data-t="learn-paid-badge">Premium</span></h3>
+                    <h3>💼 Paid Courses <span class="badge-paid">Premium</span></h3>
                     <div class="course-list">
-                        <div class="course-item" data-color="teal">
-                            <span class="ci-icon"><i class="fas fa-building"></i></span>
-                            <span class="ci-name"><strong data-t="course-corporate">Corporate</strong> <span data-t="course-corporate-suffix">— AI, Data, Security, Risk, Product &amp; Project Management</span></span>
-                            <span class="ci-tag" data-t="course-paid-tag">Paid</span>
-                        </div>
-                        <div class="course-item" data-color="pink">
-                            <span class="ci-icon"><i class="fas fa-user-graduate"></i></span>
-                            <span class="ci-name"><strong data-t="course-individual">Individual</strong> <span data-t="course-individual-suffix">— AWS, Microsoft, Oracle, ISO &amp; Claude</span></span>
-                            <span class="ci-tag" data-t="course-paid-tag">Paid</span>
-                        </div>
+                        <div class="course-item"><span class="ci-icon">🏢</span><span class="ci-name"><strong>Corporate</strong> — AI, Data, Security, Risk, Product &amp; Project Management</span><span class="ci-tag">Paid</span></div>
+                        <div class="course-item"><span class="ci-icon">👤</span><span class="ci-name"><strong>Individual</strong> — AWS, Microsoft, Oracle, ISO &amp; Claude</span><span class="ci-tag">Paid</span></div>
                     </div>
                     <div class="learn-leaders">
-                        <span class="ll-label"><i class="fas fa-users" style="margin-right:0.4rem;"></i> <span data-t="leaders-label">Leaders</span></span>
-                        <span class="ll-tag" data-t="leaders-tag">AI Literacy</span>
-                        <span style="font-size:0.8rem;color:var(--gray);font-family:var(--font);" data-t="leaders-desc">— Bilingual EN/FR executive training</span>
+                        <span class="ll-label">👥 Leaders</span>
+                        <span class="ll-tag">AI Literacy</span>
+                        <span style="font-size:0.8rem;color:var(--gray);font-family:var(--font);">— Bilingual EN/FR executive training</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FDE -->
+    <!-- ══ FDE ══ with Timeline -->
     <section id="fde">
         <div class="container">
             <div class="fde-header">
-                <span class="section-label" data-t="fde-label">How we work</span>
-                <h2><span data-t="fde-title-1">Field-Driven</span> <span class="highlight"><span data-t="fde-title-2">Engineering</span></span></h2>
+                <span class="section-label">How we work</span>
+                <h2>Field-Driven <span class="highlight">Engineering</span></h2>
                 <div class="fde-intro">
-                    <p data-t="fde-intro-1">
+                    <p>
                         At Okapi AI, we operate using a <strong>Field-Driven Engineering (FDE)</strong> model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.
                     </p>
-                    <p style="margin-top:0.8rem;" data-t="fde-intro-2">
+                    <p style="margin-top:0.8rem;">
                         <span style="color:var(--white);font-weight:600;">FDE</span> is our way of ensuring that every product, system, and solution is built from <strong style="color:var(--white);">real problems, real users, and real environments</strong> — not assumptions.
                     </p>
                 </div>
             </div>
             <div class="fde-visual">
                 <div class="fde-timeline">
-                    <div class="fde-step" data-color="#fbbf24">
+                    <div class="fde-step">
                         <div class="step-num">01</div>
-                        <h4 data-t="fde-step1-title">Field Immersion</h4>
-                        <p data-t="fde-step1-desc">We embed ourselves in the environments we serve — logistics, finance, education, government, and enterprises — to deeply understand workflows, constraints, and pain points.</p>
+                        <h4>Field Immersion</h4>
+                        <p>We embed ourselves in the environments we serve — logistics, finance, education, government, and enterprises — to deeply understand workflows, constraints, and pain points.</p>
                     </div>
-                    <div class="fde-step" data-color="#3b82f6">
+                    <div class="fde-step">
                         <div class="step-num">02</div>
-                        <h4 data-t="fde-step2-title">Data-First Discovery</h4>
-                        <p data-t="fde-step2-desc">We collect and structure real operational data before building solutions, ensuring every AI system is grounded in truth, not assumptions.</p>
+                        <h4>Data-First Discovery</h4>
+                        <p>We collect and structure real operational data before building solutions, ensuring every AI system is grounded in truth, not assumptions.</p>
                     </div>
-                    <div class="fde-step" data-color="#8b5cf6">
+                    <div class="fde-step">
                         <div class="step-num">03</div>
-                        <h4 data-t="fde-step3-title">Engineering in Context</h4>
-                        <p data-t="fde-step3-desc">Our AI, automation, and security systems are built directly around how users actually work in the field, not how we think they should work.</p>
+                        <h4>Engineering in Context</h4>
+                        <p>Our AI, automation, and security systems are built directly around how users actually work in the field, not how we think they should work.</p>
                     </div>
-                    <div class="fde-step" data-color="#22c55e">
+                    <div class="fde-step">
                         <div class="step-num">04</div>
-                        <h4 data-t="fde-step4-title">Rapid Iteration Loops</h4>
-                        <p data-t="fde-step4-desc">We continuously deploy, test, and refine solutions in live environments to ensure performance, reliability, and impact.</p>
+                        <h4>Rapid Iteration Loops</h4>
+                        <p>We continuously deploy, test, and refine solutions in live environments to ensure performance, reliability, and impact.</p>
                     </div>
-                    <div class="fde-step" data-color="#ef4444">
+                    <div class="fde-step">
                         <div class="step-num">05</div>
-                        <h4 data-t="fde-step5-title">Embedded Intelligence</h4>
-                        <p data-t="fde-step5-desc">We don't just build tools — we integrate intelligence into the core of business operations, making systems smarter over time.</p>
+                        <h4>Embedded Intelligence</h4>
+                        <p>We don't just build tools — we integrate intelligence into the core of business operations, making systems smarter over time.</p>
                     </div>
                 </div>
                 <div class="fde-why">
-                    <h3 data-t="fde-why-title">Why FDE Matters</h3>
+                    <h3>Why FDE Matters</h3>
                     <div class="fde-why-grid">
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-1">Solves <strong>real-world, high-impact problems</strong></p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-2">Builds <strong>trusted, production-ready systems</strong></p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-3">Avoids <strong>“lab-only AI”</strong> that fails in real environments</p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-4">Becomes a <strong>true partner</strong> inside organizations</p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-5">Promises <strong>better return on investment (ROI)</strong> for our clients</p></div>
+                        <div class="fw-item"><span class="fw-icon">🎯</span><p>Solves <strong>real-world, high-impact problems</strong></p></div>
+                        <div class="fw-item"><span class="fw-icon">🔒</span><p>Builds <strong>trusted, production-ready systems</strong></p></div>
+                        <div class="fw-item"><span class="fw-icon">🧪</span><p>Avoids <strong>“lab-only AI”</strong> that fails in real environments</p></div>
+                        <div class="fw-item"><span class="fw-icon">🤝</span><p>Becomes a <strong>true partner</strong> inside organizations</p></div>
+                        <div class="fw-item" style="grid-column:1/-1;"><span class="fw-icon">📈</span><p>Promises <strong>better return on investment (ROI)</strong> for our clients</p></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TEAM -->
+    <!-- ══ TEAM ══ -->
     <section id="team">
         <div class="container">
             <div class="team-header">
-                <span class="section-label" data-t="team-label">Leadership</span>
-                <h2><span data-t="team-title-1">Meet the</span> <span class="highlight"><span data-t="team-title-2">team</span></span></h2>
-                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="team-sub">Driven by a shared passion for intelligence without limits.</p>
+                <span class="section-label">Leadership</span>
+                <h2>Meet the <span class="highlight">team</span></h2>
+                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);">Driven by a shared passion for intelligence without limits.</p>
             </div>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div>
-                    <h4 data-t="team-name-1">Idriss Kouyateh</h4>
-                    <div class="role" data-t="team-role-1">Founder</div>
-                    <div class="bio" data-t="team-bio-1">Discovered AI's potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa's next-gen AI partner.</div>
+                    <div class="avatar">
+                        <span class="avatar-placeholder">👨‍💻</span>
+                    </div>
+                    <h4>Idriss Kouyateh</h4>
+                    <div class="role">Founder</div>
+                    <div class="bio">Discovered AI's potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa's next-gen AI partner.</div>
                     <div class="social-icons">
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div>
-                    <h4 data-t="team-name-2">Paki Lawu</h4>
-                    <div class="role" data-t="team-role-2">Co-Founder</div>
-                    <div class="bio" data-t="team-bio-2">Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.</div>
+                    <div class="avatar">
+                        <span class="avatar-placeholder">👩‍💻</span>
+                    </div>
+                    <h4>Paki Lawu</h4>
+                    <div class="role">Co-Founder</div>
+                    <div class="bio">Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.</div>
                     <div class="social-icons">
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
@@ -3416,220 +3162,212 @@
                 </div>
                 <div class="team-card partner-card">
                     <div class="avatar" style="background:linear-gradient(135deg,rgba(106,140,255,0.05),rgba(167,139,250,0.05));border-style:dashed;">
-                        <span class="avatar-placeholder"><i class="fas fa-globe"></i></span>
+                        <span class="avatar-placeholder">🌍</span>
                     </div>
-                    <h4 data-t="team-name-3">Trusted Partners</h4>
-                    <div class="role" data-t="team-role-3">Outsourced Talent</div>
-                    <div class="bio" data-t="team-bio-3">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div>
-                    <span class="outsource-tag" data-t="team-tag">✦ Global network</span>
+                    <h4>Trusted Partners</h4>
+                    <div class="role">Outsourced Talent</div>
+                    <div class="bio">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div>
+                    <span class="outsource-tag">✦ Global network</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- ══ TESTIMONIALS ══ -->
     <section id="testimonials">
         <div class="container">
-            <span class="section-label" data-t="testimonials-label">Testimonials</span>
-            <h2><span data-t="testimonials-title-1">What our clients</span> <span class="highlight"><span data-t="testimonials-title-2">say</span></span></h2>
+            <span class="section-label">Testimonials</span>
+            <h2>What our clients <span class="highlight">say</span></h2>
             <div class="testimonial-slider">
                 <div class="testimonial-card">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-1">Okapi AI helped us automate 80% of our customer queries with their voice AI solution. The impact on our operational efficiency has been incredible.</blockquote>
+                    <blockquote>Okapi AI helped us automate 80% of our customer queries with their voice AI solution. The impact on our operational efficiency has been incredible.</blockquote>
                     <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-1-name">Jean-Claude M.</div><div class="title" data-t="testimonial-1-title">CTO, Kinshasa Bank</div></div>
+                        <div class="avatar-sm">👤</div>
+                        <div class="info"><div class="name">Jean-Claude M.</div><div class="title">CTO, Kinshasa Bank</div></div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-2">Their RAG systems transformed how we handle insurance claims. We went from weeks to hours in processing time. Truly game-changing.</blockquote>
+                    <blockquote>Their RAG systems transformed how we handle insurance claims. We went from weeks to hours in processing time. Truly game-changing.</blockquote>
                     <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-2-name">Sarah N.</div><div class="title" data-t="testimonial-2-title">Head of Innovation, InsureTech SA</div></div>
+                        <div class="avatar-sm">👤</div>
+                        <div class="info"><div class="name">Sarah N.</div><div class="title">Head of Innovation, InsureTech SA</div></div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote data-t="testimonial-3">The FDE model is exactly what we needed. They didn't just build a solution — they lived our problems first. That's the difference.</blockquote>
+                    <blockquote>The FDE model is exactly what we needed. They didn't just build a solution — they lived our problems first. That's the difference.</blockquote>
                     <div class="author">
-                        <div class="avatar-sm"><i class="fas fa-user"></i></div>
-                        <div class="info"><div class="name" data-t="testimonial-3-name">Michael O.</div><div class="title" data-t="testimonial-3-title">CEO, E-Commerce Africa</div></div>
+                        <div class="avatar-sm">👤</div>
+                        <div class="info"><div class="name">Michael O.</div><div class="title">CEO, E-Commerce Africa</div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BLOG -->
+    <!-- ══ BLOG ══ -->
     <section id="blog">
         <div class="container">
-            <span class="section-label" data-t="blog-label">From our team</span>
-            <h2><span data-t="blog-title-1">Blog &amp;</span> <span class="highlight"><span data-t="blog-title-2">Insights</span></span></h2>
-            <p style="color:var(--gray);margin-top:0.5rem;font-family:var(--font);" data-t="blog-sub">AI trends, thought leadership, and industry intelligence.</p>
+            <span class="section-label">From our team</span>
+            <h2>Blog &amp; <span class="highlight">Insights</span></h2>
+            <p style="color:var(--gray);margin-top:0.5rem;font-family:var(--font);">AI trends, thought leadership, and industry intelligence.</p>
             <div class="blog-grid" id="blogGrid"></div>
         </div>
     </section>
 
-    <!-- CAREERS -->
+    <!-- ══ CAREERS ══ -->
     <section id="careers">
         <canvas id="careers-canvas"></canvas>
         <div class="careers-wrapper container">
             <div class="careers-hero-row">
                 <div>
-                    <span class="section-label" data-t="careers-label">Join the team</span>
-                    <h2><span data-t="careers-title-1">Build the future of AI</span><br /><span class="highlight"><span data-t="careers-title-2">in Africa &amp; beyond</span></span></h2>
+                    <span class="section-label">Join the team</span>
+                    <h2>Build the future of AI<br /><span class="highlight">in Africa &amp; beyond</span></h2>
                 </div>
                 <div class="careers-stats">
-                    <div class="careers-stat"><span class="stat-num" data-count="2">0</span><div class="stat-lbl" data-t="careers-stat-1">Global Hubs</div></div>
-                    <div class="careers-stat"><span class="stat-num" data-count="100">0</span><div class="stat-lbl" data-t="careers-stat-2">% Remote-first</div></div>
-                    <div class="careers-stat"><span class="stat-num" data-count="∞">0</span><div class="stat-lbl" data-t="careers-stat-3">Mission-driven</div></div>
+                    <div class="careers-stat"><span class="stat-num" data-count="2">0</span><div class="stat-lbl">Global Hubs</div></div>
+                    <div class="careers-stat"><span class="stat-num" data-count="100">0</span><div class="stat-lbl">% Remote-first</div></div>
+                    <div class="careers-stat"><span class="stat-num" data-count="∞">0</span><div class="stat-lbl">Mission-driven</div></div>
                 </div>
             </div>
             <div class="tab-bar" id="tabBar">
-                <button class="tab-btn active" data-tab="why" data-t="tab-why">Why OKAPI</button>
-                <button class="tab-btn" data-tab="culture" data-t="tab-culture">Our Culture</button>
-                <button class="tab-btn" data-tab="positions" data-t="tab-positions">Open Positions</button>
+                <button class="tab-btn active" data-tab="why">Why OKAPI</button>
+                <button class="tab-btn" data-tab="culture">Our Culture</button>
+                <button class="tab-btn" data-tab="positions">Open Positions</button>
             </div>
             <div class="tab-panel active" id="tab-why">
                 <div class="why-grid">
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-globe"></i></div><h3 data-t="why-1-title">Real-world impact</h3><p data-t="why-1-desc">Every project we ship touches real businesses across Africa and the DRC. You won't be building demos — you'll be building the future of work.</p></div>
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-rocket"></i></div><h3 data-t="why-2-title">Move at startup speed</h3><p data-t="why-2-desc">No bureaucracy. Ideas go from conversation to production in days. You'll ship more in 3 months here than in 3 years at a legacy firm.</p></div>
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-brain"></i></div><h3 data-t="why-3-title">Frontier-level learning</h3><p data-t="why-3-desc">Full access to OKAPI Academy curriculum, sponsored certifications, and weekly internal AI research sessions with senior engineers.</p></div>
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-comments"></i></div><h3 data-t="why-4-title">Bilingual &amp; inclusive</h3><p data-t="why-4-desc">English + French working environment. We celebrate the Pan-African mosaic of backgrounds, time zones, and perspectives that make us stronger.</p></div>
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-location-dot"></i></div><h3 data-t="why-5-title">Flexible locations</h3><p data-t="why-5-desc">Remote-first with optional hubs in Johannesburg and Kinshasa. Work where you do your best thinking — we care about output, not attendance.</p></div>
-                    <div class="why-card"><div class="why-icon"><i class="fas fa-money-bill-wave"></i></div><h3 data-t="why-6-title">Competitive compensation</h3><p data-t="why-6-desc">Global-benchmark salaries, performance bonuses, and an equity pathway for senior contributors. We believe in sharing what we build together.</p></div>
+                    <div class="why-card"><div class="why-icon">🌍</div><h3>Real-world impact</h3><p>Every project we ship touches real businesses across Africa and the DRC. You won't be building demos — you'll be building the future of work.</p></div>
+                    <div class="why-card"><div class="why-icon">🚀</div><h3>Move at startup speed</h3><p>No bureaucracy. Ideas go from conversation to production in days. You'll ship more in 3 months here than in 3 years at a legacy firm.</p></div>
+                    <div class="why-card"><div class="why-icon">🧠</div><h3>Frontier-level learning</h3><p>Full access to OKAPI Academy curriculum, sponsored certifications, and weekly internal AI research sessions with senior engineers.</p></div>
+                    <div class="why-card"><div class="why-icon">💬</div><h3>Bilingual &amp; inclusive</h3><p>English + French working environment. We celebrate the Pan-African mosaic of backgrounds, time zones, and perspectives that make us stronger.</p></div>
+                    <div class="why-card"><div class="why-icon">📍</div><h3>Flexible locations</h3><p>Remote-first with optional hubs in Johannesburg and Kinshasa. Work where you do your best thinking — we care about output, not attendance.</p></div>
+                    <div class="why-card"><div class="why-icon">💰</div><h3>Competitive compensation</h3><p>Global-benchmark salaries, performance bonuses, and an equity pathway for senior contributors. We believe in sharing what we build together.</p></div>
                 </div>
             </div>
             <div class="tab-panel" id="tab-culture">
                 <div class="culture-bento">
-                    <div class="bento-card tall"><div class="bento-big-num">01</div><h3 data-t="culture-1">Integrity</h3><p data-t="culture-1-desc">We act with honesty, transparency, and strong ethical principles in everything we do.</p></div>
-                    <div class="bento-card"><div class="bento-big-num">02</div><h3 data-t="culture-2">Speed and Agility</h3><p data-t="culture-2-desc">We move fast, adapt quickly, and execute with precision in a rapidly changing technological world.</p></div>
-                    <div class="bento-card"><div class="bento-big-num">03</div><h3 data-t="culture-3">Excellence</h3><p data-t="culture-3-desc">We pursue world-class quality in our products, services, and interactions.</p></div>
-                    <div class="bento-card"><div class="bento-big-num">04</div><h3 data-t="culture-4">Collaboration</h3><p data-t="culture-4-desc">We believe the best solutions are built together—with our team, clients, and partners.</p></div>
-                    <div class="bento-card"><div class="bento-big-num">05</div><h3 data-t="culture-5">Customer Success</h3><p data-t="culture-5-desc">Our success is defined by the success of the people and organizations we serve.</p></div>
-                    <div class="bento-card span-col"><div class="bento-big-num">06</div><h3 data-t="culture-6">Continuous Learning</h3><p data-t="culture-6-desc">We are committed to constant growth, innovation, and staying ahead of emerging technologies.</p></div>
+                    <div class="bento-card tall"><div class="bento-big-num">01</div><h3>Pan-African by design</h3><p>We didn't start in Silicon Valley and open an Africa office. We started in Africa. Every decision we make is shaped by the markets, languages, and contexts of the continent we call home.</p>
+                        <div class="value-pills" style="margin-top:1.5rem;"><span class="value-pill">Kinshasa</span><span class="value-pill">Johannesburg</span><span class="value-pill">Pan-African</span></div>
+                    </div>
+                    <div class="bento-card"><div class="bento-big-num">02</div><h3>Radical transparency</h3><p>Open salaries, open roadmap, open results. We share what's working and what isn't — with each other and with our clients.</p></div>
+                    <div class="bento-card"><div class="bento-big-num">03</div><h3>Ship, learn, iterate</h3><p>Perfection is the enemy of progress. We deploy, we measure, and we improve — in public, together.</p></div>
+                    <div class="bento-card span-col"><div class="bento-big-num">04</div><h3>How we work, day to day</h3><p>Async by default, intentional meetings, weekly showcases where every team presents what they shipped. Culture isn't a poster on the wall — it's who gets promoted and what gets celebrated.</p>
+                        <div class="value-pills" style="margin-top:1rem;"><span class="value-pill">Async-first</span><span class="value-pill">Weekly demos</span><span class="value-pill">Open feedback</span><span class="value-pill">Continuous learning</span><span class="value-pill">No meeting Fridays</span></div>
+                    </div>
+                </div>
+                <div style="margin-top:2.5rem;background:rgba(18,18,18,0.85);border:1px solid var(--border);border-radius:20px;padding:2rem;">
+                    <h3 style="font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.2rem;font-family:var(--font);">Our Core Values</h3>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.8rem;">
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Integrity</strong> — honesty, transparency, ethics</div>
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Speed &amp; Agility</strong> — move fast, adapt quickly</div>
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Excellence</strong> — world-class quality</div>
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Collaboration</strong> — built together</div>
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Customer Success</strong> — our success is theirs</div>
+                        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;font-size:0.78rem;color:var(--gray-light);font-family:var(--font);"><strong style="color:var(--white);">Continuous Learning</strong> — constant growth</div>
+                    </div>
                 </div>
             </div>
             <div class="tab-panel" id="tab-positions">
                 <div class="positions-info">
-                    <div class="pi-icon"><i class="fas fa-rocket"></i></div>
-                    <h3 data-t="positions-title">Work with us — Full-time &amp; Remote</h3>
-                    <p data-t="positions-p1">At Okapi AI, we're building the future of intelligence from Africa for the world. We're looking for passionate, mission-driven individuals who want to solve hard problems that matter.</p>
-                    <p style="margin-top:0.8rem;" data-t="positions-p2">We offer <strong>full-time, remote-first</strong> positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.</p>
+                    <div class="pi-icon">🚀</div>
+                    <h3>Work with us — Full-time &amp; Remote</h3>
+                    <p>
+                        At Okapi AI, we're building the future of intelligence from Africa for the world. We're looking for passionate, mission-driven individuals who want to solve hard problems that matter.
+                    </p>
+                    <p style="margin-top:0.8rem;">
+                        We offer <strong>full-time, remote-first</strong> positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.
+                    </p>
                     <div class="pi-tags">
-                        <span class="pi-tag" data-t="positions-tag-1">🌍 Remote-first</span>
-                        <span class="pi-tag" data-t="positions-tag-2">⏳ Full-time</span>
-                        <span class="pi-tag" data-t="positions-tag-3">💡 Mission-driven</span>
-                        <span class="pi-tag" data-t="positions-tag-4">📈 Growth-focused</span>
+                        <span class="pi-tag">🌍 Remote-first</span>
+                        <span class="pi-tag">⏳ Full-time</span>
+                        <span class="pi-tag">💡 Mission-driven</span>
+                        <span class="pi-tag">📈 Growth-focused</span>
                     </div>
-                    <p style="margin-top:1.5rem;color:var(--gray-light);" data-t="positions-note"><em>We're not currently listing specific roles — but we're always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.</em></p>
+                    <p style="margin-top:1.5rem;color:var(--gray-light);">
+                        <em>We're not currently listing specific roles — but we're always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.</em>
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LOCATIONS -->
+    <!-- ══ LOCATIONS ══ -->
     <section id="locations">
         <div class="container">
             <div class="loc-wrap">
                 <div>
-                    <span class="section-label" data-t="locations-label-1">Where we are</span>
-                    <h2><span data-t="locations-title-1">Global</span> <span class="highlight"><span data-t="locations-title-2">Hubs</span></span></h2>
+                    <span class="section-label">Where we are</span>
+                    <h2>Global <span class="highlight">Hubs</span></h2>
                     <div style="margin-top:2rem;">
-                        <div class="loc-card hub-card">
-                            <div class="hub-pin"><i class="fas fa-map-pin"></i></div>
-                            <h3 data-t="loc-1-name">BedfordView</h3>
-                            <p data-t="loc-1-address">Johannesburg, South Africa</p>
-                            <p class="hub-desc" data-t="loc-1-desc">Primary Operations &amp; Sales Hub</p>
-                        </div>
-                        <div class="loc-card hub-card">
-                            <div class="hub-pin"><i class="fas fa-map-pin"></i></div>
-                            <h3 data-t="loc-2-name">Cité Verte</h3>
-                            <p data-t="loc-2-address">Kinshasa, DRC</p>
-                            <p class="hub-desc" data-t="loc-2-desc">Central Africa Centre of Excellence</p>
-                        </div>
+                        <div class="loc-card"><h3>📍 BedfordView</h3><p>Johannesburg, South Africa</p><p style="margin-top:0.4rem;font-size:0.75rem;color:#555;font-family:var(--font);">Primary Operations &amp; Sales Hub</p></div>
+                        <div class="loc-card"><h3>📍 Cité Verte</h3><p>Kinshasa, DRC</p><p style="margin-top:0.4rem;font-size:0.75rem;color:#555;font-family:var(--font);">Central Africa Centre of Excellence</p></div>
                     </div>
                 </div>
                 <div>
-                    <span class="section-label" data-t="locations-label-2">Learn with us</span>
-                    <h2><span data-t="locations-title-3">OKAPI</span> <span class="highlight"><span data-t="locations-title-4">Academy</span></span></h2>
-                    <p style="color:var(--gray);margin-top:0.6rem;font-size:0.88rem;line-height:1.7;font-family:var(--font);" data-t="locations-academy-sub">Practical, bilingual AI education for individuals and enterprises across Africa.</p>
+                    <span class="section-label">Learn with us</span>
+                    <h2>OKAPI <span class="highlight">Academy</span></h2>
+                    <p style="color:var(--gray);margin-top:0.6rem;font-size:0.88rem;line-height:1.7;font-family:var(--font);">Practical, bilingual AI education for individuals and enterprises across Africa.</p>
                     <div class="academy-grid">
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/IT_Training.jpg" alt="IT Training" /></div><span class="academy-label" data-t="academy-1">IT Training</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI-Literacy.jpg" alt="AI Literacy" /></div><span class="academy-label" data-t="academy-2">AI Literacy</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Leadership-Training.jpg" alt="Leadership" /></div><span class="academy-label" data-t="academy-3">Leadership</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/digitalskills.jpg" alt="Digital Skills" /></div><span class="academy-label" data-t="academy-4">Digital Skills</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Prompt_Engineering.jpg" alt="Prompt Engineering" /></div><span class="academy-label" data-t="academy-5">Prompt Engineering</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI_for_Business.webp" alt="AI for Business" /></div><span class="academy-label" data-t="academy-6">AI for Business</span></div>
+                        <div class="academy-card"><span>💻</span> IT Training</div>
+                        <div class="academy-card"><span>🧠</span> AI Literacy</div>
+                        <div class="academy-card"><span>👥</span> Leadership</div>
+                        <div class="academy-card"><span>📊</span> Digital Skills</div>
+                        <div class="academy-card"><span>🤖</span> Prompt Engineering</div>
+                        <div class="academy-card"><span>🌐</span> AI for Business</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHATSAPP SECTION -->
-    <section id="whatsapp-section">
-        <div class="container">
-            <div class="whatsapp-card">
-                <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
-                <h2><span data-t="wa-title">Chat with us on WhatsApp</span></h2>
-                <p data-t="wa-desc">Prefer a quick conversation? Reach out to us directly on WhatsApp. Our team is ready to answer your questions and discuss how we can help you.</p>
-                <a href="https://wa.me/27637589173" target="_blank" class="btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span data-t="wa-btn">Message us now</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
+    <!-- ══ CONTACT ══ -->
     <section id="contact">
         <div class="contact-glow"></div>
         <div class="container">
             <div class="contact-inner">
                 <div class="contact-left">
-                    <span class="section-label" data-t="contact-label">Get in touch</span>
-                    <h2><span data-t="contact-title-1">Let's build</span><br /><span class="highlight"><span data-t="contact-title-2">something together</span></span></h2>
-                    <p data-t="contact-desc">Whether you have a question or want to discuss a project, we at Okapi AI are here to help. Reach out — our team typically responds within 24 hours.</p>
-                    <div class="contact-detail"><i class="fas fa-map-pin"></i> <span data-t="contact-address">Johannesburg, SA &amp; Kinshasa, DRC</span></div>
+                    <span class="section-label">Get in touch</span>
+                    <h2>Let's build<br /><span class="highlight">something together</span></h2>
+                    <p>Whether you have a question or want to discuss a project, we at Okapi AI are here to help. Reach out — our team typically responds within 24 hours.</p>
+                    <div class="contact-detail"><i class="fas fa-map-pin"></i> Johannesburg, SA &amp; Kinshasa, DRC</div>
                     <div class="contact-detail"><i class="fas fa-envelope"></i> hello@okapi-ai.com</div>
                     <div class="contact-detail"><i class="fab fa-linkedin-in"></i> linkedin.com/company/okapi-ai</div>
                 </div>
                 <div>
                     <div class="contact-form">
-                        <form action="https://formspree.io/f/xrevnqdv" method="POST">
-                            <div class="form-row">
-                                <input class="form-field" type="text" name="first_name" placeholder="First name" required />
-                                <input class="form-field" type="text" name="last_name" placeholder="Last name" required />
-                            </div>
-                            <input class="form-field" type="email" name="email" placeholder="Email address" required />
-                            <input class="form-field" type="text" name="company" placeholder="Company (optional)" />
-                            <textarea class="form-field" name="message" rows="4" placeholder="Tell us about your project…" required></textarea>
-                            <input type="hidden" name="_subject" value="New OKAPI AI Contact Form Submission" />
-                            <button type="submit" class="form-submit" data-t="contact-submit">Send Message →</button>
-                        </form>
+                        <div class="form-row">
+                            <input class="form-field" type="text" placeholder="First name" />
+                            <input class="form-field" type="text" placeholder="Last name" />
+                        </div>
+                        <input class="form-field" type="email" placeholder="Email address" />
+                        <input class="form-field" type="text" placeholder="Company (optional)" />
+                        <textarea class="form-field" rows="4" placeholder="Tell us about your project…"></textarea>
+                        <button class="form-submit">Send Message →</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ══ CTA ══ -->
     <section id="cta">
         <div class="cta-ring" style="width:300px;height:300px;"></div>
         <div class="cta-ring" style="width:550px;height:550px;animation:spin-slow 25s linear infinite;"></div>
         <div class="cta-ring" style="width:800px;height:800px;animation:spin-slow 40s linear infinite reverse;border-style:dashed;"></div>
         <div class="container" style="text-align:center;">
-            <span class="section-label" data-t="cta-label">Ready?</span>
-            <h2><span data-t="cta-title-1">Scale with</span> <span class="highlight"><span data-t="cta-title-2">AI today</span></span></h2>
-            <p data-t="cta-desc">One conversation can change how your business operates forever.</p>
+            <span class="section-label">Ready?</span>
+            <h2>Scale with <span class="highlight">AI today</span></h2>
+            <p>One conversation can change how your business operates forever.</p>
             <div class="magnetic-wrap">
-                <a href="#contact" class="btn-white" data-magnetic data-t="cta-btn">Contact Our Team →</a>
+                <a href="#contact" class="btn-white" data-magnetic>Contact Our Team →</a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ══ FOOTER ══ -->
     <footer>
         <div class="footer-inner">
             <div class="footer-top">
@@ -3644,647 +3382,68 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-t="footer-copy">© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa</p>
-                <p class="footer-reg" data-t="footer-reg">Registration No. 2026/032715/07 | South Africa</p>
+                <p>© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa</p>
+                <p class="footer-reg">Registration No. 2026/032715/07 | South Africa</p>
             </div>
         </div>
     </footer>
 
-    <!-- THREE.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
-
     <script>
         /* ════════════════════════════════════════
-           TRANSLATION SYSTEM
+           CUSTOM CURSOR
         ════════════════════════════════════════ */
-        const translations = {
-            en: {
-                'home': 'Home',
-                'about': 'About',
-                'services': 'Services',
-                'solutions': 'Solutions',
-                'learn': 'Learn',
-                'careers': 'Careers',
-                'contact': 'Contact',
-                'hero-eyebrow': 'Data + AI + Automation + Security',
-                'hero-title-1': 'Superior',
-                'hero-title-2': 'Intelligence',
-                'hero-title-3': 'For All',
-                'hero-typewriter': 'AI Consulting · Voice AI · RAG Systems',
-                'hero-btn-1': 'Deploy AI →',
-                'hero-btn-2': 'Explore Services',
-                'partners-title': 'Technology Partners & Allies',
-                'partners-hint': '← drag to browse · auto-scrolls by default →',
-                'about-label': 'About Us',
-                'about-title-1': 'Building the future of AI',
-                'about-title-2': 'from Africa for the world',
-                'about-p1': 'Okapi AI was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.',
-                'about-p2': 'Our founder first discovered the transformative potential of Artificial Intelligence while studying at the University of Johannesburg. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in 2025, providing AI and technology training to high school students in Johannesburg.',
-                'about-p3': 'As demand for intelligent solutions continued to grow, Okapi AI was officially registered in South Africa in January 2026 (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.',
-                'about-p4': 'Today, we are building one of the most trusted technology partners for people and organizations across Africa and beyond. Our mission is to deliver superior intelligence that enables better decision-making, drives innovation, improves productivity, and contributes to a safer and more prosperous future.',
-                'about-p5': 'Our expertise spans these four pillars — transforming information into actionable insights, building intelligent systems, streamlining processes, and protecting digital assets.',
-                'vision-title': 'Vision',
-                'vision-text': 'To become the world\'s most trusted partner in delivering superior intelligence that transforms industries and improves lives.',
-                'vision-tag': '2030 & beyond',
-                'mission-title': 'Mission',
-                'mission-text': 'To empower humanity and organizations to solve important problems safely through technology.',
-                'mission-tag': 'Purpose-driven',
-                'motto-title': 'Motto',
-                'motto-text': 'Superior Intelligence for All.',
-                'motto-tag': 'Our north star',
-                'services-label': 'What we do',
-                'services-title-1': 'Overview of all',
-                'services-title-2': 'AI Services',
-                'orbital-label': 'Our services include',
-                'orbital-default': '7 AI Disciplines',
-                'solutions-label': 'Who we serve',
-                'solutions-title-1': 'Solutions for',
-                'solutions-title-2': 'every sector',
-                'solutions-sub': 'We partner with organizations of all sizes to deliver intelligence that transforms.',
-                'sol-enterprise': 'Enterprise',
-                'sol-enterprise-desc': 'Scalable AI for large organizations',
-                'sol-government': 'Government',
-                'sol-government-desc': 'Public sector intelligence',
-                'sol-insurance': 'Insurance',
-                'sol-insurance-desc': 'Risk & claims automation',
-                'sol-healthcare': 'Healthcare',
-                'sol-healthcare-desc': 'AI-powered patient care',
-                'sol-ecommerce': 'E-commerce',
-                'sol-ecommerce-desc': 'Personalized shopping experiences',
-                'sol-smes': 'SMEs',
-                'sol-smes-desc': 'Affordable AI for growing businesses',
-                'learn-label': 'Okapi Learn',
-                'learn-title-1': 'Education &',
-                'learn-title-2': 'Digital Skills',
-                'learn-sub': 'Empowering individuals and organizations to adapt, grow, and thrive in a technology-driven world.',
-                'learn-free-title': 'Free Courses',
-                'learn-free-badge': 'Free',
-                'learn-paid-title': 'Paid Courses',
-                'learn-paid-badge': 'Premium',
-                'course-computer': 'Computer',
-                'course-computer-suffix': 'Foundations',
-                'course-ai': 'AI',
-                'course-ai-suffix': 'Foundations',
-                'course-security': 'Security',
-                'course-security-suffix': 'Foundations',
-                'course-data': 'Data',
-                'course-data-suffix': 'Foundations',
-                'course-corporate': 'Corporate',
-                'course-corporate-suffix': '— AI, Data, Security, Risk, Product & Project Management',
-                'course-individual': 'Individual',
-                'course-individual-suffix': '— AWS, Microsoft, Oracle, ISO & Claude',
-                'course-free-tag': 'Free',
-                'course-paid-tag': 'Paid',
-                'leaders-label': 'Leaders',
-                'leaders-tag': 'AI Literacy',
-                'leaders-desc': '— Bilingual EN/FR executive training',
-                'fde-label': 'How we work',
-                'fde-title-1': 'Field-Driven',
-                'fde-title-2': 'Engineering',
-                'fde-intro-1': 'At Okapi AI, we operate using a Field-Driven Engineering (FDE) model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.',
-                'fde-intro-2': 'FDE is our way of ensuring that every product, system, and solution is built from real problems, real users, and real environments — not assumptions.',
-                'fde-step1-title': 'Field Immersion',
-                'fde-step1-desc': 'We embed ourselves in the environments we serve — logistics, finance, education, government, and enterprises — to deeply understand workflows, constraints, and pain points.',
-                'fde-step2-title': 'Data-First Discovery',
-                'fde-step2-desc': 'We collect and structure real operational data before building solutions, ensuring every AI system is grounded in truth, not assumptions.',
-                'fde-step3-title': 'Engineering in Context',
-                'fde-step3-desc': 'Our AI, automation, and security systems are built directly around how users actually work in the field, not how we think they should work.',
-                'fde-step4-title': 'Rapid Iteration Loops',
-                'fde-step4-desc': 'We continuously deploy, test, and refine solutions in live environments to ensure performance, reliability, and impact.',
-                'fde-step5-title': 'Embedded Intelligence',
-                'fde-step5-desc': 'We don\'t just build tools — we integrate intelligence into the core of business operations, making systems smarter over time.',
-                'fde-why-title': 'Why FDE Matters',
-                'fde-why-1': 'Solves real-world, high-impact problems',
-                'fde-why-2': 'Builds trusted, production-ready systems',
-                'fde-why-3': 'Avoids “lab-only AI” that fails in real environments',
-                'fde-why-4': 'Becomes a true partner inside organizations',
-                'fde-why-5': 'Promises better return on investment (ROI) for our clients',
-                'team-label': 'Leadership',
-                'team-title-1': 'Meet the',
-                'team-title-2': 'team',
-                'team-sub': 'Driven by a shared passion for intelligence without limits.',
-                'team-name-1': 'Idriss Kouyateh',
-                'team-role-1': 'Founder',
-                'team-bio-1': 'Discovered AI\'s potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa\'s next-gen AI partner.',
-                'team-name-2': 'Paki Lawu',
-                'team-role-2': 'Co-Founder',
-                'team-bio-2': 'Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.',
-                'team-name-3': 'Trusted Partners',
-                'team-role-3': 'Outsourced Talent',
-                'team-bio-3': 'We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.',
-                'team-tag': '✦ Global network',
-                'testimonials-label': 'Testimonials',
-                'testimonials-title-1': 'What our clients',
-                'testimonials-title-2': 'say',
-                'testimonial-1': 'Okapi AI helped us automate 80% of our customer queries with their voice AI solution. The impact on our operational efficiency has been incredible.',
-                'testimonial-1-name': 'Jean-Claude M.',
-                'testimonial-1-title': 'CTO, Kinshasa Bank',
-                'testimonial-2': 'Their RAG systems transformed how we handle insurance claims. We went from weeks to hours in processing time. Truly game-changing.',
-                'testimonial-2-name': 'Sarah N.',
-                'testimonial-2-title': 'Head of Innovation, InsureTech SA',
-                'testimonial-3': 'The FDE model is exactly what we needed. They didn\'t just build a solution — they lived our problems first. That\'s the difference.',
-                'testimonial-3-name': 'Michael O.',
-                'testimonial-3-title': 'CEO, E-Commerce Africa',
-                'blog-label': 'From our team',
-                'blog-title-1': 'Blog &',
-                'blog-title-2': 'Insights',
-                'blog-sub': 'AI trends, thought leadership, and industry intelligence.',
-                'careers-label': 'Join the team',
-                'careers-title-1': 'Build the future of AI',
-                'careers-title-2': 'in Africa & beyond',
-                'careers-stat-1': 'Global Hubs',
-                'careers-stat-2': '% Remote-first',
-                'careers-stat-3': 'Mission-driven',
-                'tab-why': 'Why OKAPI',
-                'tab-culture': 'Our Culture',
-                'tab-positions': 'Open Positions',
-                'why-1-title': 'Real-world impact',
-                'why-1-desc': 'Every project we ship touches real businesses across Africa and the DRC. You won\'t be building demos — you\'ll be building the future of work.',
-                'why-2-title': 'Move at startup speed',
-                'why-2-desc': 'No bureaucracy. Ideas go from conversation to production in days. You\'ll ship more in 3 months here than in 3 years at a legacy firm.',
-                'why-3-title': 'Frontier-level learning',
-                'why-3-desc': 'Full access to OKAPI Academy curriculum, sponsored certifications, and weekly internal AI research sessions with senior engineers.',
-                'why-4-title': 'Bilingual & inclusive',
-                'why-4-desc': 'English + French working environment. We celebrate the Pan-African mosaic of backgrounds, time zones, and perspectives that make us stronger.',
-                'why-5-title': 'Flexible locations',
-                'why-5-desc': 'Remote-first with optional hubs in Johannesburg and Kinshasa. Work where you do your best thinking — we care about output, not attendance.',
-                'why-6-title': 'Competitive compensation',
-                'why-6-desc': 'Global-benchmark salaries, performance bonuses, and an equity pathway for senior contributors. We believe in sharing what we build together.',
-                'culture-1': 'Integrity',
-                'culture-1-desc': 'We act with honesty, transparency, and strong ethical principles in everything we do.',
-                'culture-2': 'Speed and Agility',
-                'culture-2-desc': 'We move fast, adapt quickly, and execute with precision in a rapidly changing technological world.',
-                'culture-3': 'Excellence',
-                'culture-3-desc': 'We pursue world-class quality in our products, services, and interactions.',
-                'culture-4': 'Collaboration',
-                'culture-4-desc': 'We believe the best solutions are built together—with our team, clients, and partners.',
-                'culture-5': 'Customer Success',
-                'culture-5-desc': 'Our success is defined by the success of the people and organizations we serve.',
-                'culture-6': 'Continuous Learning',
-                'culture-6-desc': 'We are committed to constant growth, innovation, and staying ahead of emerging technologies.',
-                'positions-title': 'Work with us — Full-time & Remote',
-                'positions-p1': 'At Okapi AI, we\'re building the future of intelligence from Africa for the world. We\'re looking for passionate, mission-driven individuals who want to solve hard problems that matter.',
-                'positions-p2': 'We offer full-time, remote-first positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.',
-                'positions-tag-1': '🌍 Remote-first',
-                'positions-tag-2': '⏳ Full-time',
-                'positions-tag-3': '💡 Mission-driven',
-                'positions-tag-4': '📈 Growth-focused',
-                'positions-note': 'We\'re not currently listing specific roles — but we\'re always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.',
-                'locations-label-1': 'Where we are',
-                'locations-title-1': 'Global',
-                'locations-title-2': 'Hubs',
-                'loc-1-name': 'BedfordView',
-                'loc-1-address': 'Johannesburg, South Africa',
-                'loc-1-desc': 'Primary Operations & Sales Hub',
-                'loc-2-name': 'Cité Verte',
-                'loc-2-address': 'Kinshasa, DRC',
-                'loc-2-desc': 'Central Africa Centre of Excellence',
-                'locations-label-2': 'Learn with us',
-                'locations-title-3': 'OKAPI',
-                'locations-title-4': 'Academy',
-                'locations-academy-sub': 'Practical, bilingual AI education for individuals and enterprises across Africa.',
-                'academy-1': 'IT Training',
-                'academy-2': 'AI Literacy',
-                'academy-3': 'Leadership',
-                'academy-4': 'Digital Skills',
-                'academy-5': 'Prompt Engineering',
-                'academy-6': 'AI for Business',
-                'wa-title': 'Chat with us on WhatsApp',
-                'wa-desc': 'Prefer a quick conversation? Reach out to us directly on WhatsApp. Our team is ready to answer your questions and discuss how we can help you.',
-                'wa-btn': 'Message us now',
-                'contact-label': 'Get in touch',
-                'contact-title-1': 'Let\'s build',
-                'contact-title-2': 'something together',
-                'contact-desc': 'Whether you have a question or want to discuss a project, we at Okapi AI are here to help. Reach out — our team typically responds within 24 hours.',
-                'contact-address': 'Johannesburg, SA & Kinshasa, DRC',
-                'contact-submit': 'Send Message →',
-                'cta-label': 'Ready?',
-                'cta-title-1': 'Scale with',
-                'cta-title-2': 'AI today',
-                'cta-desc': 'One conversation can change how your business operates forever.',
-                'cta-btn': 'Contact Our Team →',
-                'footer-copy': '© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa',
-                'footer-reg': 'Registration No. 2026/032715/07 | South Africa'
-            },
-            fr: {
-                'home': 'Accueil',
-                'about': 'À propos',
-                'services': 'Services',
-                'solutions': 'Solutions',
-                'learn': 'Apprendre',
-                'careers': 'Carrières',
-                'contact': 'Contact',
-                'hero-eyebrow': 'Données + IA + Automatisation + Sécurité',
-                'hero-title-1': 'Supérieure',
-                'hero-title-2': 'Intelligence',
-                'hero-title-3': 'Pour Tous',
-                'hero-typewriter': 'Conseil IA · Voice AI · Systèmes RAG',
-                'hero-btn-1': 'Déployer l\'IA →',
-                'hero-btn-2': 'Explorer les services',
-                'partners-title': 'Partenaires technologiques & Alliés',
-                'partners-hint': '← faites glisser · défilement automatique par défaut →',
-                'about-label': 'À propos',
-                'about-title-1': 'Construire l\'avenir de l\'IA',
-                'about-title-2': 'depuis l\'Afrique pour le monde',
-                'about-p1': 'Okapi AI a été fondé avec la vision de rendre la technologie avancée accessible, pratique et bénéfique pour tous.',
-                'about-p2': 'Notre fondateur a découvert le potentiel transformateur de l\'intelligence artificielle à l\'Université de Johannesburg. Inspiré par les opportunités que l\'IA pouvait créer pour les individus, les entreprises et la société, l\'entreprise a débuté en 2025 en tant qu\'initiative informelle, offrant une formation en IA et en technologie aux lycéens de Johannesburg.',
-                'about-p3': 'Alors que la demande de solutions intelligentes continuait de croître, Okapi AI a été officiellement enregistrée en Afrique du Sud en janvier 2026 (N° d\'enregistrement 2026/032715/07). Depuis, l\'entreprise est passée d\'une initiative de formation à un partenaire technologique axé sur l\'aide aux organisations pour exploiter la puissance des données, de l\'IA, de l\'automatisation et de la sécurité.',
-                'about-p4': 'Aujourd\'hui, nous construisons l\'un des partenaires technologiques les plus fiables pour les personnes et les organisations à travers l\'Afrique et au-delà. Notre mission est de fournir une intelligence supérieure qui permet une meilleure prise de décision, stimule l\'innovation, améliore la productivité et contribue à un avenir plus sûr et plus prospère.',
-                'about-p5': 'Notre expertise couvre quatre piliers — transformer l\'information en connaissances exploitables, construire des systèmes intelligents, rationaliser les processus et protéger les actifs numériques.',
-                'vision-title': 'Vision',
-                'vision-text': 'Devenir le partenaire le plus fiable au monde pour fournir une intelligence supérieure qui transforme les industries et améliore les vies.',
-                'vision-tag': '2030 & au-delà',
-                'mission-title': 'Mission',
-                'mission-text': 'Permettre à l\'humanité et aux organisations de résoudre des problèmes importants en toute sécurité grâce à la technologie.',
-                'mission-tag': 'Axé sur la mission',
-                'motto-title': 'Devise',
-                'motto-text': 'Une Intelligence Supérieure pour Tous.',
-                'motto-tag': 'Notre étoile polaire',
-                'services-label': 'Ce que nous faisons',
-                'services-title-1': 'Aperçu de tous les',
-                'services-title-2': 'Services IA',
-                'orbital-label': 'Nos services comprennent',
-                'orbital-default': '7 Disciplines IA',
-                'solutions-label': 'Qui nous servons',
-                'solutions-title-1': 'Solutions pour',
-                'solutions-title-2': 'chaque secteur',
-                'solutions-sub': 'Nous collaborons avec des organisations de toutes tailles pour fournir une intelligence qui transforme.',
-                'sol-enterprise': 'Entreprise',
-                'sol-enterprise-desc': 'IA évolutive pour les grandes organisations',
-                'sol-government': 'Gouvernement',
-                'sol-government-desc': 'Intelligence pour le secteur public',
-                'sol-insurance': 'Assurance',
-                'sol-insurance-desc': 'Automatisation des risques et des sinistres',
-                'sol-healthcare': 'Santé',
-                'sol-healthcare-desc': 'Soins aux patients alimentés par l\'IA',
-                'sol-ecommerce': 'E-commerce',
-                'sol-ecommerce-desc': 'Expériences d\'achat personnalisées',
-                'sol-smes': 'PME',
-                'sol-smes-desc': 'IA abordable pour les entreprises en croissance',
-                'learn-label': 'Okapi Learn',
-                'learn-title-1': 'Éducation &',
-                'learn-title-2': 'Compétences numériques',
-                'learn-sub': 'Permettre aux individus et aux organisations de s\'adapter, de grandir et de prospérer dans un monde axé sur la technologie.',
-                'learn-free-title': 'Cours gratuits',
-                'learn-free-badge': 'Gratuit',
-                'learn-paid-title': 'Cours payants',
-                'learn-paid-badge': 'Premium',
-                'course-computer': 'Informatique',
-                'course-computer-suffix': 'Fondamentaux',
-                'course-ai': 'IA',
-                'course-ai-suffix': 'Fondamentaux',
-                'course-security': 'Sécurité',
-                'course-security-suffix': 'Fondamentaux',
-                'course-data': 'Données',
-                'course-data-suffix': 'Fondamentaux',
-                'course-corporate': 'Entreprise',
-                'course-corporate-suffix': '— IA, Données, Sécurité, Risque, Gestion de produits & de projets',
-                'course-individual': 'Individuel',
-                'course-individual-suffix': '— AWS, Microsoft, Oracle, ISO & Claude',
-                'course-free-tag': 'Gratuit',
-                'course-paid-tag': 'Payant',
-                'leaders-label': 'Dirigeants',
-                'leaders-tag': 'Littératie IA',
-                'leaders-desc': '— Formation exécutive bilingue EN/FR',
-                'fde-label': 'Comment nous travaillons',
-                'fde-title-1': 'Ingénierie',
-                'fde-title-2': 'orientée terrain',
-                'fde-intro-1': 'Chez Okapi AI, nous utilisons un modèle d\'ingénierie orientée terrain — inspiré des entreprises natives de l\'IA qui s\'immergent directement dans les environnements réels pour construire des solutions qui comptent.',
-                'fde-intro-2': 'L\'ingénierie orientée terrain est notre façon de garantir que chaque produit, système et solution est construit à partir de vrais problèmes, de vrais utilisateurs et de vrais environnements — pas de suppositions.',
-                'fde-step1-title': 'Immersion terrain',
-                'fde-step1-desc': 'Nous nous immergeons dans les environnements que nous servons — logistique, finance, éducation, gouvernement et entreprises — pour comprendre en profondeur les flux de travail, les contraintes et les points de douleur.',
-                'fde-step2-title': 'Découverte axée sur les données',
-                'fde-step2-desc': 'Nous collectons et structurons les données opérationnelles réelles avant de construire des solutions, garantissant que chaque système d\'IA est ancré dans la réalité, pas dans des suppositions.',
-                'fde-step3-title': 'Ingénierie en contexte',
-                'fde-step3-desc': 'Nos systèmes d\'IA, d\'automatisation et de sécurité sont construits directement autour de la façon dont les utilisateurs travaillent réellement sur le terrain, pas comme nous pensons qu\'ils devraient travailler.',
-                'fde-step4-title': 'Boucles d\'itération rapides',
-                'fde-step4-desc': 'Nous déployons, testons et affinons en continu les solutions dans des environnements réels pour garantir la performance, la fiabilité et l\'impact.',
-                'fde-step5-title': 'Intelligence intégrée',
-                'fde-step5-desc': 'Nous ne construisons pas seulement des outils — nous intégrons l\'intelligence au cœur des opérations commerciales, rendant les systèmes plus intelligents au fil du temps.',
-                'fde-why-title': 'Pourquoi l\'ingénierie orientée terrain est importante',
-                'fde-why-1': 'Résout des problèmes concrets à fort impact',
-                'fde-why-2': 'Construit des systèmes fiables et prêts pour la production',
-                'fde-why-3': 'Évite l\'IA de laboratoire qui échoue dans les environnements réels',
-                'fde-why-4': 'Devient un véritable partenaire au sein des organisations',
-                'fde-why-5': 'Offre un meilleur retour sur investissement pour nos clients',
-                'team-label': 'Direction',
-                'team-title-1': 'Rencontrez',
-                'team-title-2': 'l\'équipe',
-                'team-sub': 'Animés par une passion commune pour une intelligence sans limites.',
-                'team-name-1': 'Idriss Kouyateh',
-                'team-role-1': 'Fondateur',
-                'team-bio-1': 'A découvert le potentiel de l\'IA à l\'Université de Johannesburg. A lancé Okapi AI en tant qu\'initiative de formation en 2025, construisant maintenant le prochain partenaire IA de l\'Afrique.',
-                'team-name-2': 'Paki Lawu',
-                'team-role-2': 'Co-fondateur',
-                'team-bio-2': 'Apporte une expertise approfondie en automatisation et en stratégie d\'entreprise. Passionné par la mise à l\'échelle de solutions IA qui créent un impact réel sur le continent.',
-                'team-name-3': 'Partenaires de confiance',
-                'team-role-3': 'Talents externalisés',
-                'team-bio-3': 'Nous collaborons avec un réseau de talents spécialisés issus de partenaires de confiance pour des projets spécifiques — nous assurant d\'avoir toujours l\'expertise adéquate.',
-                'team-tag': '✦ Réseau mondial',
-                'testimonials-label': 'Témoignages',
-                'testimonials-title-1': 'Ce que nos clients',
-                'testimonials-title-2': 'disent',
-                'testimonial-1': 'Okapi AI nous a aidés à automatiser 80 % des demandes de nos clients avec leur solution Voice AI. L\'impact sur notre efficacité opérationnelle a été incroyable.',
-                'testimonial-1-name': 'Jean-Claude M.',
-                'testimonial-1-title': 'CTO, Banque de Kinshasa',
-                'testimonial-2': 'Leurs systèmes RAG ont transformé notre gestion des sinistres. Nous sommes passés de semaines à quelques heures. Un véritable changement de jeu.',
-                'testimonial-2-name': 'Sarah N.',
-                'testimonial-2-title': 'Responsable Innovation, InsureTech SA',
-                'testimonial-3': 'Le modèle d\'ingénierie orientée terrain est exactement ce dont nous avions besoin. Ils n\'ont pas seulement construit une solution — ils ont vécu nos problèmes en premier. C\'est la différence.',
-                'testimonial-3-name': 'Michael O.',
-                'testimonial-3-title': 'PDG, E-Commerce Afrique',
-                'blog-label': 'De notre équipe',
-                'blog-title-1': 'Blog &',
-                'blog-title-2': 'Perspectives',
-                'blog-sub': 'Tendances IA, leadership éclairé et intelligence sectorielle.',
-                'careers-label': 'Rejoignez l\'équipe',
-                'careers-title-1': 'Construisez l\'avenir de l\'IA',
-                'careers-title-2': 'en Afrique & au-delà',
-                'careers-stat-1': 'Centres mondiaux',
-                'careers-stat-2': '% En full remote',
-                'careers-stat-3': 'Axé sur la mission',
-                'tab-why': 'Pourquoi OKAPI',
-                'tab-culture': 'Notre culture',
-                'tab-positions': 'Postes ouverts',
-                'why-1-title': 'Impact concret',
-                'why-1-desc': 'Chaque projet que nous livrons touche de vraies entreprises à travers l\'Afrique et la RDC. Vous ne construirez pas de démonstrations — vous construirez l\'avenir du travail.',
-                'why-2-title': 'Vitesse de startup',
-                'why-2-desc': 'Pas de bureaucratie. Les idées passent de la conversation à la production en quelques jours. Vous livrerez plus en 3 mois ici qu\'en 3 ans dans une entreprise traditionnelle.',
-                'why-3-title': 'Apprentissage de pointe',
-                'why-3-desc': 'Accès complet au programme OKAPI Academy, certifications sponsorisées et sessions hebdomadaires de recherche IA avec des ingénieurs seniors.',
-                'why-4-title': 'Bilingue & inclusif',
-                'why-4-desc': 'Environnement de travail anglais + français. Nous célébrons la mosaïque panafricaine des parcours, des fuseaux horaires et des perspectives qui nous rendent plus forts.',
-                'why-5-title': 'Emplacements flexibles',
-                'why-5-desc': 'Full remote avec des hubs optionnels à Johannesburg et Kinshasa. Travaillez où vous donnez le meilleur de vous-même — nous nous soucions des résultats, pas de la présence.',
-                'why-6-title': 'Rémunération compétitive',
-                'why-6-desc': 'Salaires alignés sur les standards mondiaux, bonus de performance et voie d\'équité pour les contributeurs seniors. Nous croyons au partage de ce que nous construisons ensemble.',
-                'culture-1': 'Intégrité',
-                'culture-1-desc': 'Nous agissons avec honnêteté, transparence et des principes éthiques forts dans tout ce que nous faisons.',
-                'culture-2': 'Rapidité et agilité',
-                'culture-2-desc': 'Nous allons vite, nous nous adaptons rapidement et nous exécutons avec précision dans un monde technologique en constante évolution.',
-                'culture-3': 'Excellence',
-                'culture-3-desc': 'Nous visons une qualité de classe mondiale dans nos produits, services et interactions.',
-                'culture-4': 'Collaboration',
-                'culture-4-desc': 'Nous croyons que les meilleures solutions se construisent ensemble — avec notre équipe, nos clients et nos partenaires.',
-                'culture-5': 'Succès client',
-                'culture-5-desc': 'Notre succès est défini par le succès des personnes et des organisations que nous servons.',
-                'culture-6': 'Apprentissage continu',
-                'culture-6-desc': 'Nous nous engageons à une croissance constante, à l\'innovation et à rester en avance sur les technologies émergentes.',
-                'positions-title': 'Travaillez avec nous — Full-time & Remote',
-                'positions-p1': 'Chez Okapi AI, nous construisons l\'avenir de l\'intelligence depuis l\'Afrique pour le monde. Nous recherchons des personnes passionnées, animées par une mission, qui veulent résoudre des problèmes importants.',
-                'positions-p2': 'Nous proposons des postes full-time en full remote avec des hubs optionnels à Johannesburg et Kinshasa. Nous croyons en la production plutôt qu\'en les heures, et nous investissons dans votre croissance autant que vous investissez dans la nôtre.',
-                'positions-tag-1': '🌍 Full remote',
-                'positions-tag-2': '⏳ Temps plein',
-                'positions-tag-3': '💡 Axé sur la mission',
-                'positions-tag-4': '📈 Axé sur la croissance',
-                'positions-note': 'Nous ne listons pas de rôles spécifiques actuellement — mais nous sommes toujours ouverts aux talents exceptionnels. Contactez-nous via le formulaire ci-dessous et dites-nous comment vous pouvez contribuer.',
-                'locations-label-1': 'Où nous sommes',
-                'locations-title-1': 'Centres',
-                'locations-title-2': 'mondiaux',
-                'loc-1-name': 'BedfordView',
-                'loc-1-address': 'Johannesburg, Afrique du Sud',
-                'loc-1-desc': 'Hub principal des opérations & des ventes',
-                'loc-2-name': 'Cité Verte',
-                'loc-2-address': 'Kinshasa, RDC',
-                'loc-2-desc': 'Centre d\'excellence Afrique centrale',
-                'locations-label-2': 'Apprenez avec nous',
-                'locations-title-3': 'Académie',
-                'locations-title-4': 'OKAPI',
-                'locations-academy-sub': 'Formation pratique et bilingue en IA pour les particuliers et les entreprises à travers l\'Afrique.',
-                'academy-1': 'Formation informatique',
-                'academy-2': 'Littératie IA',
-                'academy-3': 'Leadership',
-                'academy-4': 'Compétences numériques',
-                'academy-5': 'Ingénierie des prompts',
-                'academy-6': 'IA pour les entreprises',
-                'wa-title': 'Discutez avec nous sur WhatsApp',
-                'wa-desc': 'Vous préférez une conversation rapide ? Contactez-nous directement sur WhatsApp. Notre équipe est prête à répondre à vos questions et à discuter de la façon dont nous pouvons vous aider.',
-                'wa-btn': 'Envoyez-nous un message',
-                'contact-label': 'Contactez-nous',
-                'contact-title-1': 'Construisons',
-                'contact-title-2': 'quelque chose ensemble',
-                'contact-desc': 'Que vous ayez une question ou que vous souhaitiez discuter d\'un projet, nous sommes là pour vous aider. Contactez-nous — notre équipe répond généralement dans les 24 heures.',
-                'contact-address': 'Johannesburg, SA & Kinshasa, RDC',
-                'contact-submit': 'Envoyer →',
-                'cta-label': 'Prêt ?',
-                'cta-title-1': 'Passez à l\'',
-                'cta-title-2': 'IA aujourd\'hui',
-                'cta-desc': 'Une conversation peut changer à jamais la façon dont votre entreprise fonctionne.',
-                'cta-btn': 'Contacter notre équipe →',
-                'footer-copy': '© 2026 OKAPI AI — Bilingue EN/FR | Johannesburg · Kinshasa',
-                'footer-reg': 'N° d\'enregistrement 2026/032715/07 | Afrique du Sud'
-            }
-        };
-
-        let currentLang = 'en';
-
-        function translatePage(lang) {
-            const elements = document.querySelectorAll('[data-t]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-t');
-                if (translations[lang] && translations[lang][key]) {
-                    // Preserve HTML if needed
-                    if (el.innerHTML && el.innerHTML.includes('<')) {
-                        // For elements with nested HTML, we need to be careful
-                        // We'll use a simpler approach for now
-                        const textOnly = el.textContent;
-                        const translated = translations[lang][key];
-                        if (translated) {
-                            // If the element has child elements, we only replace text nodes
-                            if (el.children.length > 0) {
-                                // For complex elements, we set innerHTML carefully
-                                // But for safety, we use textContent for simple ones
-                                el.textContent = translated;
-                            } else {
-                                el.textContent = translated;
-                            }
-                        }
-                    } else {
-                        const translated = translations[lang][key];
-                        if (translated) {
-                            el.textContent = translated;
-                        }
-                    }
-                }
-            });
-
-            // Special handling for typewriter
-            const typewriterEl = document.querySelector('.typewriter');
-            if (typewriterEl) {
-                const key = typewriterEl.getAttribute('data-t');
-                if (translations[lang] && translations[lang][key]) {
-                    // Update the typewriter's content without breaking the animation
-                    const currentText = translations[lang][key];
-                    // We'll update the typewriter data
-                    if (window.typewriterPhrases) {
-                        // Update the phrases array
-                        const newPhrases = currentText.split(' · ');
-                        // This is a bit hacky but works for the demo
-                        // The typewriter will restart with new text
-                        const el = document.getElementById('typewriter');
-                        if (el) {
-                            // Reset the typewriter with new phrases
-                            // We'll reinitialize it
-                            const oldIdx = window._typewriterIdx || 0;
-                            const oldCharIdx = window._typewriterCharIdx || 0;
-                            const oldDeleting = window._typewriterDeleting || false;
-                            // Force restart
-                            if (window._typewriterTimeout) {
-                                clearTimeout(window._typewriterTimeout);
-                            }
-                            el.textContent = '';
-                            // Reinitialize with new phrases
-                            const phrases = currentText.split(' · ');
-                            // We need to store the phrases globally
-                            window._typewriterPhrases = phrases;
-                            window._typewriterIdx = 0;
-                            window._typewriterCharIdx = 0;
-                            window._typewriterDeleting = false;
-                            // Restart the typewriter
-                            if (typeof typewriterRestart === 'function') {
-                                typewriterRestart();
-                            } else {
-                                // Simple restart
-                                let idx = 0,
-                                    charIdx = 0,
-                                    isDeleting = false;
-                                const fullPhrases = phrases;
-                                let currentText2 = '';
-                                let timeoutId = null;
-
-                                function type2() {
-                                    const full = fullPhrases[idx];
-                                    if (!isDeleting) {
-                                        charIdx++;
-                                        currentText2 = full.substring(0, charIdx);
-                                        el.textContent = currentText2;
-                                        if (charIdx === full.length) {
-                                            isDeleting = true;
-                                            timeoutId = setTimeout(type2, 2000);
-                                            return;
-                                        }
-                                    } else {
-                                        charIdx--;
-                                        currentText2 = full.substring(0, charIdx);
-                                        el.textContent = currentText2;
-                                        if (charIdx === 0) {
-                                            isDeleting = false;
-                                            idx = (idx + 1) % fullPhrases.length;
-                                            timeoutId = setTimeout(type2, 500);
-                                            return;
-                                        }
-                                    }
-                                    const speed = isDeleting ? 50 : 80;
-                                    timeoutId = setTimeout(type2, speed);
-                                }
-                                type2();
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Update nav link translations - they use data-t
-            document.querySelectorAll('.nav-links a[data-t]').forEach(el => {
-                const key = el.getAttribute('data-t');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-
-            currentLang = lang;
-            document.getElementById('langToggle').textContent = lang === 'en' ? 'FR' : 'EN';
-        }
-
-        // Initialize typewriter
         (function() {
-            const el = document.getElementById('typewriter');
-            if (!el) return;
-            const key = el.getAttribute('data-t');
-            const defaultPhrases = translations.en[key] || 'AI Consulting · Voice AI · RAG Systems';
-            const phrases = defaultPhrases.split(' · ');
-            window._typewriterPhrases = phrases;
-            let idx = 0,
-                charIdx = 0,
-                isDeleting = false;
-            let currentText = '';
-            let timeoutId = null;
+            const dot = document.getElementById('cursorDot');
+            const ring = document.getElementById('cursorRing');
+            let mouseX = 0,
+                mouseY = 0;
+            let ringX = 0,
+                ringY = 0;
+            let dotX = 0,
+                dotY = 0;
 
-            function type() {
-                const full = window._typewriterPhrases[idx];
-                if (!isDeleting) {
-                    charIdx++;
-                    currentText = full.substring(0, charIdx);
-                    el.textContent = currentText;
-                    if (charIdx === full.length) {
-                        isDeleting = true;
-                        timeoutId = setTimeout(type, 2000);
-                        return;
-                    }
-                } else {
-                    charIdx--;
-                    currentText = full.substring(0, charIdx);
-                    el.textContent = currentText;
-                    if (charIdx === 0) {
-                        isDeleting = false;
-                        idx = (idx + 1) % window._typewriterPhrases.length;
-                        timeoutId = setTimeout(type, 500);
-                        return;
-                    }
-                }
-                const speed = isDeleting ? 50 : 80;
-                timeoutId = setTimeout(type, speed);
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            const interactives = document.querySelectorAll('a, button, .blog-card, .sol-card, .course-item, .fde-step, .team-card, .why-card, .bento-card, .orb-node, .vm-card, .loc-card, .academy-card, .testimonial-card');
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
+
+            function animateCursor() {
+                dotX += (mouseX - dotX) * 0.3;
+                dotY += (mouseY - dotY) * 0.3;
+                ringX += (mouseX - ringX) * 0.1;
+                ringY += (mouseY - ringY) * 0.1;
+                dot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
+                ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+                requestAnimationFrame(animateCursor);
             }
-            type();
-
-            // Store for restart
-            window.typewriterRestart = function() {
-                if (timeoutId) clearTimeout(timeoutId);
-                idx = 0;
-                charIdx = 0;
-                isDeleting = false;
-                currentText = '';
-                type();
-            };
-            window._typewriterIdx = idx;
-            window._typewriterCharIdx = charIdx;
-            window._typewriterDeleting = isDeleting;
-            window._typewriterTimeout = timeoutId;
+            animateCursor();
         })();
 
-        // Language toggle
-        document.getElementById('langToggle').addEventListener('click', function() {
-            const newLang = currentLang === 'en' ? 'fr' : 'en';
-            translatePage(newLang);
-        });
-
-        // Ensure data-t attributes are set on navbar links
-        document.querySelectorAll('.nav-links a').forEach((el, idx) => {
-            if (!el.hasAttribute('data-t')) {
-                const labels = ['home', 'about', 'services', 'solutions', 'learn', 'careers', 'contact'];
-                if (idx < labels.length) {
-                    el.setAttribute('data-t', labels[idx]);
-                }
-            }
-        });
-
-        // Set default language
-        translatePage('en');
-
         /* ════════════════════════════════════════
-           PERFORMANCE DETECTION
+           MAGNETIC BUTTONS
         ════════════════════════════════════════ */
-        const isLowPerf = () => {
-            if (navigator.deviceMemory && navigator.deviceMemory < 4) return true;
-            if (navigator.getBattery) {
-                return navigator.getBattery().then(battery => battery.level < 0.2 && !battery.charging);
-            }
-            return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-        };
-
-        let lowPerf = false;
-        isLowPerf().then(result => { lowPerf = result; });
+        (function() {
+            document.querySelectorAll('[data-magnetic]').forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const strength = 12;
+                    btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+        })();
 
         /* ════════════════════════════════════════
            SCROLL PROGRESS & BACK TO TOP
@@ -4320,21 +3479,85 @@
         });
 
         /* ════════════════════════════════════════
-           MAGNETIC BUTTONS
+           TYPEWRITER EFFECT
         ════════════════════════════════════════ */
         (function() {
-            document.querySelectorAll('[data-magnetic]').forEach(btn => {
-                btn.addEventListener('mousemove', e => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    const strength = 12;
-                    btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+            const el = document.getElementById('typewriter');
+            const phrases = [
+                'AI Consulting · Voice AI · RAG Systems',
+                'Autonomous Agents · Enterprise AI',
+                'Data + AI + Automation + Security'
+            ];
+            let idx = 0,
+                charIdx = 0,
+                isDeleting = false;
+            let currentText = '';
+
+            function type() {
+                const full = phrases[idx];
+                if (!isDeleting) {
+                    currentText = full.substring(0, charIdx + 1);
+                    charIdx++;
+                    if (charIdx === full.length) {
+                        isDeleting = true;
+                        setTimeout(type, 2000);
+                        return;
+                    }
+                } else {
+                    currentText = full.substring(0, charIdx - 1);
+                    charIdx--;
+                    if (charIdx === 0) {
+                        isDeleting = false;
+                        idx = (idx + 1) % phrases.length;
+                        setTimeout(type, 500);
+                        return;
+                    }
+                }
+                el.textContent = currentText;
+                setTimeout(type, isDeleting ? 50 : 80);
+            }
+            type();
+        })();
+
+        /* ════════════════════════════════════════
+           ANIMATED COUNTERS
+        ════════════════════════════════════════ */
+        (function() {
+            const counters = document.querySelectorAll('.stat-num[data-count]');
+            let animated = false;
+
+            function animateCounters() {
+                counters.forEach(counter => {
+                    const target = counter.getAttribute('data-count');
+                    if (target === '∞') {
+                        counter.textContent = '∞';
+                        return;
+                    }
+                    const num = parseInt(target);
+                    let current = 0;
+                    const increment = Math.ceil(num / 60);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= num) {
+                            current = num;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = current;
+                    }, 25);
                 });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = '';
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        animateCounters();
+                    }
                 });
-            });
+            }, { threshold: 0.3 });
+
+            const statsSection = document.querySelector('.careers-stats');
+            if (statsSection) observer.observe(statsSection);
         })();
 
         /* ════════════════════════════════════════
@@ -4360,7 +3583,7 @@
         })();
 
         /* ════════════════════════════════════════
-           3D TILT ON CARDS (throttled)
+           3D TILT ON CARDS (VM, Team, Sol)
         ════════════════════════════════════════ */
         (function() {
             const cards = document.querySelectorAll('.vm-card, .team-card, .sol-card');
@@ -4379,113 +3602,27 @@
         })();
 
         /* ════════════════════════════════════════
-           THREE.JS HELPER — dispose renderer on scroll out
+           HERO CANVAS — enhanced particle system
         ════════════════════════════════════════ */
-        function createSafeRenderer(canvasId, setupFn) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return null;
-            const section = canvas.closest('section');
-            if (!section) return null;
-
-            let scene, camera, renderer, animId;
-            let active = true;
-            let isVisible = true;
-
-            const init = () => {
-                if (lowPerf && canvasId !== 'hero-canvas') {
-                    canvas.style.display = 'none';
-                    return;
-                }
-                const W = () => section.clientWidth || 1;
-                const H = () => section.clientHeight || 1;
-                scene = new THREE.Scene();
+        (function() {
+            const canvas = document.getElementById('hero-canvas');
+            const section = document.getElementById('hero');
+            const W = () => section.clientWidth,
+                H = () => section.clientHeight;
+            const scene = new THREE.Scene(),
                 camera = new THREE.PerspectiveCamera(60, W() / H(), 0.1, 1000);
-                const rendererOpts = { canvas, alpha: true, antialias: false };
-                renderer = new THREE.WebGLRenderer(rendererOpts);
-                renderer.setPixelRatio(Math.min(devicePixelRatio, lowPerf ? 1 : 1));
-                renderer.setSize(W(), H());
-                const result = setupFn(scene, camera, renderer, W, H, lowPerf);
-                if (result && result.animate) {
-                    const animate = () => {
-                        if (!active || !isVisible) {
-                            animId = requestAnimationFrame(animate);
-                            return;
-                        }
-                        animId = requestAnimationFrame(animate);
-                        result.animate(scene, camera, renderer);
-                        renderer.render(scene, camera);
-                    };
-                    animate();
-                }
-                return result;
-            };
-
-            let cleanup = () => {
-                active = false;
-                if (animId) cancelAnimationFrame(animId);
-                if (renderer) {
-                    renderer.dispose();
-                    renderer = null;
-                }
-                if (scene) {
-                    scene.traverse((child) => {
-                        if (child.isMesh) {
-                            child.geometry && child.geometry.dispose();
-                            child.material && child.material.dispose();
-                        }
-                    });
-                }
-                scene = null;
-                camera = null;
-            };
-
-            // Visibility change — pause when tab is hidden
-            const visibilityHandler = () => {
-                isVisible = !document.hidden;
-                if (!isVisible && renderer) {
-                    // Pause rendering
-                }
-            };
-            document.addEventListener('visibilitychange', visibilityHandler);
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!renderer && !active) {
-                            active = true;
-                            isVisible = true;
-                            init();
-                        } else if (renderer && active) {
-                            // Resume if paused
-                            isVisible = true;
-                        }
-                    } else {
-                        if (renderer) {
-                            cleanup();
-                        }
-                    }
-                });
-            }, { threshold: 0.05 });
-            observer.observe(section);
-
-            // Initial setup
-            const result = init();
-
-            return { cleanup, section, result };
-        }
-
-        /* ════════════════════════════════════════
-           HERO CANVAS — reduced particles
-        ════════════════════════════════════════ */
-        createSafeRenderer('hero-canvas', (scene, camera, renderer, W, H, lowPerf) => {
             camera.position.z = 28;
-            const count = lowPerf ? 200 : 400;
-            const positions = new Float32Array(count * 3);
-            const colors = new Float32Array(count * 3);
-            for (let i = 0; i < count; i++) {
-                positions[i * 3] = (Math.random() - .5) * 80;
-                positions[i * 3 + 1] = (Math.random() - .5) * 60;
-                positions[i * 3 + 2] = (Math.random() - .5) * 50 - 10;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+            renderer.setSize(W(), H());
+
+            const N = 2000;
+            const positions = new Float32Array(N * 3);
+            const colors = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) {
+                positions[i * 3] = (Math.random() - .5) * 100;
+                positions[i * 3 + 1] = (Math.random() - .5) * 70;
+                positions[i * 3 + 2] = (Math.random() - .5) * 60 - 10;
                 const c = new THREE.Color().setHSL(0.6 + Math.random() * 0.2, 0.8, 0.4 + Math.random() * 0.3);
                 colors[i * 3] = c.r;
                 colors[i * 3 + 1] = c.g;
@@ -4495,10 +3632,10 @@
             geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
             const pts = new THREE.Points(geo, new THREE.PointsMaterial({
-                size: lowPerf ? 0.08 : 0.12,
+                size: 0.15,
                 vertexColors: true,
                 transparent: true,
-                opacity: 0.6,
+                opacity: 0.7,
                 blending: THREE.AdditiveBlending,
                 sizeAttenuation: true
             }));
@@ -4506,60 +3643,58 @@
 
             let mx = 0,
                 my = 0;
-            const onMove = (e) => { mx = (e.clientX / innerWidth - .5) * .6;
-                my = -(e.clientY / innerHeight - .5) * .6; };
-            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mousemove', e => { mx = (e.clientX / innerWidth - .5) * .6;
+                my = -(e.clientY / innerHeight - .5) * .6; });
 
-            const resize = () => {
-                const w = section.clientWidth,
-                    h = section.clientHeight;
-                renderer.setSize(w, h);
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-            };
-            window.addEventListener('resize', resize);
-
-            return {
-                animate: () => {
-                    pts.rotation.y += 0.0005 + mx * 0.001;
-                    pts.rotation.x += 0.0001 + my * 0.0005;
-                },
-                cleanup: () => {
-                    window.removeEventListener('mousemove', onMove);
-                    window.removeEventListener('resize', resize);
-                    geo.dispose();
-                    pts.material.dispose();
-                }
-            };
-        });
+            (function anim() {
+                requestAnimationFrame(anim);
+                pts.rotation.y += 0.0006 + mx * 0.002;
+                pts.rotation.x += 0.0002 + my * 0.001;
+                renderer.render(scene, camera);
+            })();
+            window.addEventListener('resize', () => { renderer.setSize(W(), H());
+                camera.aspect = W() / H();
+                camera.updateProjectionMatrix(); });
+        })();
 
         /* ════════════════════════════════════════
-           PARTNERS CANVAS — reduced globe
+           PARTNERS CANVAS — enhanced globe
         ════════════════════════════════════════ */
-        createSafeRenderer('partners-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        (function() {
+            const section = document.getElementById('partners');
+            const canvas = document.getElementById('partners-canvas');
+            canvas.style.cssText =
+                'position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.72;';
+            const W = () => section.clientWidth,
+                H = () => section.clientHeight;
+            const scene = new THREE.Scene(),
+                camera = new THREE.PerspectiveCamera(45, W() / H(), 0.1, 1000);
             camera.position.z = 6;
-            const segs = lowPerf ? 10 : 14;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+            renderer.setSize(W(), H());
+
             const globeMat = new THREE.MeshPhongMaterial({
                 color: 0x3366ff,
                 wireframe: true,
                 transparent: true,
-                opacity: 0.2,
+                opacity: 0.25,
                 emissive: 0x1133aa,
-                emissiveIntensity: 0.15
+                emissiveIntensity: 0.2
             });
-            const globe = new THREE.Mesh(new THREE.SphereGeometry(2, segs, segs), globeMat);
+            const globe = new THREE.Mesh(new THREE.SphereGeometry(2, 32, 32), globeMat);
             scene.add(globe);
 
-            const inner = new THREE.Mesh(new THREE.SphereGeometry(1.6, 6, 6), new THREE.MeshBasicMaterial({
+            const inner = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshBasicMaterial({
                 color: 0x2255cc,
                 wireframe: true,
                 transparent: true,
-                opacity: 0.08
+                opacity: 0.1
             }));
             scene.add(inner);
 
-            const sN = lowPerf ? 100 : 200;
-            const sPos = new Float32Array(sN * 3);
+            const sN = 600,
+                sPos = new Float32Array(sN * 3);
             for (let i = 0; i < sN; i++) {
                 const th = Math.random() * Math.PI * 2,
                     ph = Math.acos(2 * Math.random() - 1),
@@ -4572,24 +3707,24 @@
             sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
             const stars = new THREE.Points(sGeo, new THREE.PointsMaterial({
                 color: 0x88bbff,
-                size: 0.05,
+                size: 0.06,
                 transparent: true,
-                opacity: 0.7,
+                opacity: 0.8,
                 blending: THREE.AdditiveBlending
             }));
             scene.add(stars);
 
-            const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.015, 6, 40), new THREE.MeshBasicMaterial({
+            const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.015, 8, 120), new THREE.MeshBasicMaterial({
                 color: 0x4477ff,
                 transparent: true,
-                opacity: 0.35
+                opacity: 0.4
             }));
             ring1.rotation.x = Math.PI / 2;
             scene.add(ring1);
-            const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.01, 6, 40), new THREE.MeshBasicMaterial({
+            const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.01, 8, 120), new THREE.MeshBasicMaterial({
                 color: 0x2255cc,
                 transparent: true,
-                opacity: 0.25
+                opacity: 0.3
             }));
             ring2.rotation.x = Math.PI / 3;
             ring2.rotation.y = Math.PI / 6;
@@ -4597,169 +3732,138 @@
 
             const light = new THREE.AmbientLight(0x404060);
             scene.add(light);
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
             dirLight.position.set(1, 1, 1);
             scene.add(dirLight);
 
-            const resize = () => {
-                const w = section.clientWidth,
-                    h = section.clientHeight;
-                renderer.setSize(w, h);
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-            };
-            window.addEventListener('resize', resize);
-
-            return {
-                animate: () => {
-                    globe.rotation.y += 0.004;
-                    globe.rotation.x += 0.001;
-                    inner.rotation.y -= 0.002;
-                    stars.rotation.y += 0.001;
-                    ring1.rotation.z += 0.002;
-                    ring2.rotation.z -= 0.001;
-                },
-                cleanup: () => {
-                    window.removeEventListener('resize', resize);
-                    sGeo.dispose();
-                    stars.material.dispose();
-                    globeMat.dispose();
-                    inner.material.dispose();
-                    ring1.material.dispose();
-                    ring2.material.dispose();
-                }
-            };
-        });
+            (function anim() {
+                requestAnimationFrame(anim);
+                globe.rotation.y += 0.005;
+                globe.rotation.x += 0.002;
+                inner.rotation.y -= 0.003;
+                stars.rotation.y += 0.002;
+                ring1.rotation.z += 0.003;
+                ring2.rotation.z -= 0.002;
+                renderer.render(scene, camera);
+            })();
+            window.addEventListener('resize', () => { renderer.setSize(W(), H());
+                camera.aspect = W() / H();
+                camera.updateProjectionMatrix(); });
+        })();
 
         /* ════════════════════════════════════════
-           SERVICES CANVAS — reduced
+           SERVICES CANVAS
         ════════════════════════════════════════ */
-        createSafeRenderer('services-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        (function() {
+            const canvas = document.getElementById('services-canvas'),
+                section = document.getElementById('services');
+            const W = () => section.clientWidth,
+                H = () => section.clientHeight;
+            const scene = new THREE.Scene(),
+                camera = new THREE.PerspectiveCamera(50, W() / H(), 0.1, 500);
             camera.position.z = 20;
-            const grid = new THREE.Mesh(new THREE.PlaneGeometry(50, 50, 8, 8), new THREE.MeshBasicMaterial({
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+            renderer.setSize(W(), H());
+            const grid = new THREE.Mesh(new THREE.PlaneGeometry(50, 50, 20, 20), new THREE.MeshBasicMaterial({
                 color: 0x181818,
                 wireframe: true,
                 transparent: true,
-                opacity: 0.2
+                opacity: 0.22
             }));
             grid.rotation.x = -Math.PI / 3;
             grid.position.y = -8;
             scene.add(grid);
 
-            const count = lowPerf ? 50 : 80;
-            const pos = new Float32Array(count * 3);
-            for (let i = 0; i < count; i++) {
-                pos[i * 3] = (Math.random() - .5) * 50;
-                pos[i * 3 + 1] = (Math.random() - .5) * 30;
-                pos[i * 3 + 2] = (Math.random() - .5) * 20 - 5;
-            }
+            const N = 300,
+                pos = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - .5) * 60;
+                pos[i * 3 + 1] = (Math.random() - .5) * 40;
+                pos[i * 3 + 2] = (Math.random() - .5) * 30 - 5; }
             const geo = new THREE.BufferGeometry();
             geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            const pts = new THREE.Points(geo, new THREE.PointsMaterial({
+            scene.add(new THREE.Points(geo, new THREE.PointsMaterial({
                 color: 0x333333,
-                size: 0.06,
+                size: 0.08,
                 transparent: true,
-                opacity: 0.5
-            }));
-            scene.add(pts);
-
+                opacity: 0.6
+            })));
             let t = 0;
-            const resize = () => {
-                const w = section.clientWidth,
-                    h = section.clientHeight;
-                renderer.setSize(w, h);
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-            };
-            window.addEventListener('resize', resize);
-
-            return {
-                animate: () => {
-                    t += 0.003;
-                    grid.position.z = Math.sin(t) * 1.2;
-                },
-                cleanup: () => {
-                    window.removeEventListener('resize', resize);
-                    geo.dispose();
-                    pts.material.dispose();
-                    grid.material.dispose();
-                }
-            };
-        });
+            (function anim() { requestAnimationFrame(anim);
+                t += 0.005;
+                grid.position.z = Math.sin(t) * 1.5;
+                renderer.render(scene, camera); })();
+            window.addEventListener('resize', () => { renderer.setSize(W(), H());
+                camera.aspect = W() / H();
+                camera.updateProjectionMatrix(); });
+        })();
 
         /* ════════════════════════════════════════
-           CAREERS CANVAS — reduced rings
+           CAREERS CANVAS
         ════════════════════════════════════════ */
-        createSafeRenderer('careers-canvas', (scene, camera, renderer, W, H, lowPerf) => {
+        (function() {
+            const section = document.getElementById('careers');
+            const canvas = document.getElementById('careers-canvas');
+            canvas.style.cssText =
+                'position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.4;';
+            const W = () => section.clientWidth,
+                H = () => section.clientHeight;
+            const scene = new THREE.Scene(),
+                camera = new THREE.PerspectiveCamera(50, W() / H(), 0.1, 500);
             camera.position.z = 10;
-            const segs = lowPerf ? 16 : 24;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+            renderer.setSize(W(), H());
+
             const mr = (r, c, op) => {
-                const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.03, 6, segs),
+                const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.04, 64, 200),
                     new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op })
                 );
                 scene.add(m);
                 return m;
             };
-            const r1 = mr(2, 0x4488ff, 0.45),
-                r2 = mr(3.2, 0x2255cc, 0.3),
-                r3 = mr(4.5, 0x1133aa, 0.18),
-                r4 = mr(3.8, 0x3366ee, 0.22);
+            const r1 = mr(2, 0x4488ff, 0.5),
+                r2 = mr(3.2, 0x2255cc, 0.35),
+                r3 = mr(4.5, 0x1133aa, 0.2),
+                r4 = mr(3.8, 0x3366ee, 0.25);
             r2.rotation.x = Math.PI / 2;
             r3.rotation.z = Math.PI / 2;
             r4.rotation.x = Math.PI / 3;
 
-            const count = lowPerf ? 150 : 300;
-            const pos = new Float32Array(count * 3);
-            for (let i = 0; i < count; i++) {
-                pos[i * 3] = (Math.random() - .5) * 14;
-                pos[i * 3 + 1] = (Math.random() - .5) * 8;
-                pos[i * 3 + 2] = (Math.random() - .5) * 6 - 2;
-            }
+            const N = 800,
+                pos = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - .5) * 20;
+                pos[i * 3 + 1] = (Math.random() - .5) * 14;
+                pos[i * 3 + 2] = (Math.random() - .5) * 10 - 2; }
             const geo = new THREE.BufferGeometry();
             geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
             const pts = new THREE.Points(geo, new THREE.PointsMaterial({
                 color: 0x3355cc,
-                size: 0.05,
+                size: 0.07,
                 transparent: true,
-                opacity: 0.5,
+                opacity: 0.6,
                 blending: THREE.AdditiveBlending
             }));
             scene.add(pts);
 
             let t = 0;
-            const resize = () => {
-                const w = section.clientWidth,
-                    h = section.clientHeight;
-                renderer.setSize(w, h);
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-            };
-            window.addEventListener('resize', resize);
-
-            return {
-                animate: () => {
-                    t += 0.015;
-                    const sc = 1 + Math.sin(t) * 0.1;
-                    r1.scale.set(sc, sc, sc);
-                    r2.scale.set(sc, sc, sc);
-                    r3.scale.set(sc, sc, sc);
-                    r1.rotation.z += 0.006;
-                    r2.rotation.x += 0.005;
-                    r3.rotation.y += 0.004;
-                    r4.rotation.y += 0.003;
-                    pts.rotation.y += 0.0004;
-                },
-                cleanup: () => {
-                    window.removeEventListener('resize', resize);
-                    geo.dispose();
-                    pts.material.dispose();
-                    r1.material.dispose();
-                    r2.material.dispose();
-                    r3.material.dispose();
-                    r4.material.dispose();
-                }
-            };
-        });
+            (function anim() {
+                requestAnimationFrame(anim);
+                t += 0.018;
+                const sc = 1 + Math.sin(t) * 0.12;
+                r1.scale.set(sc, sc, sc);
+                r2.scale.set(sc, sc, sc);
+                r3.scale.set(sc, sc, sc);
+                r1.rotation.z += 0.008;
+                r2.rotation.x += 0.007;
+                r3.rotation.y += 0.006;
+                r4.rotation.y += 0.004;
+                pts.rotation.y += 0.0006;
+                renderer.render(scene, camera);
+            })();
+            window.addEventListener('resize', () => { renderer.setSize(W(), H());
+                camera.aspect = W() / H();
+                camera.updateProjectionMatrix(); });
+        })();
 
         /* ════════════════════════════════════════
            PARTNERS STRIP
@@ -4772,11 +3876,12 @@
                 { name: 'META', logo: 'images/Meta_logo.png' },
                 { name: 'CLAUDE', logo: 'images/Claude_LOGO.jpg' },
                 { name: 'ORACLE', logo: 'images/Oracle_Logo.jpg' },
-                { name: 'ANTHROPIC', logo: 'images/Anthropic-icon.jpg' },
+                { name: 'ANTHROPIC', logo: 'images/Anthropic_logo.png' },
                 { name: 'DEEPSEEK', logo: 'images/Deepseek_logo.png' },
                 { name: 'COPILOT', logo: 'images/microsoft-copilot-logo.png' },
                 { name: 'SERVICENOW', logo: 'images/ServiceNow_Logo.png' },
-                { name: 'McKinsey&Company', logo: 'images/McKinsey_logo.jpg' }
+                { name: 'OPENAI', logo: 'images/Meta_logo.png' },
+                { name: 'MISTRAL', logo: 'images/Meta_logo.png' }
             ];
 
             const track = document.getElementById('logoTrack');
@@ -4861,7 +3966,7 @@
                 { label: 'Automation', desc: 'Automation', logo: 'images/Automation_logo.jpg', emoji: '⚙️' },
                 { label: 'RAG Systems', desc: 'RAG Systems', logo: 'images/RAG_Systems.png', emoji: '📚' },
                 { label: 'AI SDR', desc: 'AI SDR', logo: 'images/AISDR.webp', emoji: '📈' },
-                { label: 'Enterprise AI', desc: 'Enterprise AI', logo: 'images/Enterprise_AI.jpg',
+                { label: 'Enterprise AI', desc: 'Enterprise AI', logo: 'images/Enterprise-AI-Solutions-scaled.jpg',
                     emoji: '🏢' }
             ];
 
@@ -4941,66 +4046,17 @@
         });
 
         /* ════════════════════════════════════════
-           ANIMATED COUNTERS
+           LANGUAGE TOGGLE
         ════════════════════════════════════════ */
-        (function() {
-            const counters = document.querySelectorAll('.stat-num[data-count]');
-            let animated = false;
-
-            function animateCounters() {
-                counters.forEach(counter => {
-                    const target = counter.getAttribute('data-count');
-                    if (target === '∞') {
-                        counter.textContent = '∞';
-                        return;
-                    }
-                    const num = parseInt(target);
-                    let current = 0;
-                    const increment = Math.ceil(num / 50);
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= num) {
-                            current = num;
-                            clearInterval(timer);
-                        }
-                        counter.textContent = current;
-                    }, 20);
-                });
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animated) {
-                        animated = true;
-                        animateCounters();
-                    }
-                });
-            }, { threshold: 0.3 });
-
-            const statsSection = document.querySelector('.careers-stats');
-            if (statsSection) observer.observe(statsSection);
-        })();
-
-        /* ════════════════════════════════════════
-           FDE SPOTLIGHT — mouse-following color per card
-        ════════════════════════════════════════ */
-        document.addEventListener('DOMContentLoaded', function() {
-            const steps = document.querySelectorAll('.fde-step');
-            steps.forEach(step => {
-                const color = step.dataset.color || '#fbbf24';
-                step.style.setProperty('--color', color);
-                step.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    this.style.setProperty('--x', x + '%');
-                    this.style.setProperty('--y', y + '%');
-                });
-                step.addEventListener('mouseleave', function() {
-                    this.style.setProperty('--x', '50%');
-                    this.style.setProperty('--y', '50%');
-                });
-            });
+        let fr = false;
+        document.getElementById('langToggle').addEventListener('click', function() {
+            fr = !fr;
+            this.textContent = fr ? '🇬🇧 EN' : '🇫🇷 FR';
+            document.querySelector('#hero h1').innerHTML = fr ? 'Intelligence<br /><em>sans</em><br />limites' :
+                'Intelligence<br /><em>without</em><br />limits';
+            document.querySelector('.hero-sub .typewriter').textContent = fr ?
+                'Conseil IA · Voice AI · Systèmes RAG' :
+                'AI Consulting · Voice AI · RAG Systems';
         });
 
         /* ════════════════════════════════════════
@@ -5013,9 +4069,9 @@
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
-                    const delay = index * 40;
+                    const delay = index * 60;
                     el.style.transition =
-                        `opacity 0.5s ease ${delay}ms, transform 0.5s cubic-bezier(0.23,1,0.32,1) ${delay}ms`;
+                        `opacity 0.6s ease ${delay}ms, transform 0.6s cubic-bezier(0.23,1,0.32,1) ${delay}ms`;
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                     observer.unobserve(el);
@@ -5026,6 +4082,5 @@
             el.style.transform = 'translateY(30px)';
             observer.observe(el); });
     </script>
-
 </body>
 </html>

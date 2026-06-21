@@ -1312,209 +1312,6 @@
             transform: translateY(0);
         }
 
-        /* ── OKAPI LEARN ── */
-        #learn {
-            padding: 7rem 0;
-            border-bottom: 1px solid var(--border);
-            background: var(--black);
-            position: relative;
-            overflow: hidden;
-        }
-        .learn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-        @media(max-width:900px) {
-            .learn-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-        .learn-col {
-            background: rgba(18, 18, 18, 0.7);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            backdrop-filter: blur(8px);
-        }
-        .learn-col:hover {
-            border-color: rgba(106, 140, 255, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-        .learn-col h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-family: var(--font);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .learn-col h3 .badge-free {
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: #4caf50;
-            background: rgba(76, 175, 80, 0.15);
-            padding: 0.2rem 0.8rem;
-            border-radius: 100px;
-            letter-spacing: 0.5px;
-            font-family: var(--font);
-        }
-        .learn-col h3 .badge-paid {
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: #ffb74d;
-            background: rgba(255, 183, 77, 0.15);
-            padding: 0.2rem 0.8rem;
-            border-radius: 100px;
-            letter-spacing: 0.5px;
-            font-family: var(--font);
-        }
-        .course-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-        }
-        .course-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 0.8rem 1.2rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: default;
-        }
-        .course-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            border-radius: 14px 0 0 14px;
-            transition: width 0.4s ease, opacity 0.3s ease;
-            opacity: 0.6;
-        }
-        .course-item:hover::before {
-            width: 6px;
-            opacity: 1;
-        }
-        .course-item:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateX(6px);
-            background: rgba(255, 255, 255, 0.06);
-        }
-        .course-item[data-color="blue"]::before {
-            background: #3b82f6;
-        }
-        .course-item[data-color="purple"]::before {
-            background: #8b5cf6;
-        }
-        .course-item[data-color="green"]::before {
-            background: #22c55e;
-        }
-        .course-item[data-color="orange"]::before {
-            background: #fb923c;
-        }
-        .course-item[data-color="teal"]::before {
-            background: #14b8a6;
-        }
-        .course-item[data-color="pink"]::before {
-            background: #ec4899;
-        }
-        .course-item .ci-icon {
-            font-size: 1.1rem;
-            width: 28px;
-            text-align: center;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-            color: var(--gray-light);
-            transition: color 0.3s;
-        }
-        .course-item:hover .ci-icon {
-            color: var(--white);
-        }
-        .course-item .ci-name {
-            font-size: 0.85rem;
-            color: var(--gray-light);
-            font-family: var(--font);
-            position: relative;
-            z-index: 1;
-        }
-        .course-item .ci-name strong {
-            color: var(--white);
-            font-weight: 600;
-        }
-        .course-item .ci-tag {
-            margin-left: auto;
-            font-size: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 0.15rem 0.6rem;
-            color: var(--gray);
-            font-family: var(--font);
-            position: relative;
-            z-index: 1;
-            transition: all 0.3s;
-        }
-        .course-item:hover .ci-tag {
-            background: rgba(106, 140, 255, 0.15);
-            border-color: rgba(106, 140, 255, 0.2);
-            color: var(--accent);
-        }
-        .learn-leaders {
-            margin-top: 2rem;
-            background: rgba(18, 18, 18, 0.85);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            transition: all 0.3s;
-        }
-        .learn-leaders:hover {
-            border-color: rgba(106, 140, 255, 0.15);
-        }
-        .learn-leaders .ll-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gray);
-            font-family: var(--font);
-        }
-        .learn-leaders .ll-tag {
-            background: var(--accent-dim);
-            border: 1px solid rgba(106, 140, 255, 0.2);
-            border-radius: 100px;
-            padding: 0.3rem 1.2rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            font-family: var(--font);
-            transition: all 0.3s;
-        }
-        .learn-leaders .ll-tag:hover {
-            background: rgba(106, 140, 255, 0.2);
-            transform: scale(1.05);
-        }
-
         /* ── FDE ── */
         #fde {
             padding: 7rem 0;
@@ -2366,71 +2163,6 @@
             opacity: 0.7;
             font-weight: 300;
         }
-        .academy-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
-            margin-top: 2rem;
-        }
-        @media(max-width:600px) {
-            .academy-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .academy-card {
-            background: rgba(18, 18, 18, 0.7);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
-            text-decoration: none;
-            position: relative;
-            text-align: center;
-        }
-        .academy-img-wrapper {
-            width: 100%;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            overflow: hidden;
-            background: rgba(5, 5, 5, 0);
-            transition: background 0.3s ease;
-        }
-        .academy-img-wrapper img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-        }
-        .academy-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--gray-light);
-            transition: color 0.3s ease;
-            font-family: var(--font);
-            letter-spacing: 0.3px;
-        }
-        .academy-card:hover {
-            border-color: rgba(106, 140, 255, 0.3);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            background: rgba(26, 26, 26, 0.95);
-        }
-        .academy-card:hover .academy-img-wrapper img {
-            transform: scale(1.08);
-        }
-        .academy-card:hover .academy-label {
-            color: var(--white);
-        }
 
         /* ── WHATSAPP SECTION ── */
         #whatsapp-section {
@@ -2683,12 +2415,13 @@
         }
         .footer-bottom {
             text-align: center;
+            padding-top: 1rem;
         }
-        .footer-reg {
-            font-size: 0.65rem;
-            color: rgba(255, 255, 255, 0.2);
-            margin-top: 0.4rem;
+        .footer-bottom p {
+            color: var(--gray);
+            font-size: 0.9rem;
             font-family: var(--font);
+            letter-spacing: 0.5px;
         }
 
         /* ── RESPONSIVE OVERRIDES ── */
@@ -2713,10 +2446,6 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .learn-leaders {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
     </style>
 </head>
@@ -2736,7 +2465,7 @@
     <div class="noise-overlay"></div>
 
     <!-- WHATSAPP FLOATING BUTTON -->
-    <a href="https://wa.me/27637589173" target="_blank" class="whatsapp-float" aria-label="Contact on WhatsApp">
+    <a href="https://wa.me/27637589173" target="_blank" class="whatsapp-float" aria-label="Contact on WhatsApp" title="Contact us now on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -2747,21 +2476,17 @@
                 <div class="nav-brand-img" role="img" aria-label="OKAPI AI Logo"></div>
                 <span class="nav-logo-text">OKAPI <span>AI</span></span>
             </a>
-            <!-- Hamburger -->
             <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
             <div class="nav-links" id="navLinks">
                 <a href="#hero" data-t="home">Home</a>
                 <a href="#about" data-t="about">About</a>
                 <a href="#services" data-t="services">Services</a>
                 <a href="#solutions" data-t="solutions">Solutions</a>
-                <a href="#learn" data-t="learn">Learn</a>
                 <a href="#careers" data-t="careers">Careers</a>
                 <a href="#contact" data-t="contact">Contact</a>
-                <div class="lang-pill" id="langToggle">FR</div>
+                <div class="lang-pill" id="langToggle" title="Translate site to French">FR</div>
             </div>
         </div>
     </nav>
@@ -2784,15 +2509,12 @@
                 </div>
                 <div class="hero-logo-display">
                     <div class="hero-logo-stage" id="heroLogoStage">
-                        <div class="logo-glow-1"></div>
-                        <div class="logo-glow-2"></div>
-                        <div class="logo-ring-outer"></div>
-                        <div class="logo-ring-mid"></div>
+                        <div class="logo-glow-1"></div><div class="logo-glow-2"></div>
+                        <div class="logo-ring-outer"></div><div class="logo-ring-mid"></div>
                         <div class="hero-logo-frame" id="heroLogoFrame">
                             <img class="hero-logo-img" src="images/okapiAI_logo.png" alt="OKAPI AI Logo" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';" />
                             <div class="hero-logo-fallback" id="logoFallback" style="display:none;">
-                                <span class="lf-text">OKAPI</span>
-                                <span class="lf-sub">AI</span>
+                                <span class="lf-text">OKAPI</span><span class="lf-sub">AI</span>
                             </div>
                         </div>
                     </div>
@@ -2805,8 +2527,8 @@
     <section id="partners">
         <canvas id="partners-canvas"></canvas>
         <div class="partners-inner container">
-            <p class="partners-label" data-t="partners-title">Technology Partners &amp; Allies</p>
-            <p class="partners-scroll-hint" data-t="partners-hint">← drag to browse · auto-scrolls by default →</p>
+            <p class="partners-label" data-t="partners-title">Deployment Partners</p>
+            <!-- <p class="partners-scroll-hint" data-t="partners-hint">← drag to browse · auto-scrolls by default →</p> -->
             <div class="partners-carousel">
                 <div class="partners-nav partners-nav-prev">
                     <button class="partners-nav-btn" id="partnersPrev" aria-label="Previous">‹</button>
@@ -2828,9 +2550,9 @@
             <h2><span data-t="about-title-1">Building the future of AI</span><br /><span class="highlight"><span data-t="about-title-2">from Africa for the world</span></span></h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p data-t="about-p1"><strong>Okapi AI</strong> was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.</p>
-                    <p data-t="about-p2">Our founder first discovered the transformative potential of Artificial Intelligence while studying at the <strong>University of Johannesburg</strong>. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in <strong>2025</strong>, providing AI and technology training to high school students in Johannesburg.</p>
-                    <p data-t="about-p3">As demand for intelligent solutions continued to grow, <strong>Okapi AI was officially registered in South Africa in January 2026</strong> (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.</p>
+                    <p data-t="about-p1">Okapi AI was founded with a vision to make advanced technology accessible, practical, and beneficial for everyone.</p>
+                    <p data-t="about-p2">Our founder first discovered the transformative potential of Artificial Intelligence while studying at the University of Johannesburg. Inspired by the opportunities AI could create for individuals, businesses, and society, the company began as an informal venture in 2025, providing AI and technology training to high school students in Johannesburg.</p>
+                    <p data-t="about-p3">As demand for intelligent solutions continued to grow, Okapi AI was officially registered in South Africa in January 2026 (Registration No. 2026/032715/07). Since then, the company has evolved from a training initiative into a technology partner focused on helping organizations harness the power of data, artificial intelligence, automation, and security.</p>
                     <p data-t="about-p4">Today, we are building one of the most trusted technology partners for people and organizations across Africa and beyond. Our mission is to deliver superior intelligence that enables better decision-making, drives innovation, improves productivity, and contributes to a safer and more prosperous future.</p>
                     <div class="about-highlight">
                         <span class="pillar-tag">Data</span><span class="pillar-tag">AI</span><span class="pillar-tag">Automation</span><span class="pillar-tag">Security</span>
@@ -2888,49 +2610,15 @@
         </div>
     </section>
 
-    <!-- ══ LEARN ══ -->
-    <section id="learn">
-        <div class="container">
-            <div class="learn-header">
-                <span class="section-label" data-t="learn-label">Okapi Learn</span>
-                <h2><span data-t="learn-title-1">Education &amp;</span> <span class="highlight"><span data-t="learn-title-2">Digital Skills</span></span></h2>
-                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="learn-sub">Empowering individuals and organizations to adapt, grow, and thrive in a technology-driven world.</p>
-            </div>
-            <div class="learn-grid">
-                <div class="learn-col">
-                    <h3><i class="fas fa-book-open" style="margin-right:0.5rem;"></i> <span data-t="learn-free-title">Free Courses</span> <span class="badge-free" data-t="learn-free-badge">Free</span></h3>
-                    <div class="course-list">
-                        <div class="course-item" data-color="blue"><span class="ci-icon"><i class="fas fa-desktop"></i></span><span class="ci-name"><strong data-t="course-computer">Computer</strong> <span data-t="course-computer-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
-                        <div class="course-item" data-color="purple"><span class="ci-icon"><i class="fas fa-brain"></i></span><span class="ci-name"><strong data-t="course-ai">AI</strong> <span data-t="course-ai-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
-                        <div class="course-item" data-color="green"><span class="ci-icon"><i class="fas fa-shield-alt"></i></span><span class="ci-name"><strong data-t="course-security">Security</strong> <span data-t="course-security-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
-                        <div class="course-item" data-color="orange"><span class="ci-icon"><i class="fas fa-chart-bar"></i></span><span class="ci-name"><strong data-t="course-data">Data</strong> <span data-t="course-data-suffix">Foundations</span></span><span class="ci-tag" data-t="course-free-tag">Free</span></div>
-                    </div>
-                </div>
-                <div class="learn-col">
-                    <h3><i class="fas fa-briefcase" style="margin-right:0.5rem;"></i> <span data-t="learn-paid-title">Paid Courses</span> <span class="badge-paid" data-t="learn-paid-badge">Premium</span></h3>
-                    <div class="course-list">
-                        <div class="course-item" data-color="teal"><span class="ci-icon"><i class="fas fa-building"></i></span><span class="ci-name"><strong data-t="course-corporate">Corporate</strong> <span data-t="course-corporate-suffix">— AI, Data, Security, Risk, Product &amp; Project Management</span></span><span class="ci-tag" data-t="course-paid-tag">Paid</span></div>
-                        <div class="course-item" data-color="pink"><span class="ci-icon"><i class="fas fa-user-graduate"></i></span><span class="ci-name"><strong data-t="course-individual">Individual</strong> <span data-t="course-individual-suffix">— AWS, Microsoft, Oracle, ISO &amp; Claude</span></span><span class="ci-tag" data-t="course-paid-tag">Paid</span></div>
-                    </div>
-                    <div class="learn-leaders">
-                        <span class="ll-label"><i class="fas fa-users" style="margin-right:0.4rem;"></i> <span data-t="leaders-label">Leaders</span></span>
-                        <span class="ll-tag" data-t="leaders-tag">AI Literacy</span>
-                        <span style="font-size:0.8rem;color:var(--gray);font-family:var(--font);" data-t="leaders-desc">— Bilingual EN/FR executive training</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ══ FDE ══ -->
     <section id="fde">
         <div class="container">
             <div class="fde-header">
                 <span class="section-label" data-t="fde-label">How we work</span>
                 <h2><span data-t="fde-title-1">Field-Driven</span> <span class="highlight"><span data-t="fde-title-2">Engineering</span></span></h2>
-                <div class="fde-intro">
-                    <p data-t="fde-intro-1">At Okapi AI, we operate using a <strong>Field-Driven Engineering (FDE)</strong> model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.</p>
-                    <p style="margin-top:0.8rem;" data-t="fde-intro-2"><span style="color:var(--white);font-weight:600;">FDE</span> is our way of ensuring that every product, system, and solution is built from <strong style="color:var(--white);">real problems, real users, and real environments</strong> — not assumptions.</p>
+                <div class="fde-intro"><br>
+                    <p data-t="fde-intro-1">At Okapi AI, we operate using a Field-Driven Engineering (FDE) model — inspired by modern AI-native companies that embed themselves directly into real-world environments to build solutions that matter.</p>
+                    <p style="margin-top:0.8rem;" data-t="fde-intro-2"><span style="color:var(--white);font-weight:600;">FDE</span> is our way of ensuring that every product, system, and solution is built from real problems, real users, and real environments — not assumptions.</p><br>
                 </div>
             </div>
             <div class="fde-visual">
@@ -2944,11 +2632,11 @@
                 <div class="fde-why">
                     <h3 data-t="fde-why-title">Why FDE Matters</h3>
                     <div class="fde-why-grid">
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-1">Solves <strong>real-world, high-impact problems</strong></p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-2">Builds <strong>trusted, production-ready systems</strong></p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-3">Avoids <strong>“lab-only AI”</strong> that fails in real environments</p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-4">Becomes a <strong>true partner</strong> inside organizations</p></div>
-                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-5">Promises <strong>better return on investment (ROI)</strong> for our clients</p></div>
+                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-1">Solves real-world, high-impact problems</p></div>
+                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-2">Builds trusted, production-ready systems</p></div>
+                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-3">Avoids “lab-only AI” that fails in real environments</p></div>
+                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-4">Becomes a true partner inside organizations</p></div>
+                        <div class="fw-item"><span class="fw-icon">●</span><p data-t="fde-why-5">Promises better return on investment (ROI) for our clients</p></div>
                     </div>
                 </div>
             </div>
@@ -2961,12 +2649,12 @@
             <div class="team-header">
                 <span class="section-label" data-t="team-label">Leadership</span>
                 <h2><span data-t="team-title-1">Meet the</span> <span class="highlight"><span data-t="team-title-2">team</span></span></h2>
-                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="team-sub">Driven by a shared passion for intelligence without limits.</p>
+                <p style="color:var(--gray);margin-top:0.6rem;font-size:0.9rem;font-family:var(--font);" data-t="team-sub">Driven by a shared passion for intelligence without limits.</p><br>
             </div>
             <div class="team-grid">
                 <div class="team-card"><div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div><h4 data-t="team-name-1">Idriss Kouyateh</h4><div class="role" data-t="team-role-1">Founder</div><div class="bio" data-t="team-bio-1">Discovered AI's potential at the University of Johannesburg. Started Okapi AI as a training initiative in 2025, now building Africa's next-gen AI partner.</div><div class="social-icons"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div></div>
                 <div class="team-card"><div class="avatar"><span class="avatar-placeholder"><i class="fas fa-user"></i></span></div><h4 data-t="team-name-2">Paki Lawu</h4><div class="role" data-t="team-role-2">Co-Founder</div><div class="bio" data-t="team-bio-2">Brings deep expertise in automation and enterprise strategy. Passionate about scaling AI solutions that create real impact across the continent.</div><div class="social-icons"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div></div>
-                <div class="team-card partner-card"><div class="avatar" style="background:linear-gradient(135deg,rgba(106,140,255,0.05),rgba(167,139,250,0.05));border-style:dashed;"><span class="avatar-placeholder"><i class="fas fa-globe"></i></span></div><h4 data-t="team-name-3">Trusted Partners</h4><div class="role" data-t="team-role-3">Outsourced Talent</div><div class="bio" data-t="team-bio-3">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div><span class="outsource-tag" data-t="team-tag">✦ Global network</span></div>
+                <div class="team-card partner-card"><div class="avatar" style="background:linear-gradient(135deg,rgba(106,140,255,0.05),rgba(167,139,250,0.05));border-style:dashed;"><span class="avatar-placeholder"><i class="fas fa-globe"></i></span></div><h4 data-t="team-name-3">Trusted Partners</h4><div class="role" data-t="team-role-3">Outsourced Talent</div><div class="bio" data-t="team-bio-3">We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.</div><span class="outsource-tag" data-t="team-tag"> Global network</span></div>
             </div>
         </div>
     </section>
@@ -3036,7 +2724,7 @@
                     <div class="pi-icon"><i class="fas fa-rocket"></i></div>
                     <h3 data-t="positions-title">Work with us — Full-time &amp; Remote</h3>
                     <p data-t="positions-p1">At Okapi AI, we're building the future of intelligence from Africa for the world. We're looking for passionate, mission-driven individuals who want to solve hard problems that matter.</p>
-                    <p style="margin-top:0.8rem;" data-t="positions-p2">We offer <strong>full-time, remote-first</strong> positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.</p>
+                    <p style="margin-top:0.8rem;" data-t="positions-p2">We offer full-time, remote-first positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.</p>
                     <div class="pi-tags"><span class="pi-tag" data-t="positions-tag-1">🌍 Remote-first</span><span class="pi-tag" data-t="positions-tag-2">⏳ Full-time</span><span class="pi-tag" data-t="positions-tag-3">💡 Mission-driven</span><span class="pi-tag" data-t="positions-tag-4">📈 Growth-focused</span></div>
                     <p style="margin-top:1.5rem;color:var(--gray-light);" data-t="positions-note"><em>We're not currently listing specific roles — but we're always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.</em></p>
                 </div>
@@ -3054,19 +2742,6 @@
                     <div style="margin-top:2rem;">
                         <div class="loc-card hub-card"><div class="hub-pin"><i class="fas fa-map-pin"></i></div><h3 data-t="loc-1-name">BedfordView</h3><p data-t="loc-1-address">Johannesburg, South Africa</p><p class="hub-desc" data-t="loc-1-desc">Primary Operations &amp; Sales Hub</p></div>
                         <div class="loc-card hub-card"><div class="hub-pin"><i class="fas fa-map-pin"></i></div><h3 data-t="loc-2-name">Cité Verte</h3><p data-t="loc-2-address">Kinshasa, DRC</p><p class="hub-desc" data-t="loc-2-desc">Central Africa Centre of Excellence</p></div>
-                    </div>
-                </div>
-                <div>
-                    <span class="section-label" data-t="locations-label-2">Learn with us</span>
-                    <h2><span data-t="locations-title-3">OKAPI</span> <span class="highlight"><span data-t="locations-title-4">Academy</span></span></h2>
-                    <p style="color:var(--gray);margin-top:0.6rem;font-size:0.88rem;line-height:1.7;font-family:var(--font);" data-t="locations-academy-sub">Practical, bilingual AI education for individuals and enterprises across Africa.</p>
-                    <div class="academy-grid">
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/IT_Training.jpg?v=2" alt="IT Training" /></div><span class="academy-label" data-t="academy-1">IT Training</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI-Literacy.jpg?v=2" alt="AI Literacy" /></div><span class="academy-label" data-t="academy-2">AI Literacy</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Leadership-Training.jpg?v=2" alt="Leadership" /></div><span class="academy-label" data-t="academy-3">Leadership</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/digitalskills.jpg?v=2" alt="Digital Skills" /></div><span class="academy-label" data-t="academy-4">Digital Skills</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/Prompt_Engineering.jpg?v=2" alt="Prompt Engineering" /></div><span class="academy-label" data-t="academy-5">Prompt Engineering</span></div>
-                        <div class="academy-card"><div class="academy-img-wrapper"><img src="images/AI_for_Business.webp?v=2" alt="AI for Business" /></div><span class="academy-label" data-t="academy-6">AI for Business</span></div>
                     </div>
                 </div>
             </div>
@@ -3142,8 +2817,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-t="footer-copy">© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa</p>
-                <p class="footer-reg" data-t="footer-reg">Registration No. 2026/032715/07 | South Africa</p>
+                <p data-t="footer-copy">© 2026 OKAPI AI</p>
             </div>
         </div>
     </footer>
@@ -3160,7 +2834,6 @@
                 'about': 'About',
                 'services': 'Services',
                 'solutions': 'Solutions',
-                'learn': 'Learn',
                 'careers': 'Careers',
                 'contact': 'Contact',
                 'hero-eyebrow': 'Data + AI + Automation + Security',
@@ -3170,8 +2843,8 @@
                 'hero-typewriter': 'AI Consulting · Voice AI · RAG Systems',
                 'hero-btn-1': 'Deploy AI →',
                 'hero-btn-2': 'Explore Services',
-                'partners-title': 'Technology Partners & Allies',
-                'partners-hint': '← drag to browse · auto-scrolls by default →',
+                'partners-title': 'Deployment Partners',
+                // 'partners-hint': '← drag to browse · auto-scrolls by default →',
                 'about-label': 'About Us',
                 'about-title-1': 'Building the future of AI',
                 'about-title-2': 'from Africa for the world',
@@ -3210,31 +2883,6 @@
                 'sol-ecommerce-desc': 'Personalized shopping experiences',
                 'sol-smes': 'SMEs',
                 'sol-smes-desc': 'Affordable AI for growing businesses',
-                'learn-label': 'Okapi Learn',
-                'learn-title-1': 'Education &',
-                'learn-title-2': 'Digital Skills',
-                'learn-sub': 'Empowering individuals and organizations to adapt, grow, and thrive in a technology-driven world.',
-                'learn-free-title': 'Free Courses',
-                'learn-free-badge': 'Free',
-                'learn-paid-title': 'Paid Courses',
-                'learn-paid-badge': 'Premium',
-                'course-computer': 'Computer',
-                'course-computer-suffix': 'Foundations',
-                'course-ai': 'AI',
-                'course-ai-suffix': 'Foundations',
-                'course-security': 'Security',
-                'course-security-suffix': 'Foundations',
-                'course-data': 'Data',
-                'course-data-suffix': 'Foundations',
-                'course-corporate': 'Corporate',
-                'course-corporate-suffix': '— AI, Data, Security, Risk, Product & Project Management',
-                'course-individual': 'Individual',
-                'course-individual-suffix': '— AWS, Microsoft, Oracle, ISO & Claude',
-                'course-free-tag': 'Free',
-                'course-paid-tag': 'Paid',
-                'leaders-label': 'Leaders',
-                'leaders-tag': 'AI Literacy',
-                'leaders-desc': '— Bilingual EN/FR executive training',
                 'fde-label': 'How we work',
                 'fde-title-1': 'Field-Driven',
                 'fde-title-2': 'Engineering',
@@ -3269,7 +2917,7 @@
                 'team-name-3': 'Trusted Partners',
                 'team-role-3': 'Outsourced Talent',
                 'team-bio-3': 'We collaborate with a curated network of specialist talents from trusted partners for specific projects — ensuring we always have the right expertise.',
-                'team-tag': '✦ Global network',
+                'team-tag': 'Global network',
                 'testimonials-label': 'Testimonials',
                 'testimonials-title-1': 'What our clients',
                 'testimonials-title-2': 'say',
@@ -3322,10 +2970,10 @@
                 'positions-title': 'Work with us — Full-time & Remote',
                 'positions-p1': 'At Okapi AI, we\'re building the future of intelligence from Africa for the world. We\'re looking for passionate, mission-driven individuals who want to solve hard problems that matter.',
                 'positions-p2': 'We offer full-time, remote-first positions with optional hubs in Johannesburg and Kinshasa. We believe in output over hours, and we invest in your growth as much as you invest in ours.',
-                'positions-tag-1': '🌍 Remote-first',
-                'positions-tag-2': '⏳ Full-time',
-                'positions-tag-3': '💡 Mission-driven',
-                'positions-tag-4': '📈 Growth-focused',
+                'positions-tag-1': 'Remote-first',
+                'positions-tag-2': 'Full-time',
+                'positions-tag-3': 'Mission-driven',
+                'positions-tag-4': 'Growth-focused',
                 'positions-note': 'We\'re not currently listing specific roles — but we\'re always open to exceptional talent. Reach out via the contact form below and tell us how you can contribute.',
                 'locations-label-1': 'Where we are',
                 'locations-title-1': 'Global',
@@ -3336,16 +2984,6 @@
                 'loc-2-name': 'Cité Verte',
                 'loc-2-address': 'Kinshasa, DRC',
                 'loc-2-desc': 'Central Africa Centre of Excellence',
-                'locations-label-2': 'Learn with us',
-                'locations-title-3': 'OKAPI',
-                'locations-title-4': 'Academy',
-                'locations-academy-sub': 'Practical, bilingual AI education for individuals and enterprises across Africa.',
-                'academy-1': 'IT Training',
-                'academy-2': 'AI Literacy',
-                'academy-3': 'Leadership',
-                'academy-4': 'Digital Skills',
-                'academy-5': 'Prompt Engineering',
-                'academy-6': 'AI for Business',
                 'wa-title': 'Chat with us on WhatsApp',
                 'wa-desc': 'Prefer a quick conversation? Reach out to us directly on WhatsApp. Our team is ready to answer your questions and discuss how we can help you.',
                 'wa-btn': 'Message us now',
@@ -3360,15 +2998,13 @@
                 'cta-title-2': 'AI today',
                 'cta-desc': 'One conversation can change how your business operates forever.',
                 'cta-btn': 'Contact Our Team →',
-                'footer-copy': '© 2026 OKAPI AI — Bilingual EN/FR | Johannesburg · Kinshasa',
-                'footer-reg': 'Registration No. 2026/032715/07 | South Africa'
+                'footer-copy': '© 2026 OKAPI AI'
             },
             fr: {
                 'home': 'Accueil',
                 'about': 'À propos',
                 'services': 'Services',
                 'solutions': 'Solutions',
-                'learn': 'Apprendre',
                 'careers': 'Carrières',
                 'contact': 'Contact',
                 'hero-eyebrow': 'Données + IA + Automatisation + Sécurité',
@@ -3378,7 +3014,7 @@
                 'hero-typewriter': 'Conseil IA · Voice AI · Systèmes RAG',
                 'hero-btn-1': 'Déployer l\'IA →',
                 'hero-btn-2': 'Explorer les services',
-                'partners-title': 'Partenaires technologiques & Alliés',
+                'partners-title': 'Partenaires de déploiement',
                 'partners-hint': '← faites glisser · défilement automatique par défaut →',
                 'about-label': 'À propos',
                 'about-title-1': 'Construire l\'avenir de l\'IA',
@@ -3418,31 +3054,6 @@
                 'sol-ecommerce-desc': 'Expériences d\'achat personnalisées',
                 'sol-smes': 'PME',
                 'sol-smes-desc': 'IA abordable pour les entreprises en croissance',
-                'learn-label': 'Okapi Learn',
-                'learn-title-1': 'Éducation &',
-                'learn-title-2': 'Compétences numériques',
-                'learn-sub': 'Permettre aux individus et aux organisations de s\'adapter, de grandir et de prospérer dans un monde axé sur la technologie.',
-                'learn-free-title': 'Cours gratuits',
-                'learn-free-badge': 'Gratuit',
-                'learn-paid-title': 'Cours payants',
-                'learn-paid-badge': 'Premium',
-                'course-computer': 'Informatique',
-                'course-computer-suffix': 'Fondamentaux',
-                'course-ai': 'IA',
-                'course-ai-suffix': 'Fondamentaux',
-                'course-security': 'Sécurité',
-                'course-security-suffix': 'Fondamentaux',
-                'course-data': 'Données',
-                'course-data-suffix': 'Fondamentaux',
-                'course-corporate': 'Entreprise',
-                'course-corporate-suffix': '— IA, Données, Sécurité, Risque, Gestion de produits & de projets',
-                'course-individual': 'Individuel',
-                'course-individual-suffix': '— AWS, Microsoft, Oracle, ISO & Claude',
-                'course-free-tag': 'Gratuit',
-                'course-paid-tag': 'Payant',
-                'leaders-label': 'Dirigeants',
-                'leaders-tag': 'Littératie IA',
-                'leaders-desc': '— Formation exécutive bilingue EN/FR',
                 'fde-label': 'Comment nous travaillons',
                 'fde-title-1': 'Ingénierie',
                 'fde-title-2': 'orientée terrain',
@@ -3477,7 +3088,7 @@
                 'team-name-3': 'Partenaires de confiance',
                 'team-role-3': 'Talents externalisés',
                 'team-bio-3': 'Nous collaborons avec un réseau de talents spécialisés issus de partenaires de confiance pour des projets spécifiques — nous assurant d\'avoir toujours l\'expertise adéquate.',
-                'team-tag': '✦ Réseau mondial',
+                'team-tag': 'Réseau mondial',
                 'testimonials-label': 'Témoignages',
                 'testimonials-title-1': 'Ce que nos clients',
                 'testimonials-title-2': 'disent',
@@ -3530,10 +3141,10 @@
                 'positions-title': 'Travaillez avec nous — Full-time & Remote',
                 'positions-p1': 'Chez Okapi AI, nous construisons l\'avenir de l\'intelligence depuis l\'Afrique pour le monde. Nous recherchons des personnes passionnées, animées par une mission, qui veulent résoudre des problèmes importants.',
                 'positions-p2': 'Nous proposons des postes full-time en full remote avec des hubs optionnels à Johannesburg et Kinshasa. Nous croyons en la production plutôt qu\'en les heures, et nous investissons dans votre croissance autant que vous investissez dans la nôtre.',
-                'positions-tag-1': '🌍 Full remote',
-                'positions-tag-2': '⏳ Temps plein',
-                'positions-tag-3': '💡 Axé sur la mission',
-                'positions-tag-4': '📈 Axé sur la croissance',
+                'positions-tag-1': 'Full remote',
+                'positions-tag-2': 'Temps plein',
+                'positions-tag-3': 'Axé sur la mission',
+                'positions-tag-4': 'Axé sur la croissance',
                 'positions-note': 'Nous ne listons pas de rôles spécifiques actuellement — mais nous sommes toujours ouverts aux talents exceptionnels. Contactez-nous via le formulaire ci-dessous et dites-nous comment vous pouvez contribuer.',
                 'locations-label-1': 'Où nous sommes',
                 'locations-title-1': 'Centres',
@@ -3544,16 +3155,6 @@
                 'loc-2-name': 'Cité Verte',
                 'loc-2-address': 'Kinshasa, RDC',
                 'loc-2-desc': 'Centre d\'excellence Afrique centrale',
-                'locations-label-2': 'Apprenez avec nous',
-                'locations-title-3': 'Académie',
-                'locations-title-4': 'OKAPI',
-                'locations-academy-sub': 'Formation pratique et bilingue en IA pour les particuliers et les entreprises à travers l\'Afrique.',
-                'academy-1': 'Formation informatique',
-                'academy-2': 'Littératie IA',
-                'academy-3': 'Leadership',
-                'academy-4': 'Compétences numériques',
-                'academy-5': 'Ingénierie des prompts',
-                'academy-6': 'IA pour les entreprises',
                 'wa-title': 'Discutez avec nous sur WhatsApp',
                 'wa-desc': 'Vous préférez une conversation rapide ? Contactez-nous directement sur WhatsApp. Notre équipe est prête à répondre à vos questions et à discuter de la façon dont nous pouvons vous aider.',
                 'wa-btn': 'Envoyez-nous un message',
@@ -3568,8 +3169,7 @@
                 'cta-title-2': 'IA aujourd\'hui',
                 'cta-desc': 'Une conversation peut changer à jamais la façon dont votre entreprise fonctionne.',
                 'cta-btn': 'Contacter notre équipe →',
-                'footer-copy': '© 2026 OKAPI AI — Bilingue EN/FR | Johannesburg · Kinshasa',
-                'footer-reg': 'N° d\'enregistrement 2026/032715/07 | Afrique du Sud'
+                'footer-copy': '© 2026 OKAPI AI'
             }
         };
 
@@ -3583,15 +3183,17 @@
                     el.textContent = translations[lang][key];
                 }
             });
-            // Update nav links
             document.querySelectorAll('.nav-links a[data-t]').forEach(el => {
                 const key = el.getAttribute('data-t');
                 if (translations[lang] && translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
+            // Update language toggle title
+            const toggle = document.getElementById('langToggle');
+            toggle.textContent = lang === 'en' ? 'FR' : 'EN';
+            toggle.title = lang === 'en' ? 'Translate site to French' : 'Translate site to English';
             currentLang = lang;
-            document.getElementById('langToggle').textContent = lang === 'en' ? 'FR' : 'EN';
         }
 
         document.getElementById('langToggle').addEventListener('click', function() {
@@ -3606,7 +3208,6 @@
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('open');
         });
-        // Close on link click
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -3632,7 +3233,6 @@
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById('scrollProgress').style.width = scrolled + '%';
-
             const backBtn = document.getElementById('backToTop');
             if (winScroll > 500) backBtn.classList.add('visible');
             else backBtn.classList.remove('visible');
@@ -3698,8 +3298,6 @@
                 timeoutId = setTimeout(type, speed);
             }
             type();
-
-            // Expose restart for translation
             window.typewriterRestart = function() {
                 if (timeoutId) clearTimeout(timeoutId);
                 idx = 0;
@@ -3755,7 +3353,6 @@
             let active = true;
             let isVisible = true;
             let frameCount = 0;
-            const FPS_LIMIT = 30; // throttle to 30 fps to reduce GPU load
 
             const init = () => {
                 if (lowPerf && canvasId !== 'hero-canvas') {
@@ -4321,7 +3918,7 @@
 
         // ── SCROLL REVEAL ──
         const revEls = document.querySelectorAll(
-            '.blog-card,.loc-card,.academy-card,.why-card,.bento-card,.vm-card,.sol-card,.fde-step,.team-card,.course-item,.testimonial-card'
+            '.blog-card,.loc-card,.why-card,.bento-card,.vm-card,.sol-card,.fde-step,.team-card,.testimonial-card'
         );
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
